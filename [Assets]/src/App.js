@@ -1,25 +1,80 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
+import Layout from "./pages/layout"
+import Game from "./pages/game";
+import Menu from "./pages/main_menu";
+import NoPage from "./pages/no_page";
+import Credits from "./pages/credits";
+import Settings from './pages/settings';
+import Achievements from './pages/achievements';
+
+const recoverSettings = (setSettings) => {
+  const settings = JSON.parse(localStorage.getItem("settings"));
+  if (settings) {
+    setSettings(settings);
+  } else {
+    localStorage.setItem("settings", JSON.stringify({}));
+  }
+};
+
+const recoverStats = (setStats) => {
+  const stats = JSON.parse(localStorage.getItem("stats"));
+  if (stats) {
+    setStats(stats);
+  } else {
+    localStorage.setItem("stats", JSON.stringify({}));
+  }
+};
+
+const recoverObtainedAchievements = (setObtainedAchievements) => {
+  const obtainedAchievements = localStorage.getItem("obtainedAchievements");
+  if (obtainedAchievements) {
+    setObtainedAchievements(obtainedAchievements);
+  } else {
+    localStorage.setItem("obtainedAchievements", []);
+  }
+};
+
+const App = () => {
+  const [settings, setSettings] = React.useState({});
+  const [stats, setStats] = React.useState({});
+  const [obtainedAchievements, setObtainedAchievements] = React.useState([]);
+
+  React.useEffect(() => {
+    recoverSettings(setSettings);
+    recoverStats(setStats);
+    recoverObtainedAchievements(setObtainedAchievements);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Menu/>}></Route>
+
+          <Route path="game" element={
+            <Game 
+              setStats={setStats}
+            />
+          }/>
+          <Route path="settings" element={
+            <Settings
+              settings={settings}
+              setSettings={setSettings}
+            />
+          }/>
+          <Route path="achievements" element={
+            <Achievements
+              obtainedAchievements={obtainedAchievements}
+            />
+          }/>
+          <Route path="credits" element={<Credits />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
