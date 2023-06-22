@@ -56,6 +56,7 @@ const App = () => {
           <Route path="game" element={
             <Game 
               setStats={setStats}
+              settings={settings}
             />
           }/>
           <Route path="settings" element={
