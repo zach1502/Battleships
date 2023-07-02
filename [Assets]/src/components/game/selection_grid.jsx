@@ -15,30 +15,48 @@ const SelectionGrid = (props) => {
   */
 
   /*
-    legend should be an array of objects with the following properties:
+    legend should be an object of objects with the following properties:
     {
-      key: ""
-      displayType: "what to show in the square when the key matches" -> "color" | "image"
-      color: "iff displayType is color" -> "some color"
-      image: "iff displayType is image" -> "some image link"
+      "key": {
+        displayType: "what to show in the square when the key matches" -> "color" | "image"
+        color: "iff displayType is color" -> "some color"
+        image: "iff displayType is image" -> "some image link"
+      }
     }
   */
 
   return (
     <>
-      <Typography variant="h2" component="div" gutterBottom>
-        Selection Grid
-      </Typography>
+      <Grid container spacing={0}>
+        {
+          grid.map((row, rowIndex) => {
+            return (
+              <Grid item xs={12} key={rowIndex}>
+                {row.map((gridItem, colIndex) => {
+                  // look ups
+                  // const legendItem = legend.find((item) => item.key === col);
+                  const legendItem = legend[gridItem];
 
-      <GridTile
-        displayType={"color"}
-        color={"red"}
-        image={undefined}
-        setSelectedSquare={setSelectedSquare}
-        row={0}
-        col={0}
-        size={1}
-      />
+                  const color = legendItem.color;
+                  const image = legendItem.image;
+                  const displayType = legendItem.displayType;
+
+                  return (
+                  <GridTile
+                    displayType={displayType}
+                    color={color}
+                    image={image}
+                    setSelectedSquare={setSelectedSquare}
+                    row={rowIndex}
+                    col={colIndex}
+                    size={2}
+                  />);
+                })}
+              </Grid>
+            );
+          })
+        }
+      </Grid>
     </>
   );
 };

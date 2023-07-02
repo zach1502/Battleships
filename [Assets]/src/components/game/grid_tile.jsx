@@ -17,7 +17,12 @@ const GridTile = (props) => {
           variant="contained"
           style={{backgroundColor: color}}
           onClick={() => setSelectedSquare([row, col])}
-          sx={{width: `${size}rem`, height: `${size}rem`}}
+          sx={{
+            width: `${size}rem`,
+            height: `${size}rem`,
+            padding: 0,
+            minWidth: 0,
+          }}
         />
       );
     case "image":

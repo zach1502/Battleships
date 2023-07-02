@@ -22,7 +22,7 @@ const DropdownSelect = (props) => {
       >
         {values.map((value) => {
           return (
-            <MenuItem value={value}> {value} </MenuItem>
+            <MenuItem value={value} key={value}> {value} </MenuItem>
           )
         })}
       </Select>

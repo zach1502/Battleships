@@ -62,6 +62,13 @@ const PlaceShips = (props) => {
             onClick={setPlayerShipGrid}
             selectedSquare={selectedSquare}
             setSelectedSquare={setSelectedSquare}
+            legend={{
+              null: {
+                displayType: "color",
+                color: "lightblue",
+                image: null,
+              }
+            }}
           />
         </Grid>
       </Grid>
