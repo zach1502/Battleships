@@ -36,7 +36,10 @@ const Game = (props) => {
         }
     });
 
-    if (gameState.allShipsPlaced) {
+    // player ready to play
+    const [playerReadyToPlay, setPlayerReadyToPlay] = React.useState(false);
+
+    if (gameState.allShipsPlaced && playerReadyToPlay) {
         if (gameState.playerTurn) {
             return (
                 <>
@@ -73,6 +76,7 @@ const Game = (props) => {
                 playerShipGrid={playerShipGrid}
                 setPlayerShipGrid={setPlayerShipGrid}
                 setGameState={setGameState}
+                setPlayerReadyToPlay={setPlayerReadyToPlay}
             />
         );
     }

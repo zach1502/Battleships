@@ -9,6 +9,7 @@ const SelectionGrid = (props) => {
   const setSelectedSquare = props.setSelectedSquare;
   const squareSize = props.squareSize;
   const squareSpacing = props.squareSpacing;
+  const onClick = props.onClick;
 
   console.log(selectedSquare)
 
@@ -126,6 +127,8 @@ const SelectionGrid = (props) => {
                                 row: rowIndex,
                                 col: colIndex,
                               });
+
+                              onClick(rowIndex, colIndex);
                             }
                           }}
                         />
