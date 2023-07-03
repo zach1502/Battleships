@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Box } from "@mui/material";
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -18,10 +18,35 @@ const PlaceShips = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const setPlayerShipGrid = props.setPlayerShipGrid;
 
+  const legend = {
+    null: {
+      displayType: "color",
+      color: "lightblue",
+      image: null,
+    }
+  };
+
 
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid 
+        container 
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs={12}>
+          <SelectionGrid
+            grid={playerShipGrid}
+            onClick={setPlayerShipGrid}
+            selectedSquare={selectedSquare}
+            setSelectedSquare={setSelectedSquare}
+            legend={legend}
+            squareSize={4}
+            squareSpacing={0.5}
+          />
+        </Grid>
+
         <Grid item xs={4}>
           <DropdownSelect
             value={selectedShip}
@@ -54,22 +79,6 @@ const PlaceShips = (props) => {
             >
               {"Clear Ships"}
             </Button>
-        </Grid>
-
-        <Grid item xs={12}>
-          <SelectionGrid
-            grid={playerShipGrid}
-            onClick={setPlayerShipGrid}
-            selectedSquare={selectedSquare}
-            setSelectedSquare={setSelectedSquare}
-            legend={{
-              null: {
-                displayType: "color",
-                color: "lightblue",
-                image: null,
-              }
-            }}
-          />
         </Grid>
       </Grid>
     </>

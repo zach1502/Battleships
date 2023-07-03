@@ -16,12 +16,16 @@ const GridTile = (props) => {
         <Button
           variant="contained"
           style={{backgroundColor: color}}
-          onClick={() => setSelectedSquare([row, col])}
+          onClick={() => setSelectedSquare({
+            row: row,
+            col: col,
+          })}
           sx={{
             width: `${size}rem`,
             height: `${size}rem`,
             padding: 0,
             minWidth: 0,
+            borderRadius: 0,
           }}
         />
       );
@@ -30,7 +34,10 @@ const GridTile = (props) => {
         <Button
           variant="contained"
           style={{backgroundImage: `url(${image})`}}
-          onClick={() => setSelectedSquare([row, col])}
+          onClick={() => setSelectedSquare({
+            row: row,
+            col: col,
+          })}
         />
       );
     default:
