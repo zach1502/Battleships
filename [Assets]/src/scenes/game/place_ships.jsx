@@ -9,6 +9,8 @@ import DropdownSelect from "../../components/general/dropdown_select";
 import SelectionGrid from "../../components/game/selection_grid";
 
 import createGrid from "../../utils/create_grid";
+import { shipLengths, shipNames } from "../../utils/ship_details";
+import { shipPlacingLegend } from "../../utils/grid_legends";
 
 const PlaceShips = (props) => {
   const [selectedShip, setSelectedShip] = React.useState('carrier');
@@ -22,61 +24,6 @@ const PlaceShips = (props) => {
   const setPlayerReadyToPlay = props.setPlayerReadyToPlay;
 
   console.log(gameState);
-
-  const legend = {
-    null: {
-      displayType: "color",
-      color: "lightblue",
-      image: null,
-      icon: null,
-    },
-    "carrier": {
-      displayType: "color",
-      color: "green",
-      image: null,
-      icon: <Typography>C</Typography>, 
-    },
-    "battleship": {
-      displayType: "color",
-      color: "blue",
-      image: null,
-      icon: <Typography>B</Typography>,
-    },
-    "cruiser": {
-      displayType: "color",
-      color: "purple",
-      image: null,
-      icon: <Typography>Cr</Typography>,
-    },
-    "submarine": {
-      displayType: "color",
-      color: "orange",
-      image: null,
-      icon: <Typography>S</Typography>,
-    },
-    "destroyer": {
-      displayType: "color",
-      color: "red",
-      image: null,
-      icon: <Typography>D</Typography>,
-    },
-  };
-
-  const ships = [
-    'carrier',
-    'battleship',
-    'cruiser',
-    'submarine',
-    'destroyer'
-  ];
-
-  const shipLengths = {
-    carrier: 5,
-    battleship: 4,
-    cruiser: 3,
-    submarine: 3,
-    destroyer: 2,
-  };
 
   // Function to check if a ship can be placed at a position
   const canPlaceShip = (row, col, ship, orientation, direction = 1) => {
@@ -137,7 +84,7 @@ const PlaceShips = (props) => {
 
   // Clear board handler
   const handleClearBoard = () => {
-    setPlayerShipGrid(createGrid(8));
+    setPlayerShipGrid(createGrid(10));
     setSelectedSquare(null);
     
     // Reset shipsPlaced in game state
@@ -181,8 +128,8 @@ const PlaceShips = (props) => {
             }}
             selectedSquare={selectedSquare}
             setSelectedSquare={setSelectedSquare}
-            legend={legend}
-            squareSize={4}
+            legend={shipPlacingLegend}
+            squareSize={3}
             squareSpacing={0.5}
           />
         </Grid>
@@ -193,7 +140,7 @@ const PlaceShips = (props) => {
             setValue={setSelectedShip}
             label="Ship"
             helperText="Select a ship to place"
-            values={ships}
+            values={shipNames}
           />
         </Grid>
         <Grid item xs={3}>

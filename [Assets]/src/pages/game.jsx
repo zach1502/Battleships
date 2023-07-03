@@ -11,12 +11,12 @@ const Game = (props) => {
     const setStats = props.setStats;
 
     // grid you click on to shoot and get hit/miss reports
-    const [playerBattleGrid, setPlayerBattleGrid] = React.useState(createGrid(8));
-    const [enemyBattleGrid, setEnemyBattleGrid] = React.useState(createGrid(8));
+    const [playerBattleGrid, setPlayerBattleGrid] = React.useState(createGrid(10));
+    const [enemyBattleGrid, setEnemyBattleGrid] = React.useState(createGrid(10));
 
     // grid you have your ships on and see where the enemy has hit/missed
-    const [playerShipGrid, setPlayerShipGrid] = React.useState(createGrid(8));
-    const [enemyShipGrid, setEnemyShipGrid] = React.useState(createGrid(8));
+    const [playerShipGrid, setPlayerShipGrid] = React.useState(createGrid(10));
+    const [enemyShipGrid, setEnemyShipGrid] = React.useState(createGrid(10));
 
     // game log of all the actions that have happened
     const [gameLog, setGameLog] = React.useState([]);

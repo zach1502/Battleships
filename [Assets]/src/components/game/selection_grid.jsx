@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Typography, Grid } from "@mui/material";
 import GridTile from "./grid_tile.jsx";
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 const SelectionGrid = (props) => {
   const grid = props.grid;
@@ -9,6 +10,8 @@ const SelectionGrid = (props) => {
   const setSelectedSquare = props.setSelectedSquare;
   const squareSize = props.squareSize;
   const squareSpacing = props.squareSpacing;
+  
+  const disableGridMarkers = props.disableGridMarkers; 
   const onClick = props.onClick;
 
   console.log(selectedSquare)
@@ -16,46 +19,48 @@ const SelectionGrid = (props) => {
   const placeholderMarker = (
     <Grid item key={'placeholder'}>
       <Typography
-        sx={{fontSize: `${squareSize}rem`,textAlign: "center",width: `${squareSize}rem`}}>
+        sx={{fontSize: `${squareSize}rem`,textAlign: "center",width: `${squareSize}rem`,marginRight: '1rem'}}>
         {" "}
       </Typography>
     </Grid>
   )
 
   const columnMarkers = [placeholderMarker];
-  for (let i = 0; i < grid[0].length; i++) {
-    columnMarkers.push(
-      <Grid item key={'col'+i}>
-        <Typography
-          sx={{
-            fontSize: `${squareSize}rem`,
-            textAlign: "center",
-            width: `${squareSize}rem`,
-          }}
-        >
-          {String.fromCharCode(65 + i)}
-        </Typography>
-      </Grid>
-    );
-  }
-
   const rowMarkers = [];
-  for (let i = 0; i < grid.length; i++) {
-    rowMarkers.push(
-      <Grid item key={'row'+i}>
-        <Typography
-          sx={{
-            fontSize: `${squareSize}rem`,
-            textAlign: "center",
-            width: `${squareSize}rem`,
-            height: `${squareSize}rem`,
-            lineHeight: 1,
-          }}
-        >
-          {i + 1}
-        </Typography>
-      </Grid>
-    );
+  if (!disableGridMarkers) {
+    for (let i = 0; i < grid[0].length; i++) {
+      columnMarkers.push(
+        <Grid item key={'col'+i}>
+          <Typography
+            sx={{
+              fontSize: `${squareSize}rem`,
+              textAlign: "center",
+              width: `${squareSize}rem`,
+            }}
+          >
+            {String.fromCharCode(65 + i)}
+          </Typography>
+        </Grid>
+      );
+    }
+    for (let i = 0; i < grid.length; i++) {
+      rowMarkers.push(
+        <Grid item key={'row'+i}>
+          <Typography
+            sx={{
+              fontSize: `${squareSize}rem`,
+              textAlign: "center",
+              width: `${squareSize}rem`,
+              height: `${squareSize}rem`,
+              lineHeight: 1,
+              marginRight: '1rem',
+            }}
+          >
+            {i + 1}
+          </Typography>
+        </Grid>
+      );
+    }
   }
 
 
@@ -108,7 +113,7 @@ const SelectionGrid = (props) => {
                     const color = (isSelectedSquare) ? 'orange' : legendItem.color;
                     const image = legendItem.image;
                     const displayType = legendItem.displayType;
-                    const icon = legendItem.icon;
+                    const icon = (isSelectedSquare) ? <CheckBoxOutlineBlankIcon/>: legendItem.icon;
 
                     return (
                       <Grid item key={colIndex}>
