@@ -69,6 +69,7 @@ const SelectionGrid = (props) => {
         displayType: "what to show in the square when the key matches" -> "color" | "image"
         color: "iff displayType is color" -> "some color"
         image: "iff displayType is image" -> "some image link"
+        icon:  "iff displayType is color" -> "add some icon"
       }
     }
   */
@@ -101,11 +102,12 @@ const SelectionGrid = (props) => {
                     // const legendItem = legend.find((item) => item.key === col);
                     const legendItem = legend[gridItem];
 
-                    const isSelectedSquare = (selectedSquare !== null) && (selectedSquare.row === rowIndex) && (selectedSquare.col === colIndex);
+                    const isSelectedSquare = selectedSquare && (selectedSquare.row === rowIndex && selectedSquare.col === colIndex);
 
-                    const color = (isSelectedSquare) ? 'yellow' : legendItem.color;
+                    const color = (isSelectedSquare) ? 'orange' : legendItem.color;
                     const image = legendItem.image;
                     const displayType = legendItem.displayType;
+                    const icon = legendItem.icon;
 
                     return (
                       <Grid item key={colIndex}>
@@ -113,10 +115,19 @@ const SelectionGrid = (props) => {
                           displayType={displayType}
                           color={color}
                           image={image}
-                          setSelectedSquare={setSelectedSquare}
-                          row={rowIndex}
-                          col={colIndex}
+                          icon={icon}
                           size={squareSize}
+                          onClick={() => {
+                            // deselect if already selected
+                            if (isSelectedSquare) {
+                              setSelectedSquare(null);
+                            } else {
+                              setSelectedSquare({
+                                row: rowIndex,
+                                col: colIndex,
+                              });
+                            }
+                          }}
                         />
                       </Grid>
                     );

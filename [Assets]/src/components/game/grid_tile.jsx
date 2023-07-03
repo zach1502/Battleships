@@ -5,10 +5,9 @@ const GridTile = (props) => {
   const displayType = props.displayType;
   const color = props.color;
   const image = props.image;
-  const setSelectedSquare = props.setSelectedSquare;
-  const row = props.row;
-  const col = props.col;
+  const icon = props.icon;
   const size = props.size;
+  const onClick = props.onClick;
 
   switch (displayType) {
     case "color":
@@ -16,10 +15,7 @@ const GridTile = (props) => {
         <Button
           variant="contained"
           style={{backgroundColor: color}}
-          onClick={() => setSelectedSquare({
-            row: row,
-            col: col,
-          })}
+          onClick={onClick}
           sx={{
             width: `${size}rem`,
             height: `${size}rem`,
@@ -27,17 +23,16 @@ const GridTile = (props) => {
             minWidth: 0,
             borderRadius: 0,
           }}
-        />
+        >
+          {icon}
+        </Button>
       );
     case "image":
       return (
         <Button
           variant="contained"
           style={{backgroundImage: `url(${image})`}}
-          onClick={() => setSelectedSquare({
-            row: row,
-            col: col,
-          })}
+          onClick={onClick}
         />
       );
     default:

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Grid, Button, Box } from "@mui/material";
+import { Grid, Button, Box, Typography } from "@mui/material";
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -25,8 +25,23 @@ const PlaceShips = (props) => {
       displayType: "color",
       color: "lightblue",
       image: null,
+      icon: null,
+    },
+    "carrier": {
+      displayType: "color",
+      color: "green",
+      image: null,
+      icon: <Typography>C</Typography>, 
     }
   };
+
+  const ships = [
+    'carrier',
+    'battleship',
+    'cruiser',
+    'submarine',
+    'destroyer'
+  ];
 
   return (
     <>
@@ -39,7 +54,9 @@ const PlaceShips = (props) => {
         <Grid item xs={12}>
           <SelectionGrid
             grid={playerShipGrid}
-            onClick={setPlayerShipGrid}
+            onClick={()=>{
+              // Ship placing logic here
+            }}
             selectedSquare={selectedSquare}
             setSelectedSquare={setSelectedSquare}
             legend={legend}
@@ -54,13 +71,7 @@ const PlaceShips = (props) => {
             setValue={setSelectedShip}
             label="Ship"
             helperText="Select a ship to place"
-            values={[
-              'carrier',
-              'battleship',
-              'cruiser',
-              'submarine',
-              'destroyer'
-            ]}
+            values={ships}
           />
         </Grid>
         <Grid item xs={4}>
