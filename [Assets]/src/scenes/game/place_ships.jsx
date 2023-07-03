@@ -18,6 +18,8 @@ const PlaceShips = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const setPlayerShipGrid = props.setPlayerShipGrid;
 
+  console.log(gameState);
+
   const legend = {
     null: {
       displayType: "color",
@@ -25,7 +27,6 @@ const PlaceShips = (props) => {
       image: null,
     }
   };
-
 
   return (
     <>
@@ -75,7 +76,10 @@ const PlaceShips = (props) => {
             <Button
               variant="contained"
               startIcon={<DeleteIcon />}
-              onClick={() => setPlayerShipGrid(createGrid(8))}
+              onClick={() => {
+                setPlayerShipGrid(createGrid(8));
+                setSelectedSquare(null);
+              }}
             >
               {"Clear Ships"}
             </Button>

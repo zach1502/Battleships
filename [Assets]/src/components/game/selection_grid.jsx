@@ -13,7 +13,7 @@ const SelectionGrid = (props) => {
   console.log(selectedSquare)
 
   const placeholderMarker = (
-    <Grid item key={0}>
+    <Grid item key={'placeholder'}>
       <Typography
         sx={{fontSize: `${squareSize}rem`,textAlign: "center",width: `${squareSize}rem`}}>
         {" "}
@@ -24,7 +24,7 @@ const SelectionGrid = (props) => {
   const columnMarkers = [placeholderMarker];
   for (let i = 0; i < grid[0].length; i++) {
     columnMarkers.push(
-      <Grid item key={i+1}>
+      <Grid item key={'col'+i}>
         <Typography
           sx={{
             fontSize: `${squareSize}rem`,
@@ -41,7 +41,7 @@ const SelectionGrid = (props) => {
   const rowMarkers = [];
   for (let i = 0; i < grid.length; i++) {
     rowMarkers.push(
-      <Grid item key={i}>
+      <Grid item key={'row'+i}>
         <Typography
           sx={{
             fontSize: `${squareSize}rem`,
@@ -101,7 +101,9 @@ const SelectionGrid = (props) => {
                     // const legendItem = legend.find((item) => item.key === col);
                     const legendItem = legend[gridItem];
 
-                    const color = legendItem.color;
+                    const isSelectedSquare = (selectedSquare !== null) && (selectedSquare.row === rowIndex) && (selectedSquare.col === colIndex);
+
+                    const color = (isSelectedSquare) ? 'yellow' : legendItem.color;
                     const image = legendItem.image;
                     const displayType = legendItem.displayType;
 

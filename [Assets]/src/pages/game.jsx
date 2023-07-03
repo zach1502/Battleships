@@ -64,7 +64,7 @@ const Game = (props) => {
                 </>
             );
         } else {
-            // INSERT AI LOGIC... SHOULD FAKE THINK.
+            // INSERT AI LOGIC... SHOULD FAKE THINK. make a shot then flip the playerTurn bool
         }
     } else {
         return(
