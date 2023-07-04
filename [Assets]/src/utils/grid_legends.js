@@ -39,8 +39,13 @@ const shipPlacingLegend = {
   },
 };
 
-const playShipGridLegend = {
-  ...shipPlacingLegend,
+const battleGridLegend = {
+  null: {
+    displayType: "color",
+    color: "lightblue",
+    image: null,
+    icon: null,
+  },
   "miss": {
     displayType: "color",
     color: "white",
@@ -55,7 +60,13 @@ const playShipGridLegend = {
   },
 };
 
+const shipGridLegend = {
+  ...shipPlacingLegend,
+  ...battleGridLegend,
+};
+
 export {
   shipPlacingLegend,
-  playShipGridLegend,
+  battleGridLegend,
+  shipGridLegend,
 };

@@ -3,7 +3,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 
 import SelectionGrid from "../../components/game/selection_grid";
-import { playShipGridLegend } from "../../utils/grid_legends";
+import { shipGridLegend } from "../../utils/grid_legends";
 
 const ShipGrid = (props) => {
   const playerShipGrid = props.playerShipGrid;
@@ -26,7 +26,7 @@ const ShipGrid = (props) => {
     <>
       <SelectionGrid
         grid={mergeGrids(playerShipGrid, enemyBattleGrid)}
-        legend={playShipGridLegend}
+        legend={shipGridLegend}
         squareSize={2}
         squareSpacing={0.5}
         disableGridMarkers={false}
