@@ -35,7 +35,7 @@ const shipPlacingLegend = {
     displayType: "color",
     color: "black",
     image: null,
-    icon: <Typography color={"white"}>D</Typography>,
+    icon: <Typography>D</Typography>,
   },
 };
 
@@ -50,7 +50,7 @@ const battleGridLegend = {
     displayType: "color",
     color: "white",
     image: null,
-    icon: <Typography>M</Typography>,
+    icon: <Typography color={'black'}>M</Typography>,
   },
   "hit": {
     displayType: "color",

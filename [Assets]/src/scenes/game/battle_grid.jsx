@@ -12,6 +12,8 @@ const BattleGrid = (props) => {
   const setGameLog = props.setGameLog;
   const gameLog = props.gameLog;
 
+  const [selectedSquare, setSelectedSquare] = React.useState(null);
+
   return (
     <>
       <SelectionGrid
@@ -19,20 +21,24 @@ const BattleGrid = (props) => {
         legend={battleGridLegend}
         squareSize={2}
         squareSpacing={0.5}
+        selectedSquare={selectedSquare}
+        setSelectedSquare={setSelectedSquare}
         disableGridMarkers={false}
-        disableClick={gameState !== "playerTurn"}
+        disableClick={!gameState.playerTurn}
         onClick={(row, col) => {
-          if (gameState === "playerTurn") {
-            const newGrid = [...playerBattleGrid];
-            if (enemyShipGrid[row][col] !== null) {
-              newGrid[row][col] = "hit";
-              setGameLog([...gameLog, "You hit a ship!"]);
-            } else {
-              newGrid[row][col] = "miss";
-              setGameLog([...gameLog, "You missed!"]);
-            }
-            setPlayerBattleGrid(newGrid);
+          if(playerBattleGrid[row][col] !== null) return;
+
+          const newGrid = [...playerBattleGrid];
+          if (enemyShipGrid[row][col] !== null) {
+            newGrid[row][col] = "hit";
+            setGameLog([...gameLog, "You Hit!"]);
+          } else {
+            newGrid[row][col] = "miss";
+            setGameLog([...gameLog, "You missed!"]);
           }
+          setPlayerBattleGrid(newGrid);
+          
+          console.log("You clicked on: " + row + ", " + col);
         }}
       />
     </>
