@@ -25,7 +25,7 @@ const PlaceShips = (props) => {
   // Function to check if a ship can be placed at a position
   const canPlaceShip = (row, col, ship, orientation, direction = 1) => {
     // ship has already been placed
-    if (gameState.shipsPlaced[ship]) return false;
+    if (gameState.playerShipsPlaced[ship]) return false;
 
     const shipLength = shipLengths[ship];
 
@@ -64,7 +64,7 @@ const PlaceShips = (props) => {
     }
 
     const newShipsPlaced = {
-      ...gameState.shipsPlaced,
+      ...gameState.playerShipsPlaced,
       [ship]: true,
     };
 
@@ -72,7 +72,7 @@ const PlaceShips = (props) => {
     // Update game state
     setGameState(prevState => ({
       ...prevState,
-      shipsPlaced: newShipsPlaced,
+      playerShipsPlaced: newShipsPlaced,
       allPlayerShipsPlaced: Object.values(newShipsPlaced).every(val => val)
     }));
   };
@@ -82,10 +82,10 @@ const PlaceShips = (props) => {
     setPlayerShipGrid(createGrid(10));
     setSelectedSquare(null);
     
-    // Reset shipsPlaced in game state
+    // Reset playerShipsPlaced in game state
     setGameState(prevState => ({
       ...prevState,
-      shipsPlaced: {
+      playerShipsPlaced: {
         carrier: false,
         battleship: false,
         cruiser: false,

@@ -29,16 +29,25 @@ const Game = (props) => {
     playerTurn: true,
     gameOver: false,
     winner: null,
-    allPlayerShipsPlaced: false,
     playerReadyToPlay: false,
-    shipsPlaced: {
+    allPlayerShipsPlaced: false,
+    playerShipsPlaced: {
       carrier: false,
       battleship: false,
       cruiser: false,
       submarine: false,
       destroyer: false
-    }
+    },
   }));
+
+  // place enemy ships randomly
+  React.useEffect(() => {
+    if (gameState.allPlayerShipsPlaced && !gameState.playerReadyToPlay) {
+      // setEnemyShipGrid();
+    }
+  }, [gameState]);
+
+  
 
   // Save state to local storage whenever state changes
   React.useEffect(() => {

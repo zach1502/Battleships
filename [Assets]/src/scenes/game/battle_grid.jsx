@@ -39,6 +39,7 @@ const BattleGrid = (props) => {
           setPlayerBattleGrid(newGrid);
           
           console.log("You clicked on: " + row + ", " + col);
+          setSelectedSquare(null);
         }}
       />
     </>
