@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 
 import Header from "../components/header";
-import { Margin } from "@mui/icons-material";
 
 const Layout = () => {
   return (
@@ -13,12 +12,12 @@ const Layout = () => {
       }
       <Box
         sx={{
-          width: "80vw",
+          width: "90vw",
           height: "80vh",
           display: "flex",
           border: "1px solid black",
-          marginLeft: "10vw",
-          marginRight: "10vw",
+          marginLeft: "5vw",
+          marginRight: "5vw",
         }}
       >
         <Outlet />

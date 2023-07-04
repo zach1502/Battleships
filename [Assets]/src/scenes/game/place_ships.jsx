@@ -124,6 +124,8 @@ const PlaceShips = (props) => {
                 placeShip(row, col, selectedShip, shipOrientation, -1);
                 setSelectedSquare([row, col]);
               }
+
+              // add error message later
               console.log("can not place ship");
             }}
             selectedSquare={selectedSquare}
