@@ -11,13 +11,12 @@ const SelectionGrid = (props) => {
   const squareSize = props.squareSize;
   const squareSpacing = props.squareSpacing;
   
-  const disableGridMarkers = props.disableGridMarkers; 
+  const disableGridMarkers = props.disableGridMarkers;
+  const disableClick = props.disableClick;
   const onClick = props.onClick;
 
-  console.log(selectedSquare)
-
   const placeholderMarker = (
-    <Grid item key={'placeholder'}>
+    <Grid item>
       <Typography
         sx={{fontSize: `${squareSize}rem`,textAlign: "center",width: `${squareSize}rem`,marginRight: '1rem'}}>
         {" "}
@@ -87,7 +86,7 @@ const SelectionGrid = (props) => {
           <Grid container spacing={squareSpacing}>
             {columnMarkers.map((item) => {
                 return (
-                  <Grid item key={item}>
+                  <Grid item key={item.key}>
                     {item}
                   </Grid>
                 );
@@ -124,6 +123,8 @@ const SelectionGrid = (props) => {
                           icon={icon}
                           size={squareSize}
                           onClick={() => {
+                            if (disableClick) return;
+
                             // deselect if already selected
                             if (isSelectedSquare) {
                               setSelectedSquare(null);

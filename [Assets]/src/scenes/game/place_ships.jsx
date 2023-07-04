@@ -21,9 +21,6 @@ const PlaceShips = (props) => {
   const setGameState = props.setGameState;
   const playerShipGrid = props.playerShipGrid;
   const setPlayerShipGrid = props.setPlayerShipGrid;
-  const setPlayerReadyToPlay = props.setPlayerReadyToPlay;
-
-  console.log(gameState);
 
   // Function to check if a ship can be placed at a position
   const canPlaceShip = (row, col, ship, orientation, direction = 1) => {
@@ -66,8 +63,6 @@ const PlaceShips = (props) => {
       }
     }
 
-    console.log(newGrid)
-
     const newShipsPlaced = {
       ...gameState.shipsPlaced,
       [ship]: true,
@@ -78,7 +73,7 @@ const PlaceShips = (props) => {
     setGameState(prevState => ({
       ...prevState,
       shipsPlaced: newShipsPlaced,
-      allShipsPlaced: Object.values(newShipsPlaced).every(val => val)
+      allPlayerShipsPlaced: Object.values(newShipsPlaced).every(val => val)
     }));
   };
 
@@ -97,7 +92,7 @@ const PlaceShips = (props) => {
         submarine: false,
         destroyer: false
       },
-      allShipsPlaced: false,
+      allPlayerShipsPlaced: false,
     }));
   };
 
@@ -115,12 +110,10 @@ const PlaceShips = (props) => {
             onClick={(row, col)=>{
               // try placing the ship up/right
               if (canPlaceShip(row, col, selectedShip, shipOrientation, 1)) {
-                console.log("can place ship");
                 placeShip(row, col, selectedShip, shipOrientation, 1);
                 setSelectedSquare([row, col]);
               // try place the ship down/left
               } else if (canPlaceShip(row, col, selectedShip, shipOrientation, -1)) {
-                console.log("can place ship");
                 placeShip(row, col, selectedShip, shipOrientation, -1);
                 setSelectedSquare([row, col]);
               }
@@ -168,9 +161,12 @@ const PlaceShips = (props) => {
               variant="contained"
               startIcon={<PlayArrowIcon />}
               color='success'
-              disabled={!gameState.allShipsPlaced}
+              disabled={!gameState.allPlayerShipsPlaced}
               onClick={() => {
-                setPlayerReadyToPlay(true);
+                setGameState(prevState => ({
+                  ...prevState,
+                  playerReadyToPlay: true,
+                }));
               }}
             >
               {"Ready?"}
