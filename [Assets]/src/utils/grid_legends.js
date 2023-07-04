@@ -33,12 +33,29 @@ const shipPlacingLegend = {
   },
   "destroyer": {
     displayType: "color",
+    color: "black",
+    image: null,
+    icon: <Typography color={"white"}>D</Typography>,
+  },
+};
+
+const playShipGridLegend = {
+  ...shipPlacingLegend,
+  "miss": {
+    displayType: "color",
+    color: "white",
+    image: null,
+    icon: <Typography>M</Typography>,
+  },
+  "hit": {
+    displayType: "color",
     color: "red",
     image: null,
-    icon: <Typography>D</Typography>,
+    icon: <Typography>H</Typography>,
   },
 };
 
 export {
   shipPlacingLegend,
+  playShipGridLegend,
 };
