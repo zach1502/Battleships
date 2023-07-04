@@ -7,8 +7,9 @@ import GameLogDisplay from '../scenes/game/game_log_display';
 import ShipGrid from '../scenes/game/ship_grid';
 import PlaceShips from '../scenes/game/place_ships';
 
-import {retrieveFromLocalStorage, storeInLocalStorage} from '../utils/local_storage_manager';
+import { retrieveFromLocalStorage, storeInLocalStorage } from '../utils/local_storage_manager';
 import { Grid } from '@mui/material';
+import { shipLengths, shipNames } from "../utils/ship_details";
 
 const Game = (props) => {
   const setStats = props.setStats;
@@ -42,12 +43,10 @@ const Game = (props) => {
 
   // place enemy ships randomly
   React.useEffect(() => {
-    if (gameState.allPlayerShipsPlaced && !gameState.playerReadyToPlay) {
-      // setEnemyShipGrid();
+    if (gameState.allPlayerShipsPlaced && !gameState.playerReadyToPlay) { // gets triggered once
+      placeEnemyShips(createGrid(10), setEnemyShipGrid);
     }
   }, [gameState]);
-
-  
 
   // Save state to local storage whenever state changes
   React.useEffect(() => {
@@ -58,6 +57,87 @@ const Game = (props) => {
     storeInLocalStorage('gameLog', gameLog);
     storeInLocalStorage('gameState', gameState);
   }, [playerBattleGrid, enemyBattleGrid, playerShipGrid, enemyShipGrid, gameLog, gameState]);
+
+  // probs gonna need to refactor this out into a separate file
+  const placeEnemyShips = (grid, setGrid) => {
+    let newGrid = [...grid];
+
+    shipNames.forEach(ship => {
+      let placed = false;
+
+      while (!placed) {
+        const orientation = Math.random() > 0.5 ? "horizontal" : "vertical";
+        const direction = Math.random() > 0.5 ? 1 : -1;
+        const shipLength = shipLengths[ship];
+
+        let startRow = Math.floor(Math.random() * newGrid.length);
+        let startCol = Math.floor(Math.random() * newGrid[0].length);
+
+        if (orientation === "horizontal") {
+          if (direction === 1 && startCol + shipLength <= newGrid[0].length) {
+            let canPlace = true;
+            for (let i = 0; i < shipLength; i++) {
+              if (newGrid[startRow][startCol + i] !== null) {
+                canPlace = false;
+                break;
+              }
+            }
+            if (canPlace) {
+              for (let i = 0; i < shipLength; i++) {
+                newGrid[startRow][startCol + i] = ship;
+              }
+              placed = true;
+            }
+          } else if (direction === -1 && startCol - shipLength >= -1) {
+            let canPlace = true;
+            for (let i = 0; i < shipLength; i++) {
+              if (newGrid[startRow][startCol - i] !== null) {
+                canPlace = false;
+                break;
+              }
+            }
+            if (canPlace) {
+              for (let i = 0; i < shipLength; i++) {
+                newGrid[startRow][startCol - i] = ship;
+              }
+              placed = true;
+            }
+          }
+        } else {
+          if (direction === 1 && startRow + shipLength <= newGrid.length) {
+            let canPlace = true;
+            for (let i = 0; i < shipLength; i++) {
+              if (newGrid[startRow + i][startCol] !== null) {
+                canPlace = false;
+                break;
+              }
+            }
+            if (canPlace) {
+              for (let i = 0; i < shipLength; i++) {
+                newGrid[startRow + i][startCol] = ship;
+              }
+              placed = true;
+            }
+          } else if (direction === -1 && startRow - shipLength >= -1) {
+            let canPlace = true;
+            for (let i = 0; i < shipLength; i++) {
+              if (newGrid[startRow - i][startCol] !== null) {
+                canPlace = false;
+                break;
+              }
+            }
+            if (canPlace) {
+              for (let i = 0; i < shipLength; i++) {
+                newGrid[startRow - i][startCol] = ship;
+              }
+              placed = true;
+            }
+          }
+        }
+      }
+    });
+    setGrid(newGrid);
+  };
 
   // Note: add an reset game option
   console.log(gameState)

@@ -40,6 +40,8 @@ const BattleGrid = (props) => {
           
           console.log("You clicked on: " + row + ", " + col);
           setSelectedSquare(null);
+
+          // flip game state
         }}
       />
     </>

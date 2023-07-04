@@ -22,30 +22,40 @@ const PlaceShips = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const setPlayerShipGrid = props.setPlayerShipGrid;
 
-  // Function to check if a ship can be placed at a position
-  const canPlaceShip = (row, col, ship, orientation, direction = 1) => {
-    // ship has already been placed
-    if (gameState.playerShipsPlaced[ship]) return false;
-
+  // These checks cn probably be refactored out into a separate file
+  // Checks if the ship fits within the grid vertically
+  const fitsVertically = (row, col, ship, direction) => {
     const shipLength = shipLengths[ship];
+    if (direction === 1 && row + shipLength > playerShipGrid.length) return false;
+    if (direction === -1 && row - shipLength < 0) return false;
 
-    if (orientation === "horizontal") {
-      if (direction === 1 && col + shipLength > playerShipGrid[0].length) return false;
-      if (direction === -1 && col - shipLength < 0) return false;
-
-      for (let i = 0; i < shipLength; i++) {
-        if (playerShipGrid[row][col + (i * direction)] !== null) return false;
-      }
-    } else { // orientation is "vertical"
-      if (direction === 1 && row + shipLength > playerShipGrid.length) return false;
-      if (direction === -1 && row - shipLength < 0) return false;
-
-      for (let i = 0; i < shipLength; i++) {
-        if (playerShipGrid[row + (i * direction)][col] !== null) return false;
-      }
+    for (let i = 0; i < shipLength; i++) {
+      if (playerShipGrid[row + (i * direction)][col] !== null) return false;
     }
 
     return true;
+  };
+
+  // Checks if the ship fits within the grid horizontally
+  const fitsHorizontally = (row, col, ship, direction) => {
+    const shipLength = shipLengths[ship];
+    if (direction === 1 && col + shipLength > playerShipGrid[0].length) return false;
+    if (direction === -1 && col - shipLength < 0) return false;
+
+    for (let i = 0; i < shipLength; i++) {
+      if (playerShipGrid[row][col + (i * direction)] !== null) return false;
+    }
+
+    return true;
+  };
+
+  // Function to check if a ship can be placed at a position
+  const canPlaceShip = (row, col, ship, orientation, direction = 1) => {
+    // If ship has already been placed, return false
+    if (gameState.playerShipsPlaced[ship]) return false;
+  
+    // Checks if the ship can be placed based on the orientation
+    return orientation === "horizontal" ? fitsHorizontally(row, col, ship, direction) : fitsVertically(row, col, ship, direction);
   };
 
   // Function to place a ship at a position
