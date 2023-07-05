@@ -115,7 +115,7 @@ const Game = (props) => {
       timeoutId = setTimeout(() => {
         // AI makes a shot
 
-        makeRandomShot(enemyBattleGrid, setEnemyBattleGrid, playerBattleGrid, playerShipGrid);
+        makeRandomShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
         setGameState({...gameState, playerTurn: true});
       }, 500);
     }
