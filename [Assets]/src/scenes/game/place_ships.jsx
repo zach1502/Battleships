@@ -18,10 +18,13 @@ const PlaceShips = (props) => {
   const [shipOrientation, setShipOrientation] = React.useState('horizontal');
   const [selectedSquare, setSelectedSquare] = React.useState(null); // [row, col]
 
+  const settings = props.settings;
   const gameState = props.gameState;
   const setGameState = props.setGameState;
   const playerShipGrid = props.playerShipGrid;
   const setPlayerShipGrid = props.setPlayerShipGrid;
+
+  console.log(settings);
 
   // These checks cn probably be refactored out into a separate file
   // Checks if the ship fits within the grid vertically
@@ -90,7 +93,7 @@ const PlaceShips = (props) => {
 
   // Clear board handler
   const handleClearBoard = () => {
-    setPlayerShipGrid(createGrid(10));
+    setPlayerShipGrid(createGrid(settings.gridSize));
     setSelectedSquare(null);
     
     // Reset playerShipsPlaced in game state

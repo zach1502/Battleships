@@ -13,7 +13,12 @@ const INITIAL_GAME_STATE = {
     },
 };
 
+const DEFAULT_SETTINGS = {
+  gridSize: 10,
+};
+
 export { 
     INITIAL_GAME_STATE,
+    DEFAULT_SETTINGS,
 };
   

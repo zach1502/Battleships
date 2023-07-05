@@ -78,11 +78,12 @@ GameContent.propTypes = {
 
 const Game = (props) => {
   const setStats = props.setStats;
+  const settings = props.settings;
 
-  const [playerBattleGrid, setPlayerBattleGrid] = useLocalStorage('playerBattleGrid', createGrid(10));
-  const [enemyBattleGrid, setEnemyBattleGrid] = useLocalStorage('enemyBattleGrid', createGrid(10));
-  const [playerShipGrid, setPlayerShipGrid] = useLocalStorage('playerShipGrid', createGrid(10));
-  const [enemyShipGrid, setEnemyShipGrid] = useLocalStorage('enemyShipGrid', createGrid(10));
+  const [playerBattleGrid, setPlayerBattleGrid] = useLocalStorage('playerBattleGrid', createGrid(settings.gridSize));
+  const [enemyBattleGrid, setEnemyBattleGrid] = useLocalStorage('enemyBattleGrid', createGrid(settings.gridSize));
+  const [playerShipGrid, setPlayerShipGrid] = useLocalStorage('playerShipGrid', createGrid(settings.gridSize));
+  const [enemyShipGrid, setEnemyShipGrid] = useLocalStorage('enemyShipGrid', createGrid(settings.gridSize));
   const [gameLog, setGameLog] = useLocalStorage('gameLog', []);
   const [gameState, setGameState] = useLocalStorage('gameState', INITIAL_GAME_STATE);
 
@@ -97,45 +98,61 @@ const Game = (props) => {
   // place enemy ships randomly
   const placeEnemyShipsIfNeeded = React.useCallback(() => {
     if (gameState.allPlayerShipsPlaced && !gameState.playerReadyToPlay) {
-      placeEnemyShips(createGrid(10), setEnemyShipGrid);
+      placeEnemyShips(createGrid(settings.gridSize), setEnemyShipGrid);
     }
   }, [gameState, setEnemyShipGrid]);
+
+  console.log(settings);
 
   // place enemy ships randomly
   React.useEffect(placeEnemyShipsIfNeeded, [gameState]);
 
-  if (gameState.allPlayerShipsPlaced && gameState.playerReadyToPlay) {
-    if (gameState.playerTurn) {
-      return (
-        <>
-          <GameContent
-            gameState={gameState}
-            setGameState={setGameState}
-            playerBattleGrid={playerBattleGrid}
-            setPlayerBattleGrid={setPlayerBattleGrid}
-            enemyBattleGrid={enemyBattleGrid}
-            setEnemyBattleGrid={setEnemyBattleGrid}
-            playerShipGrid={playerShipGrid}
-            setPlayerShipGrid={setPlayerShipGrid}
-            enemyShipGrid={enemyShipGrid}
-            setEnemyShipGrid={setEnemyShipGrid}
-            gameLog={gameLog}
-            setGameLog={setGameLog}
-            handleForfeit={handleForfeit}
-          />
-        </>
-      );
-    } else {
-      // INSERT AI LOGIC... SHOULD FAKE THINK. make a shot. flip the playerTurn bool
-      // then wait a bit and then flip it back
-      // RANDOM SHOT FOR NOW
+  // AI Logic, triggered when it's the AI's turn
+  React.useEffect(() => {
+    let timeoutId;
+    let thinkingTimeoutId;
+    if (!gameState.playerTurn) {
 
-      // More interesting AI logic => have it call a passed in shooting-logic function based on the settings
-      makeRandomShot(enemyBattleGrid, setEnemyBattleGrid, playerBattleGrid, playerShipGrid, setGameState, gameState);
+      // AI is thinking
+      timeoutId = setTimeout(() => {
+        // AI makes a shot
+
+        makeRandomShot(enemyBattleGrid, setEnemyBattleGrid, playerBattleGrid, playerShipGrid);
+        setGameState({...gameState, playerTurn: true});
+      }, 500);
     }
+
+    return () => {
+      // Cleanup function: if the component is unmounted before the delay, the timeout is cleared
+      clearTimeout(timeoutId);
+      clearTimeout(thinkingTimeoutId);
+    }
+  }, [gameState.playerTurn]);
+
+  if (gameState.allPlayerShipsPlaced && gameState.playerReadyToPlay) {
+    return (
+      <>
+        <GameContent
+          gameState={gameState}
+          setGameState={setGameState}
+          playerBattleGrid={playerBattleGrid}
+          setPlayerBattleGrid={setPlayerBattleGrid}
+          enemyBattleGrid={enemyBattleGrid}
+          setEnemyBattleGrid={setEnemyBattleGrid}
+          playerShipGrid={playerShipGrid}
+          setPlayerShipGrid={setPlayerShipGrid}
+          enemyShipGrid={enemyShipGrid}
+          setEnemyShipGrid={setEnemyShipGrid}
+          gameLog={gameLog}
+          setGameLog={setGameLog}
+          handleForfeit={handleForfeit}
+        />
+      </>
+    );
   } else {
     return (
       <PlaceShips
+        settings={settings}
         gameState={gameState}
         playerShipGrid={playerShipGrid}
         setPlayerShipGrid={setPlayerShipGrid}

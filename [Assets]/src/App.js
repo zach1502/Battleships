@@ -9,12 +9,14 @@ import Credits from "./pages/credits";
 import Settings from './pages/settings';
 import Achievements from './pages/achievements';
 
+import { DEFAULT_SETTINGS } from './utils/constants';
+
 const recoverSettings = (setSettings) => {
   const settings = JSON.parse(localStorage.getItem("settings"));
   if (settings) {
     setSettings(settings);
   } else {
-    localStorage.setItem("settings", JSON.stringify({}));
+    localStorage.setItem("settings", JSON.stringify(DEFAULT_SETTINGS));
   }
 };
 
@@ -37,7 +39,7 @@ const recoverObtainedAchievements = (setObtainedAchievements) => {
 };
 
 const App = () => {
-  const [settings, setSettings] = React.useState({});
+  const [settings, setSettings] = React.useState(DEFAULT_SETTINGS);
   const [stats, setStats] = React.useState({});
   const [obtainedAchievements, setObtainedAchievements] = React.useState([]);
 
@@ -46,6 +48,8 @@ const App = () => {
     recoverStats(setStats);
     recoverObtainedAchievements(setObtainedAchievements);
   }, []);
+
+  console.log(settings);
 
   return (
     <BrowserRouter>

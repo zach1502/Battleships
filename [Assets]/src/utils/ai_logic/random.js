@@ -1,4 +1,4 @@
-const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerBattleGrid, playerShipGrid, setGameState, gameState) => {
+const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerBattleGrid, playerShipGrid) => {
   let row;
   let col;
 
@@ -14,10 +14,6 @@ const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerBattleGrid, p
   const newEnemyBattleGrid = [...enemyBattleGrid];
   newEnemyBattleGrid[row][col] = shotResult;
   setEnemyBattleGrid(newEnemyBattleGrid);
-
-  // flip turn
-  const newState = { ...gameState, playerTurn: true };
-  setGameState(newState);
 }
 
 export {
