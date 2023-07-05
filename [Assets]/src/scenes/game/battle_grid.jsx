@@ -6,6 +6,7 @@ import { battleGridLegend } from "../../utils/grid_legends";
 
 const BattleGrid = (props) => {
   const gameState = props.gameState;
+  const setGameState = props.setGameState;
   const playerBattleGrid = props.playerBattleGrid;
   const setPlayerBattleGrid = props.setPlayerBattleGrid;
   const enemyShipGrid = props.enemyShipGrid;
@@ -42,6 +43,8 @@ const BattleGrid = (props) => {
           setSelectedSquare(null);
 
           // flip game state
+          gameState.playerTurn = false;
+          setGameState(gameState);
         }}
       />
     </>

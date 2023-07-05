@@ -8,7 +8,7 @@ import ShipGrid from '../scenes/game/ship_grid';
 import PlaceShips from '../scenes/game/place_ships';
 
 import { retrieveFromLocalStorage, storeInLocalStorage } from '../utils/local_storage_manager';
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import { shipLengths, shipNames } from "../utils/ship_details";
 
 const Game = (props) => {
@@ -156,6 +156,7 @@ const Game = (props) => {
             <Grid item xs={6}>
               <BattleGrid
                 gameState={gameState}
+                setGameState={setGameState}
                 playerBattleGrid={playerBattleGrid}
                 setPlayerBattleGrid={setPlayerBattleGrid}
                 enemyShipGrid={enemyShipGrid}
@@ -168,11 +169,41 @@ const Game = (props) => {
                 gameLog={gameLog}
               />
             </Grid>
+            <Grid item xs={6}>
+              <Button
+                color='error'
+                variant='contained'
+                onClick={() => {
+                  // clear local storage
+                  localStorage.clear();
+
+                  // refresh page
+                  window.location.reload();
+                }}
+              >
+                Forfeit
+              </Button>
+            </Grid>
           </Grid>
         </>
       );
     } else {
       // INSERT AI LOGIC... SHOULD FAKE THINK. make a shot. flip the playerTurn bool
+      // then wait a second and then flip it back
+      // RANDOM SHOT FOR NOW
+
+      // random row and col
+      let row;
+      let col;
+      do {
+        row = Math.floor(Math.random() * playerBattleGrid.length);
+        col = Math.floor(Math.random() * playerBattleGrid[0].length);
+      } while (enemyBattleGrid[row][col] !== null);
+
+      enemyBattleGrid[row][col] = playerShipGrid[row][col] !== null ? "hit" : "miss";
+
+      gameState.playerTurn = true;
+      setGameState(gameState);
     }
   } else {
     return (
