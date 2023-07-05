@@ -10,6 +10,7 @@ import PlaceShips from '../scenes/game/place_ships';
 
 import { retrieveFromLocalStorage, storeInLocalStorage } from '../utils/local_storage_manager';
 import { placeEnemyShips } from '../utils/ship_placement';
+import { makeRandomShot } from '../utils/ai_logic/random';
 
 const Game = (props) => {
   const setStats = props.setStats;
@@ -41,12 +42,23 @@ const Game = (props) => {
     },
   }));
 
+  const handleForfeit = React.useCallback(() => {
+    // clear local storage
+    localStorage.clear();
+
+    // refresh page
+    window.location.reload();
+  }, []);
+
   // place enemy ships randomly
-  React.useEffect(() => {
-    if (gameState.allPlayerShipsPlaced && !gameState.playerReadyToPlay) { // gets triggered once
+  const placeEnemyShipsIfNeeded = React.useCallback(() => {
+    if (gameState.allPlayerShipsPlaced && !gameState.playerReadyToPlay) {
       placeEnemyShips(createGrid(10), setEnemyShipGrid);
     }
-  }, [gameState]);
+  }, [gameState, setEnemyShipGrid]);
+
+  // place enemy ships randomly
+  React.useEffect(placeEnemyShipsIfNeeded, [gameState]);
 
   // Save state to local storage whenever state changes
   React.useEffect(() => {
@@ -92,13 +104,7 @@ const Game = (props) => {
               <Button
                 color='error'
                 variant='contained'
-                onClick={() => {
-                  // clear local storage
-                  localStorage.clear();
-
-                  // refresh page
-                  window.location.reload();
-                }}
+                onClick={handleForfeit}
               >
                 Forfeit
               </Button>
@@ -108,21 +114,11 @@ const Game = (props) => {
       );
     } else {
       // INSERT AI LOGIC... SHOULD FAKE THINK. make a shot. flip the playerTurn bool
-      // then wait a second and then flip it back
+      // then wait a bit and then flip it back
       // RANDOM SHOT FOR NOW
 
-      // random row and col
-      let row;
-      let col;
-      do {
-        row = Math.floor(Math.random() * playerBattleGrid.length);
-        col = Math.floor(Math.random() * playerBattleGrid[0].length);
-      } while (enemyBattleGrid[row][col] !== null);
-
-      enemyBattleGrid[row][col] = playerShipGrid[row][col] !== null ? "hit" : "miss";
-
-      const newState = {...gameState, playerTurn: true};
-      setGameState(newState);
+      // More interesting AI logic => have it call a passed in shooting-logic function based on the settings
+      makeRandomShot(enemyBattleGrid, playerBattleGrid, playerShipGrid, setGameState, gameState);
     }
   } else {
     return (
