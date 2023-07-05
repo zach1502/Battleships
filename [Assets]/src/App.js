@@ -49,8 +49,6 @@ const App = () => {
     recoverObtainedAchievements(setObtainedAchievements);
   }, []);
 
-  console.log(settings);
-
   return (
     <BrowserRouter>
       <Routes>

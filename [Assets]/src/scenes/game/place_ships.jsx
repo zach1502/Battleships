@@ -24,8 +24,6 @@ const PlaceShips = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const setPlayerShipGrid = props.setPlayerShipGrid;
 
-  console.log(settings);
-
   // These checks cn probably be refactored out into a separate file
   // Checks if the ship fits within the grid vertically
   const fitsVertically = (row, col, ship, direction) => {

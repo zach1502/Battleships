@@ -102,8 +102,6 @@ const Game = (props) => {
     }
   }, [gameState, setEnemyShipGrid]);
 
-  console.log(settings);
-
   // place enemy ships randomly
   React.useEffect(placeEnemyShipsIfNeeded, [gameState]);
 
