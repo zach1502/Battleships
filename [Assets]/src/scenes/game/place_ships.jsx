@@ -1,4 +1,5 @@
 import React from "react";
+import propTypes from "prop-types";
 
 import { Grid, Button, Box, Typography } from "@mui/material";
 import RotateRightIcon from '@mui/icons-material/RotateRight';
@@ -185,6 +186,13 @@ const PlaceShips = (props) => {
       </Grid>
     </>
   )
+};
+
+PlaceShips.propTypes = {
+  gameState: propTypes.object.isRequired,
+  setGameState: propTypes.func.isRequired,
+  playerShipGrid: propTypes.array.isRequired,
+  setPlayerShipGrid: propTypes.func.isRequired,
 };
 
 export default PlaceShips;

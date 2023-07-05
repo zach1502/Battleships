@@ -1,6 +1,5 @@
-import React from "react";
-
-import { Grid } from "@mui/material";
+import React from 'react';
+import propTypes from 'prop-types';
 
 import SelectionGrid from "../../components/game/selection_grid";
 import { shipGridLegend } from "../../utils/grid_legends";
@@ -35,6 +34,11 @@ const ShipGrid = (props) => {
       />
     </>
   )
+};
+
+ShipGrid.propTypes = {
+  playerShipGrid: propTypes.array.isRequired,
+  enemyBattleGrid: propTypes.array.isRequired,
 };
 
 export default ShipGrid;

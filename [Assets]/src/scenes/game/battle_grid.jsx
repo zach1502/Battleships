@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import propTypes from 'prop-types';
 
 import SelectionGrid from "../../components/game/selection_grid";
 
@@ -49,6 +50,16 @@ const BattleGrid = (props) => {
       />
     </>
   )
+};
+
+BattleGrid.propTypes = {
+  gameState: propTypes.object.isRequired,
+  setGameState: propTypes.func.isRequired,
+  playerBattleGrid: propTypes.array.isRequired,
+  setPlayerBattleGrid: propTypes.func.isRequired,
+  enemyShipGrid: propTypes.array.isRequired,
+  setGameLog: propTypes.func.isRequired,
+  gameLog: propTypes.array.isRequired,
 };
 
 export default BattleGrid;

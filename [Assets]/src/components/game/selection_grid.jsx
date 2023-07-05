@@ -1,4 +1,6 @@
 import React from "react";
+import propTypes from "prop-types";
+
 import { Button, Typography, Grid } from "@mui/material";
 import GridTile from "./grid_tile.jsx";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
@@ -149,6 +151,18 @@ const SelectionGrid = (props) => {
       </Grid>
     </>
   );
+};
+
+SelectionGrid.propTypes = {
+  grid: propTypes.arrayOf(propTypes.arrayOf(propTypes.string)).isRequired,
+  legend: propTypes.object.isRequired,
+  selectedSquare: propTypes.object,
+  setSelectedSquare: propTypes.func,
+  squareSize: propTypes.number.isRequired,
+  squareSpacing: propTypes.number.isRequired,
+  disableGridMarkers: propTypes.bool,
+  disableClick: propTypes.bool,
+  onClick: propTypes.func,
 };
 
 export default SelectionGrid;
