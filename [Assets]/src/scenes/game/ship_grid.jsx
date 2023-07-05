@@ -25,7 +25,7 @@ const ShipGrid = (props) => {
   return (
     <>
       <SelectionGrid
-        grid={mergeGrids(playerShipGrid, enemyBattleGrid)}
+        grid={mergeGrids(enemyBattleGrid, playerShipGrid)}
         legend={shipGridLegend}
         squareSize={2}
         squareSpacing={0.5}
