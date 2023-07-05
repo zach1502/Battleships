@@ -5,7 +5,7 @@ import { Button, Typography, Grid } from "@mui/material";
 import GridTile from "./grid_tile.jsx";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
-const ColumnMarker = ({ index, squareSize }) => (
+const ColumnMarker = React.memo(({ index, squareSize }) => (
   <Grid item key={`col${index}`}>
     <Typography
       sx={{fontSize: `${squareSize}rem`,textAlign: "center",width: `${squareSize}rem`}}
@@ -13,9 +13,9 @@ const ColumnMarker = ({ index, squareSize }) => (
       {String.fromCharCode(65 + index)}
     </Typography>
   </Grid>
-)
+))
 
-const RowMarker = ({ index, squareSize }) => (
+const RowMarker = React.memo(({ index, squareSize }) => (
   <Grid item key={`row${index}`}>
     <Typography
       sx={{fontSize: `${squareSize}rem`,textAlign: "center",width: `${squareSize}rem`,height: `${squareSize}rem`,lineHeight: 1,marginRight: '1rem'}}
@@ -23,10 +23,18 @@ const RowMarker = ({ index, squareSize }) => (
       {index + 1}
     </Typography>
   </Grid>
-)
+))
 
 const SelectionGrid = (props) => {
-  const { grid, legend, selectedSquare, setSelectedSquare, squareSize, squareSpacing, disableGridMarkers, disableClick, onClick } = props;
+  const grid = props.grid;
+  const legend = props.legend;
+  const onClick = props.onClick;
+  const selectedSquare = props.selectedSquare;
+  const setSelectedSquare = props.setSelectedSquare;
+  const disableClick = props.disableClick;
+  const disableGridMarkers = props.disableGridMarkers;
+  const squareSize = props.squareSize;
+  const squareSpacing = props.squareSpacing;
 
   const columnMarkers = !disableGridMarkers ? [
     <Grid item key="placeholderMarker">
