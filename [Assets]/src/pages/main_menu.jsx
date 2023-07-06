@@ -4,8 +4,10 @@ import { Button, Grid, Typography } from '@mui/material';
 const Menu = (props) => {
     return (
         <>
-            <Typography variant="h1" component="div" gutterBottom>
-                Menu
+            <Typography>
+                <Typography variant="h1" component="div" gutterBottom>
+                    Menu
+                </Typography>
             </Typography>
 
             <Grid container spacing={2} justifyContent="flex-start" alignItems="center">
