@@ -10,7 +10,7 @@ const Menu = (props) => {
 
             <Grid container spacing={2} justifyContent="flex-start" alignItems="center">
                 <Grid item>
-                    <Button variant="contained" href="/game">Play</Button>
+                    <Button variant="contained" color='success' href="/game">Play</Button>
                 </Grid>
                 <Grid item>
                     <Button variant="contained" href="/settings">Settings</Button>
