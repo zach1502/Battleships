@@ -45,12 +45,12 @@ const GameContent = (props) => {
           gameLog={gameLog}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={2}>
         <GameLogDisplay
           gameLog={gameLog}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={2}>
         <Button
           color='error'
           variant='contained'
@@ -59,7 +59,7 @@ const GameContent = (props) => {
           Forfeit
         </Button>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={2}>
         <Button
           variant='contained'
           href="/"
@@ -67,7 +67,7 @@ const GameContent = (props) => {
           Menu
         </Button>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={2}>
         <Button
           variant='contained'
           href="/help"
