@@ -67,6 +67,14 @@ const GameContent = (props) => {
           Menu
         </Button>
       </Grid>
+      <Grid item xs={6}>
+        <Button
+          variant='contained'
+          href="/help"
+        >
+          Help
+        </Button>
+      </Grid>
     </Grid>
   );
 }

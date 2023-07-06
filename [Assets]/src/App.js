@@ -8,6 +8,7 @@ import NoPage from "./pages/no_page";
 import Credits from "./pages/credits";
 import Settings from './pages/settings';
 import Achievements from './pages/achievements';
+import Help from './pages/help';
 
 import { DEFAULT_SETTINGS } from './utils/constants';
 
@@ -72,6 +73,7 @@ const App = () => {
               obtainedAchievements={obtainedAchievements}
             />
           }/>
+          <Route path="help" element={<Help />}/>
           <Route path="credits" element={<Credits />} />
           <Route path="*" element={<NoPage />} />
         </Route>
