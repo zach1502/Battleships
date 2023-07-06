@@ -21,9 +21,6 @@ const Menu = (props) => {
                 <Grid item>
                     <Button variant="contained" href="/credits">Credits</Button>
                 </Grid>
-                <Grid item>
-                    <Button variant="contained" href="/help">Help</Button>
-                </Grid>
             </Grid>
         </>
     );
