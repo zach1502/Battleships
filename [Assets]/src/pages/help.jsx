@@ -13,8 +13,8 @@ const Help = (props) => {
                 The object of Battleship is to try and sink all of the other player's before they sink all of your ships. 
                 All of the other player's ships are somewhere on their board.  You try and hit them by selecting the coordinates 
                 of one of the squares on the grid on the right-hand side. The other player also tries to hit your ships by 
-                guessing coordinates.  Neither you nor the other player can see the other's board so you must try to guess where they are. 
-                There are two grids:  the left grid for the player's ships and the right grid for recording the player's guesses.
+                guessing coordinates. Neither you nor the other player can see the other's board so you must try to guess where they are. 
+                There are two grids: the left grid for the player's ships and the right grid for recording the player's guesses.
 
                 </Typography>
             </p>
@@ -42,8 +42,8 @@ const Help = (props) => {
                 </Typography>
 
                 <Typography variant="body1" component="div" gutterBottom>
-                    Player's take turns guessing by selecting coordinates. The game responds with "hit" or "miss" as appropriate.  Markers 
-                    indicate the result of a shot:  red for hit, white for miss. When all of the squares that one your ships occupies have 
+                    Players take turns guessing by selecting coordinates. The game responds with "hit" or "miss" as appropriate.  Markers 
+                    indicate the result of a shot:  red for hit, white for miss. When all of the squares that your ships occupies have 
                     been hit, the ship will be sunk. As soon as all of one player's ships have been sunk, the game ends.
                 </Typography>
             </p>
