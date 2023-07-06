@@ -162,6 +162,7 @@ const PlaceShips = (props) => {
             <Button
               variant="contained"
               startIcon={<DeleteIcon />}
+              color='error'
               onClick={handleClearBoard}
             >
               {"Clear Ships"}
