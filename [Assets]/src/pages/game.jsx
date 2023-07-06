@@ -107,11 +107,10 @@ const Game = (props) => {
 
   // AI Logic, triggered when it's the AI's turn
   React.useEffect(() => {
-    let timeoutId;
-    let thinkingTimeoutId;
+    let timeoutId = null;
     if (!gameState.playerTurn) {
 
-      // AI is thinking
+      // AI is "thinking"
       timeoutId = setTimeout(() => {
         // AI makes a shot
 
@@ -123,7 +122,6 @@ const Game = (props) => {
     return () => {
       // Cleanup function: if the component is unmounted before the delay, the timeout is cleared
       clearTimeout(timeoutId);
-      clearTimeout(thinkingTimeoutId);
     }
   }, [gameState.playerTurn]);
 
