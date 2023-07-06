@@ -59,6 +59,14 @@ const GameContent = (props) => {
           Forfeit
         </Button>
       </Grid>
+      <Grid item xs={6}>
+        <Button
+          variant='contained'
+          href="/"
+        >
+          Menu
+        </Button>
+      </Grid>
     </Grid>
   );
 }
