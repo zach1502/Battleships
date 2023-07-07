@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# React Application Setup Guide (Linux)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 1. Installing Node.js
+Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. You will need Node.js to run this application.
 
-## Available Scripts
+To install Node.js on Ubuntu, you can use the apt package manager. First, update your local package index:
 
-In the project directory, you can run:
+```bash
+sudo apt update
+```
 
-### `npm start`
+Then, install Node.js:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+sudo apt install nodejs
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+You can verify the installation by checking the version of Node.js:
 
-### `npm test`
+```bash
+nodejs --version
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installing Yarn
+Yarn is a package manager for your code, similar to npm but providing some additional features. This project uses Yarn for managing dependencies and running scripts.
 
-### `npm run build`
+You can install Yarn through the npm package manager (which comes bundled with Node.js):
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install --global yarn
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To verify the installation, check the version of Yarn:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+yarn --version
+```
 
-### `npm run eject`
+## Building and Running the Application
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Cloning the project
+First, clone our project to your local machine. Open your terminal and navigate to the directory where you want the project to be. Then, use the following command:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Installing dependencies
+Next, navigate to the project directory and install the project's dependencies:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cd our_project_directory/"[Assets]"
+yarn install
+```
 
-## Learn More
+### Optional: Running the Dev server instead of the production build
+It is more or less the same thing as building but its just faster for you guys to test the app.
+If you really want to build the app instead, skip this.
+To run the application in development mode, use the following command:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+yarn start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This will start a local development server. You can then open a web browser and visit `http://localhost:3000` to view your running application.
 
-### Code Splitting
+### Actually building the application
+To build a production-ready version of the application, run the following command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+yarn build
+```
 
-### Analyzing the Bundle Size
+This command will create a `build` directory in your project which contains a version of the app that is optimized for production.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Running the application (production mode)
 
-### Making a Progressive Web App
+To serve the production-ready build, you would need to use a static server. For instance, you can install the `serve` package via Yarn:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+yarn global add serve
+```
 
-### Advanced Configuration
+Then serve your production-ready build by:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+serve -s build
+```
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The app is now running and ready for use!
+Go to the localhost:3000 (or whatever it says) to view the app.
+```
