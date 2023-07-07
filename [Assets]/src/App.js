@@ -8,13 +8,16 @@ import NoPage from "./pages/no_page";
 import Credits from "./pages/credits";
 import Settings from './pages/settings';
 import Achievements from './pages/achievements';
+import Help from './pages/help';
+
+import { DEFAULT_SETTINGS } from './utils/constants';
 
 const recoverSettings = (setSettings) => {
   const settings = JSON.parse(localStorage.getItem("settings"));
   if (settings) {
     setSettings(settings);
   } else {
-    localStorage.setItem("settings", JSON.stringify({}));
+    localStorage.setItem("settings", JSON.stringify(DEFAULT_SETTINGS));
   }
 };
 
@@ -37,7 +40,7 @@ const recoverObtainedAchievements = (setObtainedAchievements) => {
 };
 
 const App = () => {
-  const [settings, setSettings] = React.useState({});
+  const [settings, setSettings] = React.useState(DEFAULT_SETTINGS);
   const [stats, setStats] = React.useState({});
   const [obtainedAchievements, setObtainedAchievements] = React.useState([]);
 
@@ -56,6 +59,7 @@ const App = () => {
           <Route path="game" element={
             <Game 
               setStats={setStats}
+              settings={settings}
             />
           }/>
           <Route path="settings" element={
@@ -69,6 +73,7 @@ const App = () => {
               obtainedAchievements={obtainedAchievements}
             />
           }/>
+          <Route path="help" element={<Help />}/>
           <Route path="credits" element={<Credits />} />
           <Route path="*" element={<NoPage />} />
         </Route>
