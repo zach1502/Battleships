@@ -8,7 +8,7 @@ const Header = (props) => {
                 <Grid container spacing={2} justifyContent="flex-start" alignItems="center">
                     <Grid item>
                         <Typography variant="h2" component="div">
-                            LOGO
+                            BATTLESHIP
                         </Typography>
                     </Grid>
                 </Grid>
