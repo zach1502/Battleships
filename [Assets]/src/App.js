@@ -9,6 +9,8 @@ import Credits from "./pages/credits";
 import Settings from './pages/settings';
 import Achievements from './pages/achievements';
 import Help from './pages/help';
+import BackgroundMusic from './components/musicplayer';
+import SoundEffects from './components/soundeffects';
 
 import { DEFAULT_SETTINGS } from './utils/constants';
 
@@ -78,6 +80,8 @@ const App = () => {
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
+      <SoundEffects />
+      <BackgroundMusic/>
     </BrowserRouter>
   );
 };
