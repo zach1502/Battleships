@@ -1,5 +1,6 @@
 import React from "react";
-import { Grid, Button, Typography, Slider } from "@mui/material";
+import { Grid, Button, Typography} from "@mui/material";
+import { Slider } from "../components/general/slider";
 
 function valuetext(value) {
   return `${value}°C`;
@@ -11,6 +12,8 @@ const Settings = (props) => {
 
   const settings = props.settings;
   const setSettings = props.setSettings;
+
+  console.log("Settings:", settings);
 
   function handleChange(e) {
     setChecked(e.target.checked);
@@ -25,48 +28,53 @@ const Settings = (props) => {
         </Grid>
 
         <Grid item xs={12} align='center'>
-          <Typography variant="h5" component="div" align='center'>
-            Master Volume
-          </Typography>
-          <Slider sx={{width: 300}}
-            aria-label="Master Volume"
-            defaultValue={30}
-            getAriaValueText={valuetext}
-            step={1}
+          <Slider
+            label="Master Volume"
+            value={settings.masterVolume}
+            setValue={(value) => {
+              setSettings({
+                ...settings,
+                masterVolume: value,
+              });
+            }}
             min={0}
             max={100}
-            valueLabelDisplay="auto"
+            step={1}
+            defaultValue={30}
           />
         </Grid>
 
         <Grid item xs={12} align='center'>
-          <Typography variant="h5" component="div" align='center'>
-            Music
-          </Typography>
-
-          <Slider sx={{width: 300}}
-            aria-label="Music"
-            defaultValue={30}
-            getAriaValueText={valuetext}
-            step={1}
+          <Slider
+            label="Music Volume"
+            value={settings.musicVolume}
+            setValue={(value) => {
+              setSettings({
+                ...settings,
+                musicVolume: value,
+              });
+            }}
             min={0}
             max={100}
-            valueLabelDisplay="auto"
+            step={1}
+            defaultValue={30}
           />
         </Grid>
 
         <Grid item xs={12} align='center'>
-          <Typography variant="h5" component="div" align='center'>
-            Effects
-          </Typography>
-          <Slider sx={{width: 300}}
-            aria-label="Effects"
-            defaultValue={30}
-            getAriaValueText={valuetext}
-            step={1}
+          <Slider
+            label="Effects Volume"
+            value={settings.sfxVolume}
+            setValue={(value) => {
+              setSettings({
+                ...settings,
+                sfxVolume: value,
+              });
+            }}
             min={0}
             max={100}
-            valueLabelDisplay="auto"
+            step={1}
+            defaultValue={30}
           />
         </Grid>
 

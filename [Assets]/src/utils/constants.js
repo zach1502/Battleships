@@ -15,6 +15,9 @@ const INITIAL_GAME_STATE = {
 
 const DEFAULT_SETTINGS = {
   gridSize: 10,
+  masterVolume: 30,
+  musicVolume: 30,
+  sfxVolume: 30,
 };
 
 export { 
