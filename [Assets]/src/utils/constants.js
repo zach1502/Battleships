@@ -18,6 +18,10 @@ const DEFAULT_SETTINGS = {
   masterVolume: 30,
   musicVolume: 30,
   sfxVolume: 30,
+  gridHitColor: "#ff0000",
+  gridMissColor: "#ffffff",
+  gridBlankColor: "#add8e6",
+  enableAnimation: true,
 };
 
 export { 

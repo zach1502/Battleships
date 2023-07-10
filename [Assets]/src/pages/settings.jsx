@@ -1,28 +1,17 @@
 import React from "react";
-import { Grid, Button, Typography} from "@mui/material";
+import { Grid, Button, Typography, Checkbox} from "@mui/material";
 import { Slider } from "../components/general/slider";
-
-function valuetext(value) {
-  return `${value}°C`;
-}
+import {ColorPicker} from "../components/general/color_picker";
 
 const Settings = (props) => {
-
-  const [checked, setChecked] = React.useState(false);
-
   const settings = props.settings;
   const setSettings = props.setSettings;
 
-  console.log("Settings:", settings);
-
-  function handleChange(e) {
-    setChecked(e.target.checked);
-  }
   return (
     <>
       <Grid container direction="row" justifyContent="flex-start" alignItems="center">
         <Grid item xs={12} align='center'>
-          <Typography variant="h2" component="div" gutterBottom>
+          <Typography variant="h2" component="div">
             Settings
           </Typography>
         </Grid>
@@ -79,18 +68,55 @@ const Settings = (props) => {
         </Grid>
 
         <Grid item xs={12} align='center'>
-          <Typography variant="h5" component="div" align='center'>
-            Gameplay
-          </Typography>
-
-          <Typography variant="body1" component="div" align='center'>
-            Grid Hit: 'red' Grid Miss: 'white' Grid Blank: 'blue'
-          </Typography>
+          <ColorPicker
+            color={settings.gridHitColor}
+            setColor={(color) => {
+              setSettings({
+                ...settings,
+                gridHitColor: color,
+              });
+            }}
+            label={"  Grid Hit Color"}
+          />
+        </Grid>
+        <Grid item xs={12} align='center'>
+          <ColorPicker
+            color={settings.gridMissColor}
+            setColor={(color) => {
+              setSettings({
+                ...settings,
+                gridMissColor: color,
+              });
+            }}
+            label={" Grid Miss Color"}
+          />
+        </Grid>
+        <Grid item xs={12} align='center'>
+          <ColorPicker
+            color={settings.gridBlankColor}
+            setColor={(color) => {
+              setSettings({
+                ...settings,
+                gridBlankColor: color,
+              });
+            }}
+            label={"Grid Blank Color"}
+          />
         </Grid>
 
         <Grid item xs={12} align='center'>
           <Typography variant="body1" component="div" align='center'>
-            Autosave? <input value="test" type="checkbox" onChange={handleChange} /> Enable Animation?   <input value="test" type="checkbox" onChange={handleChange} />
+            Enable Animation?
+            <Checkbox
+              checked={settings.enableAnimation}
+              onChange={(event) => {
+                setSettings({
+                  ...settings,
+                  enableAnimation: event.target.checked,
+                });
+              }}
+              inputProps={{ 'aria-label': 'controlled' }}
+            />
           </Typography>
         </Grid>
         <Grid item xs={12} align='center'>
