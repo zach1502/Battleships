@@ -1,6 +1,6 @@
 import {Typography} from "@mui/material";
 
-const shipPlacingLegend = {
+const shipGridLegend = {
   null: {
     displayType: "color",
     color: "lightblue",
@@ -37,15 +37,6 @@ const shipPlacingLegend = {
     image: null,
     icon: <Typography>D</Typography>,
   },
-};
-
-const battleGridLegend = {
-  null: {
-    displayType: "color",
-    color: "lightblue",
-    image: null,
-    icon: null,
-  },
   "miss": {
     displayType: "color",
     color: "white",
@@ -60,13 +51,6 @@ const battleGridLegend = {
   },
 };
 
-const shipGridLegend = {
-  ...shipPlacingLegend,
-  ...battleGridLegend,
-};
-
 export {
-  shipPlacingLegend,
-  battleGridLegend,
   shipGridLegend,
 };

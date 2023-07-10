@@ -107,8 +107,13 @@ const Game = (props) => {
   const [gameState, setGameState] = useLocalStorage('gameState', INITIAL_GAME_STATE);
 
   const handleForfeit = React.useCallback(() => {
-    // clear local storage
-    localStorage.clear();
+    // remove specific local storage items
+    localStorage.removeItem('playerBattleGrid');
+    localStorage.removeItem('enemyBattleGrid');
+    localStorage.removeItem('playerShipGrid');
+    localStorage.removeItem('enemyShipGrid');
+    localStorage.removeItem('gameLog');
+    localStorage.removeItem('gameState');
 
     // refresh page
     window.location.reload();

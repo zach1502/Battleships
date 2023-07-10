@@ -3,7 +3,8 @@ import propTypes from 'prop-types';
 
 import SelectionGrid from "../../components/game/selection_grid";
 
-import { battleGridLegend } from "../../utils/grid_legends";
+import { shipGridLegend } from "../../utils/grid_legends";
+import useNewGridColors from "../../utils/hooks/use_new_grid_colors";
 
 const BattleGrid = (props) => {
   const gameState = props.gameState;
@@ -17,17 +18,13 @@ const BattleGrid = (props) => {
 
   const [selectedSquare, setSelectedSquare] = React.useState(null);
 
-  React.useMemo(() => {
-    battleGridLegend['null']['color'] = settings.gridBlankColor;
-    battleGridLegend['miss']['color'] = settings.gridMissColor;
-    battleGridLegend['hit']['color'] = settings.gridHitColor;
-  }, [settings.gridBlankColor, settings.gridMissColor, settings.gridHitColor]);
+  useNewGridColors(settings);
 
   return (
     <>
       <SelectionGrid
         grid={playerBattleGrid}
-        legend={battleGridLegend}
+        legend={shipGridLegend}
         squareSize={2}
         squareSpacing={0.5}
         selectedSquare={selectedSquare}
