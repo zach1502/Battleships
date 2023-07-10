@@ -13,7 +13,7 @@ const ShipGrid = (props) => {
     shipGridLegend['null']['color'] = settings.gridBlankColor;
     shipGridLegend['miss']['color'] = settings.gridMissColor;
     shipGridLegend['hit']['color'] = settings.gridHitColor;
-  }, [settings]);
+  }, [settings.gridBlankColor, settings.gridMissColor, settings.gridHitColor]);
 
   const mergeGrids = (onTop, onBottom) => {
     const mergedGrid = [...onBottom];

@@ -26,7 +26,7 @@ const PlaceShips = (props) => {
 
   React.useMemo(() => {
     shipPlacingLegend['null']['color'] = settings.gridBlankColor;
-  }, [settings]);
+  }, [settings.gridBlankColor]);
 
   // These checks cn probably be refactored out into a separate file
   // Checks if the ship fits within the grid vertically

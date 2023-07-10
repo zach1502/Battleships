@@ -21,7 +21,7 @@ const BattleGrid = (props) => {
     battleGridLegend['null']['color'] = settings.gridBlankColor;
     battleGridLegend['miss']['color'] = settings.gridMissColor;
     battleGridLegend['hit']['color'] = settings.gridHitColor;
-  }, [settings]);
+  }, [settings.gridBlankColor, settings.gridMissColor, settings.gridHitColor]);
 
   return (
     <>
