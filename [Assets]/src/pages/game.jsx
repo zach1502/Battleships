@@ -124,10 +124,10 @@ const Game = (props) => {
     if (gameState.allPlayerShipsPlaced && !gameState.playerReadyToPlay) {
       placeEnemyShips(createGrid(settings.gridSize), setEnemyShipGrid);
     }
-  }, [gameState, setEnemyShipGrid]);
+  }, [gameState, setEnemyShipGrid, settings.gridSize]);
 
   // place enemy ships randomly
-  React.useEffect(placeEnemyShipsIfNeeded, [gameState]);
+  React.useEffect(placeEnemyShipsIfNeeded, [gameState, placeEnemyShipsIfNeeded]);
 
   // AI Logic, triggered when it's the AI's turn
   React.useEffect(() => {
@@ -147,7 +147,7 @@ const Game = (props) => {
       // Cleanup function: if the component is unmounted before the delay, the timeout is cleared
       clearTimeout(timeoutId);
     }
-  }, [gameState.playerTurn]);
+  }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState]);
 
   if (gameState.allPlayerShipsPlaced && gameState.playerReadyToPlay) {
     return (

@@ -9,7 +9,7 @@ function useNewGridColors(settings) {
     const b = parseInt(color.substr(5, 2), 16);
     const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
     return (yiq >= 128) ? 'black' : 'white';
-  });
+  }, []);
 
   React.useMemo(() => {
     const blankColor = settings.gridBlankColor;
@@ -27,7 +27,7 @@ function useNewGridColors(settings) {
       <Typography color={determineTextColor(hitColor)}>H</Typography>
     );
 
-  }, [settings.gridBlankColor, settings.gridMissColor, settings.gridHitColor]);
+  }, [settings.gridBlankColor, settings.gridMissColor, settings.gridHitColor, determineTextColor]);
 }
 
 export default useNewGridColors;
