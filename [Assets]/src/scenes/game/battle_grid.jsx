@@ -13,8 +13,15 @@ const BattleGrid = (props) => {
   const enemyShipGrid = props.enemyShipGrid;
   const setGameLog = props.setGameLog;
   const gameLog = props.gameLog;
+  const settings = props.settings;
 
   const [selectedSquare, setSelectedSquare] = React.useState(null);
+
+  React.useMemo(() => {
+    battleGridLegend['null']['color'] = settings.gridBlankColor;
+    battleGridLegend['miss']['color'] = settings.gridMissColor;
+    battleGridLegend['hit']['color'] = settings.gridHitColor;
+  }, [settings]);
 
   return (
     <>

@@ -11,7 +11,7 @@ import SelectionGrid from "../../components/game/selection_grid";
 
 import createGrid from "../../utils/create_grid";
 import { shipLengths, shipNames } from "../../utils/ship_details";
-import { shipPlacingLegend } from "../../utils/grid_legends";
+import { shipGridLegend, shipPlacingLegend } from "../../utils/grid_legends";
 
 const PlaceShips = (props) => {
   const [selectedShip, setSelectedShip] = React.useState('carrier');
@@ -23,6 +23,10 @@ const PlaceShips = (props) => {
   const setGameState = props.setGameState;
   const playerShipGrid = props.playerShipGrid;
   const setPlayerShipGrid = props.setPlayerShipGrid;
+
+  React.useMemo(() => {
+    shipPlacingLegend['null']['color'] = settings.gridBlankColor;
+  }, [settings]);
 
   // These checks cn probably be refactored out into a separate file
   // Checks if the ship fits within the grid vertically
@@ -139,7 +143,6 @@ const PlaceShips = (props) => {
             squareSpacing={0.5}
           />
         </Grid>
-
         <Grid item xs={3}>
           <DropdownSelect
             value={selectedShip}

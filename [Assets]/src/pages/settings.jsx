@@ -66,8 +66,9 @@ const Settings = (props) => {
             defaultValue={30}
           />
         </Grid>
-
-        <Grid item xs={12} align='center'>
+        
+        {/* color pickers */}
+        <Grid item xs={4} align='center'>
           <ColorPicker
             color={settings.gridHitColor}
             setColor={(color) => {
@@ -79,7 +80,7 @@ const Settings = (props) => {
             label={"  Grid Hit Color"}
           />
         </Grid>
-        <Grid item xs={12} align='center'>
+        <Grid item xs={4} align='center'>
           <ColorPicker
             color={settings.gridMissColor}
             setColor={(color) => {
@@ -91,7 +92,7 @@ const Settings = (props) => {
             label={" Grid Miss Color"}
           />
         </Grid>
-        <Grid item xs={12} align='center'>
+        <Grid item xs={4} align='center'>
           <ColorPicker
             color={settings.gridBlankColor}
             setColor={(color) => {

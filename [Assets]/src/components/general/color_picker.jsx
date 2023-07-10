@@ -1,5 +1,5 @@
 import React from 'react'
-import { HuePicker } from 'react-color';
+import { CompactPicker  } from 'react-color';
 import { Button, Grid } from "@mui/material";
 
 const ColorPicker = (props) => {
@@ -31,7 +31,7 @@ const ColorPicker = (props) => {
         </Button>
       </Grid>
       <Grid item xs={12} align='center'>
-        <HuePicker
+        <CompactPicker
           color={color}
           onChange={
             (color) => setColor(color.hex)

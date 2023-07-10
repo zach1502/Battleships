@@ -25,6 +25,7 @@ const GameContent = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const enemyBattleGrid = props.enemyBattleGrid;
   const handleForfeit = props.handleForfeit;
+  const settings = props.settings;
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -32,6 +33,7 @@ const GameContent = (props) => {
         <ShipGrid
           playerShipGrid={playerShipGrid}
           enemyBattleGrid={enemyBattleGrid}
+          settings={settings}
         />
       </Grid>
       <Grid item xs={6}>
@@ -43,6 +45,7 @@ const GameContent = (props) => {
           enemyShipGrid={enemyShipGrid}
           setGameLog={setGameLog}
           gameLog={gameLog}
+          settings={settings}
         />
       </Grid>
       <Grid item xs={2}>
@@ -158,6 +161,7 @@ const Game = (props) => {
           gameLog={gameLog}
           setGameLog={setGameLog}
           handleForfeit={handleForfeit}
+          settings={settings}
         />
       </>
     );

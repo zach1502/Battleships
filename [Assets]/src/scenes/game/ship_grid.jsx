@@ -2,11 +2,18 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 import SelectionGrid from "../../components/game/selection_grid";
-import { shipGridLegend } from "../../utils/grid_legends";
+import {shipGridLegend} from "../../utils/grid_legends";
 
 const ShipGrid = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const enemyBattleGrid = props.enemyBattleGrid;
+  const settings = props.settings;
+
+  React.useMemo(() => {
+    shipGridLegend['null']['color'] = settings.gridBlankColor;
+    shipGridLegend['miss']['color'] = settings.gridMissColor;
+    shipGridLegend['hit']['color'] = settings.gridHitColor;
+  }, [settings]);
 
   const mergeGrids = (onTop, onBottom) => {
     const mergedGrid = [...onBottom];
