@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Howl } from 'howler';
 import { useLocation, useHistory } from 'react-router-dom';
 
-const SoundEffects = () => {
+const SoundEffects = (props) => {
   let location = useLocation();
   const playSound = (src) => {
     const sound = new Howl({
@@ -12,6 +12,8 @@ const SoundEffects = () => {
     sound.play();
   };
 
+
+  // FOR DEBUG/TESTING ONLY
   if (location.pathname === '/settings') {
     return (
       <div>

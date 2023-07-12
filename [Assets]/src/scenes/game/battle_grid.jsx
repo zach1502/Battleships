@@ -5,6 +5,7 @@ import SelectionGrid from "../../components/game/selection_grid";
 
 import { shipGridLegend } from "../../utils/grid_legends";
 import useNewGridColors from "../../utils/hooks/use_new_grid_colors";
+import { useSoundEffect } from '../../utils/hooks/use_sound_effect';
 
 const BattleGrid = (props) => {
   const gameState = props.gameState;
@@ -20,6 +21,9 @@ const BattleGrid = (props) => {
 
   useNewGridColors(settings);
 
+  const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3');
+  const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3');
+
   return (
     <>
       <SelectionGrid
@@ -32,24 +36,28 @@ const BattleGrid = (props) => {
         disableGridMarkers={false}
         disableClick={!gameState.playerTurn}
         onClick={(row, col) => {
-          if(playerBattleGrid[row][col] !== null) return;
+          if (playerBattleGrid[row][col] !== null) return;
 
           const newGrid = [...playerBattleGrid];
           if (enemyShipGrid[row][col] !== null) {
             newGrid[row][col] = "hit";
+            playHitSoundEffect();
             setGameLog([...gameLog, "You Hit!"]);
           } else {
             newGrid[row][col] = "miss";
+            playMissSoundEffect();
             setGameLog([...gameLog, "You missed!"]);
           }
           setPlayerBattleGrid(newGrid);
-          
+
           console.log("You clicked on: " + row + ", " + col);
           setSelectedSquare(null);
 
           // flip game state
-          gameState.playerTurn = false;
-          setGameState(gameState);
+          setGameState({
+            ...gameState,
+            playerTurn: false,
+          });
         }}
       />
     </>

@@ -10,6 +10,7 @@ import ShipGrid from '../scenes/game/ship_grid';
 import PlaceShips from '../scenes/game/place_ships';
 
 import { useLocalStorage } from '../utils/hooks/use_local_storage';
+import { useSoundEffect } from '../utils/hooks/use_sound_effect';
 import { placeEnemyShips } from '../utils/ship_placement';
 import { makeRandomShot } from '../utils/ai_logic/random';
 import { INITIAL_GAME_STATE } from '../utils/constants';
@@ -98,6 +99,7 @@ GameContent.propTypes = {
 const Game = (props) => {
   const setStats = props.setStats;
   const settings = props.settings;
+  const setSelectedTrack = props.setSelectedTrack;
 
   const [playerBattleGrid, setPlayerBattleGrid] = useLocalStorage('playerBattleGrid', createGrid(settings.gridSize));
   const [enemyBattleGrid, setEnemyBattleGrid] = useLocalStorage('enemyBattleGrid', createGrid(settings.gridSize));
@@ -105,6 +107,13 @@ const Game = (props) => {
   const [enemyShipGrid, setEnemyShipGrid] = useLocalStorage('enemyShipGrid', createGrid(settings.gridSize));
   const [gameLog, setGameLog] = useLocalStorage('gameLog', []);
   const [gameState, setGameState] = useLocalStorage('gameState', INITIAL_GAME_STATE);
+
+  const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3');
+  const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3');
+
+  React.useEffect(() => {
+    setSelectedTrack(1);  // Play the first track when the game starts
+  }, []);
 
   const handleForfeit = React.useCallback(() => {
     // remove specific local storage items
@@ -132,13 +141,16 @@ const Game = (props) => {
   // AI Logic, triggered when it's the AI's turn
   React.useEffect(() => {
     let timeoutId = null;
+    console.log(gameState)
     if (!gameState.playerTurn) {
 
       // AI is "thinking"
       timeoutId = setTimeout(() => {
         // AI makes a shot
 
-        makeRandomShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+        const shotResult = makeRandomShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+        (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
+        setGameLog([...gameLog, shotResult]);
         setGameState({...gameState, playerTurn: true});
       }, 500);
     }
