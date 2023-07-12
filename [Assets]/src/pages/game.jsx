@@ -151,6 +151,10 @@ const Game = (props) => {
         const shotResult = makeRandomShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
         (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
         setGameLog([...gameLog, shotResult]);
+      }, 2000);
+
+      // AI is done "thinking"
+      timeoutId = setTimeout(() => {
         setGameState({...gameState, playerTurn: true});
       }, 500);
     }
