@@ -13,6 +13,7 @@ import { useLocalStorage } from '../utils/hooks/use_local_storage';
 import { useSoundEffect } from '../utils/hooks/use_sound_effect';
 import { placeEnemyShips } from '../utils/ship_placement';
 import { makeRandomShot } from '../utils/ai_logic/random';
+import { makeSmartShot } from '../utils/ai_logic/seek_and_hunt';
 import { INITIAL_GAME_STATE } from '../utils/constants';
 
 const GameContent = (props) => {
@@ -148,7 +149,7 @@ const Game = (props) => {
       timeoutId = setTimeout(() => {
         // AI makes a shot
 
-        const shotResult = makeRandomShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+        const shotResult = makeSmartShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
         (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
         setGameLog([...gameLog, shotResult]);
       }, 2000);
