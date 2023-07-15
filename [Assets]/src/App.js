@@ -13,44 +13,13 @@ import BackgroundMusic from './components/musicplayer';
 import SoundEffects from './components/soundeffects';
 
 import { DEFAULT_SETTINGS } from './utils/constants';
-
-const recoverSettings = (setSettings) => {
-  const settings = JSON.parse(localStorage.getItem("settings"));
-  if (settings) {
-    setSettings(settings);
-  } else {
-    localStorage.setItem("settings", JSON.stringify(DEFAULT_SETTINGS));
-  }
-};
-
-const recoverStats = (setStats) => {
-  const stats = JSON.parse(localStorage.getItem("stats"));
-  if (stats) {
-    setStats(stats);
-  } else {
-    localStorage.setItem("stats", JSON.stringify({}));
-  }
-};
-
-const recoverObtainedAchievements = (setObtainedAchievements) => {
-  const obtainedAchievements = localStorage.getItem("obtainedAchievements");
-  if (obtainedAchievements) {
-    setObtainedAchievements(obtainedAchievements);
-  } else {
-    localStorage.setItem("obtainedAchievements", []);
-  }
-};
+import { useLocalStorage } from './utils/hooks/use_local_storage';
 
 const App = () => {
-  const [settings, setSettings] = React.useState(DEFAULT_SETTINGS);
-  const [stats, setStats] = React.useState({});
-  const [obtainedAchievements, setObtainedAchievements] = React.useState([]);
-
-  React.useEffect(() => {
-    recoverSettings(setSettings);
-    recoverStats(setStats);
-    recoverObtainedAchievements(setObtainedAchievements);
-  }, []);
+  const [settings, setSettings] = useLocalStorage("settings", DEFAULT_SETTINGS);
+  const [stats, setStats] = useLocalStorage("stats", {});
+  const [obtainedAchievements, setObtainedAchievements] = useLocalStorage("obtainedAchievements", []);
+  const [selectedTrack, setSelectedTrack] = React.useState(0);
 
   return (
     <BrowserRouter>
@@ -62,6 +31,7 @@ const App = () => {
             <Game 
               setStats={setStats}
               settings={settings}
+              setSelectedTrack={setSelectedTrack}
             />
           }/>
           <Route path="settings" element={
@@ -80,8 +50,14 @@ const App = () => {
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
-      <SoundEffects />
-      <BackgroundMusic/>
+      <SoundEffects 
+        settings={settings}
+      />
+      <BackgroundMusic 
+        selectedTrack={selectedTrack} 
+        setSelectedTrack={setSelectedTrack}
+        settings={settings}
+      />
     </BrowserRouter>
   );
 };

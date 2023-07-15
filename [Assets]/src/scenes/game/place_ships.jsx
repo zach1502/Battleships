@@ -1,7 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
 
-import { Grid, Button, Box, Typography } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -11,7 +11,8 @@ import SelectionGrid from "../../components/game/selection_grid";
 
 import createGrid from "../../utils/create_grid";
 import { shipLengths, shipNames } from "../../utils/ship_details";
-import { shipPlacingLegend } from "../../utils/grid_legends";
+import { shipGridLegend } from "../../utils/grid_legends";
+import useNewGridColors from "../../utils/hooks/use_new_grid_colors";
 
 const PlaceShips = (props) => {
   const [selectedShip, setSelectedShip] = React.useState('carrier');
@@ -23,6 +24,8 @@ const PlaceShips = (props) => {
   const setGameState = props.setGameState;
   const playerShipGrid = props.playerShipGrid;
   const setPlayerShipGrid = props.setPlayerShipGrid;
+
+  useNewGridColors(settings);
 
   // These checks cn probably be refactored out into a separate file
   // Checks if the ship fits within the grid vertically
@@ -134,12 +137,11 @@ const PlaceShips = (props) => {
             }}
             selectedSquare={selectedSquare}
             setSelectedSquare={setSelectedSquare}
-            legend={shipPlacingLegend}
+            legend={shipGridLegend}
             squareSize={3}
             squareSpacing={0.5}
           />
         </Grid>
-
         <Grid item xs={3}>
           <DropdownSelect
             value={selectedShip}

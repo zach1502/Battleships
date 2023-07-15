@@ -2,13 +2,17 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 import SelectionGrid from "../../components/game/selection_grid";
-import { shipGridLegend } from "../../utils/grid_legends";
+import {shipGridLegend} from "../../utils/grid_legends";
+import useNewGridColors from "../../utils/hooks/use_new_grid_colors";
 
 const ShipGrid = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const enemyBattleGrid = props.enemyBattleGrid;
+  const settings = props.settings;
 
-  const mergeGrids = (onTop, onBottom) => {
+  useNewGridColors(settings);
+
+  const mergeGrids = React.useCallback((onTop, onBottom) => {
     const mergedGrid = [...onBottom];
     for (let i = 0; i < onTop.length; i++) {
       for (let j = 0; j < onTop[i].length; j++) {
@@ -17,9 +21,8 @@ const ShipGrid = (props) => {
         }
       }
     }
-
     return mergedGrid;
-  };
+  }, []);
 
   return (
     <>
@@ -39,6 +42,7 @@ const ShipGrid = (props) => {
 ShipGrid.propTypes = {
   playerShipGrid: propTypes.array.isRequired,
   enemyBattleGrid: propTypes.array.isRequired,
+  settings: propTypes.object.isRequired,
 };
 
 export default ShipGrid;

@@ -1,90 +1,131 @@
-        import React from "react";
-        import { Grid, Button, Typography, Slider, Box} from "@mui/material";
+import React from "react";
+import { Grid, Button, Typography, Checkbox} from "@mui/material";
+import { Slider } from "../components/general/slider";
+import {ColorPicker} from "../components/general/color_picker";
 
-        function valuetext(value) {
-            return `${value}°C`;
-        }
+const Settings = (props) => {
+  const settings = props.settings;
+  const setSettings = props.setSettings;
 
-        const Settings = (props) => {
-            const [checked, setChecked] = React.useState(false); 
-            function handleChange(e) {
-                setChecked(e.target.checked);
-            }
-            return (
-                <>
-                <Grid container direction="column" justifyContent="space-evenly" alignItems="center">
-                    <Typography variant="h2" component="div" gutterBottom>
-                        Settings
-                    </Typography>
+  return (
+    <>
+      <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+        <Grid item xs={12} align='center'>
+          <Typography variant="h2" component="div">
+            Settings
+          </Typography>
+        </Grid>
 
-                    <Typography variant="h5" component="div" align='center'>
-                        Master Volume
-                    </Typography>
+        <Grid item xs={12} align='center'>
+          <Slider
+            label="Master Volume"
+            value={settings.masterVolume}
+            setValue={(value) => {
+              setSettings({
+                ...settings,
+                masterVolume: value,
+              });
+            }}
+            min={0}
+            max={100}
+            step={1}
+            defaultValue={30}
+          />
+        </Grid>
 
-                    <Box sx={{ width: 300}}>
-                        <Slider
-                            aria-label="Master Volume"
-                            defaultValue={30}
-                            getAriaValueText={valuetext}
-                            step={1}
-                            marks
-                            min={0}
-                            max={100}
-                            valueLabelDisplay="auto"
-                        />
-                    </Box>
-                        
-                    <Typography variant="h5" component="div" align='center'>
-                        Music
-                    </Typography>
+        <Grid item xs={12} align='center'>
+          <Slider
+            label="Music Volume"
+            value={settings.musicVolume}
+            setValue={(value) => {
+              setSettings({
+                ...settings,
+                musicVolume: value,
+              });
+            }}
+            min={0}
+            max={100}
+            step={1}
+            defaultValue={30}
+          />
+        </Grid>
 
-                    <Box sx={{ width: 300}}>
-                    <Slider
-                        aria-label="Music"
-                        defaultValue={30}
-                        getAriaValueText={valuetext}
-                        step={1}
-                        marks
-                        min={0}
-                        max={100}
-                        valueLabelDisplay="auto"
-                    />
-                    </Box>
+        <Grid item xs={12} align='center'>
+          <Slider
+            label="Effects Volume"
+            value={settings.sfxVolume}
+            setValue={(value) => {
+              setSettings({
+                ...settings,
+                sfxVolume: value,
+              });
+            }}
+            min={0}
+            max={100}
+            step={1}
+            defaultValue={30}
+          />
+        </Grid>
+        
+        {/* color pickers */}
+        <Grid item xs={4} align='center'>
+          <ColorPicker
+            color={settings.gridHitColor}
+            setColor={(color) => {
+              setSettings({
+                ...settings,
+                gridHitColor: color,
+              });
+            }}
+            label={"  Grid Hit Color"}
+          />
+        </Grid>
+        <Grid item xs={4} align='center'>
+          <ColorPicker
+            color={settings.gridMissColor}
+            setColor={(color) => {
+              setSettings({
+                ...settings,
+                gridMissColor: color,
+              });
+            }}
+            label={" Grid Miss Color"}
+          />
+        </Grid>
+        <Grid item xs={4} align='center'>
+          <ColorPicker
+            color={settings.gridBlankColor}
+            setColor={(color) => {
+              setSettings({
+                ...settings,
+                gridBlankColor: color,
+              });
+            }}
+            label={"Grid Blank Color"}
+          />
+        </Grid>
 
-                    <Typography variant="h5" component="div" align='center'>
-                        Effects
-                    </Typography>
+        <Grid item xs={12} align='center'>
+          <Typography variant="body1" component="div" align='center'>
+            Enable Animation?
+            <Checkbox
+              checked={settings.enableAnimation}
+              onChange={(event) => {
+                setSettings({
+                  ...settings,
+                  enableAnimation: event.target.checked,
+                });
+              }}
+              inputProps={{ 'aria-label': 'controlled' }}
+            />
+          </Typography>
+        </Grid>
+        <Grid item xs={12} align='center'>
+          <Button variant="contained" align='center' href="/">Back to main menu</Button>
+        </Grid>
+      </Grid>
+    </>
+  );
+};
 
-                    <Box sx={{ width: 300}}>
-                    <Slider
-                        aria-label="Effects"
-                        defaultValue={30}
-                        getAriaValueText={valuetext}
-                        step={1}
-                        marks
-                        min={0}
-                        max={100}
-                        valueLabelDisplay="auto"
-                    />
-                    </Box>   
-
-                    <Typography variant="h5" component="div" align='center'>
-                        Gameplay 
-                    </Typography> 
-
-                    <Typography variant="body1" component="div" align='center'>
-                        Grid Hit: 'red' Grid Miss: 'white' Grid Blank: 'blue'
-                    </Typography> 
-
-                    <Typography variant="body1" component="div" align='center'>
-                        Autosave? <input value = "test" type = "checkbox" onChange = {handleChange} /> Enable Animation?   <input value = "test" type = "checkbox" onChange = {handleChange}/>
-                    </Typography>
-
-                    <Button variant="contained"  align='center' href="/">Back to main menu</Button>
-
-                </Grid>
-                </>
-            );
-        };
-
-        export default Settings;
+export default Settings;

@@ -22,6 +22,8 @@ const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => 
   const newEnemyBattleGrid = [...enemyBattleGrid];
   newEnemyBattleGrid[row][col] = shotResult;
   setEnemyBattleGrid(newEnemyBattleGrid);
+
+  return shotResult;
 }
 
 export {

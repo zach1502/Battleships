@@ -15,6 +15,13 @@ const INITIAL_GAME_STATE = {
 
 const DEFAULT_SETTINGS = {
   gridSize: 10,
+  masterVolume: 30,
+  musicVolume: 30,
+  sfxVolume: 30,
+  gridHitColor: "#ff0000",
+  gridMissColor: "#ffffff",
+  gridBlankColor: "#add8e6",
+  enableAnimation: true,
 };
 
 export { 
