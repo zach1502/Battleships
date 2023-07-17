@@ -26,7 +26,6 @@ const CustomSlider = (props) => {
           <Slider sx={{width: 300}}
             value={value}
             onChange={(_, newValue) => {
-              console.log("Slider changed " + newValue);
               setValue(newValue);
             }}
             defaultValue={defaultValue}

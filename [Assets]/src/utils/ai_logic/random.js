@@ -26,6 +26,4 @@ const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => 
   return shotResult;
 }
 
-export {
-  makeRandomShot,
-};
+export default makeRandomShot;

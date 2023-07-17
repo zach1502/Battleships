@@ -13,7 +13,7 @@ const ShipGrid = (props) => {
   useNewGridColors(settings);
 
   const mergeGrids = React.useCallback((onTop, onBottom) => {
-    const mergedGrid = [...onBottom];
+    const mergedGrid = JSON.parse(JSON.stringify(onBottom));
     for (let i = 0; i < onTop.length; i++) {
       for (let j = 0; j < onTop[i].length; j++) {
         if (onTop[i][j] !== null) {

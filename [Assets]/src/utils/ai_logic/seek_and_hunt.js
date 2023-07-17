@@ -25,11 +25,6 @@ const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   let shotPosition = null;
   let shotResult = null;
 
-  console.log("currentAIState", state.currentAIState);
-  console.log("lastHitPosition", state.lastHitPosition);
-  console.log("targetDirections", state.targetDirections);
-  console.log("toTryPositions", state.toTryPositions);
-
   if (state.currentAIState === AIStates.seek) {
     shotPosition = getRandomShotPosition(enemyBattleGrid);
     if (!shotPosition) return;
@@ -163,6 +158,4 @@ const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerSh
   return shotResult;
 };
 
-export {
-  makeSmartShot,
-};
+export default makeSmartShot;

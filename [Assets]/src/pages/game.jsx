@@ -9,11 +9,16 @@ import GameLogDisplay from '../scenes/game/game_log_display';
 import ShipGrid from '../scenes/game/ship_grid';
 import PlaceShips from '../scenes/game/place_ships';
 
+// Hooks
 import { useLocalStorage } from '../utils/hooks/use_local_storage';
 import { useSoundEffect } from '../utils/hooks/use_sound_effect';
+
+// AI Logic options
+import { makeRandomShot, makeSmartShot, makeSmarterShot } from '../utils/ai_logic/index';
+
+import Heatmap from '../utils/ai_logic/heat_map_debug';
+
 import { placeEnemyShips } from '../utils/ship_placement';
-import { makeRandomShot } from '../utils/ai_logic/random';
-import { makeSmartShot } from '../utils/ai_logic/seek_and_hunt';
 import { INITIAL_GAME_STATE } from '../utils/constants';
 
 const GameContent = (props) => {
@@ -28,6 +33,8 @@ const GameContent = (props) => {
   const enemyBattleGrid = props.enemyBattleGrid;
   const handleForfeit = props.handleForfeit;
   const settings = props.settings;
+
+  const currentHeatMap = props.currentHeatMap;
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -80,6 +87,10 @@ const GameContent = (props) => {
           Help
         </Button>
       </Grid>
+
+      <Grid item xs={12}>
+        <Heatmap currentHeatMap={currentHeatMap} />
+      </Grid>
     </Grid>
   );
 }
@@ -108,6 +119,8 @@ const Game = (props) => {
   const [enemyShipGrid, setEnemyShipGrid] = useLocalStorage('enemyShipGrid', createGrid(settings.gridSize));
   const [gameLog, setGameLog] = useLocalStorage('gameLog', []);
   const [gameState, setGameState] = useLocalStorage('gameState', INITIAL_GAME_STATE);
+
+  const [currentHeatMap, setCurrentHeatMap] = React.useState([]);
 
   const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3');
   const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3');
@@ -142,14 +155,14 @@ const Game = (props) => {
   // AI Logic, triggered when it's the AI's turn
   React.useEffect(() => {
     let timeoutId = null;
-    console.log(gameState)
+
     if (!gameState.playerTurn) {
 
       // AI is "thinking"
       timeoutId = setTimeout(() => {
         // AI makes a shot
 
-        const shotResult = makeSmartShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+        const shotResult = makeSmarterShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
         (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
         setGameLog([...gameLog, shotResult]);
       }, 2000);
@@ -157,7 +170,7 @@ const Game = (props) => {
       // AI is done "thinking"
       timeoutId = setTimeout(() => {
         setGameState({...gameState, playerTurn: true});
-      }, 500);
+      }, 1000);
     }
 
     return () => {
@@ -166,28 +179,7 @@ const Game = (props) => {
     }
   }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState]);
 
-  if (gameState.allPlayerShipsPlaced && gameState.playerReadyToPlay) {
-    return (
-      <>
-        <GameContent
-          gameState={gameState}
-          setGameState={setGameState}
-          playerBattleGrid={playerBattleGrid}
-          setPlayerBattleGrid={setPlayerBattleGrid}
-          enemyBattleGrid={enemyBattleGrid}
-          setEnemyBattleGrid={setEnemyBattleGrid}
-          playerShipGrid={playerShipGrid}
-          setPlayerShipGrid={setPlayerShipGrid}
-          enemyShipGrid={enemyShipGrid}
-          setEnemyShipGrid={setEnemyShipGrid}
-          gameLog={gameLog}
-          setGameLog={setGameLog}
-          handleForfeit={handleForfeit}
-          settings={settings}
-        />
-      </>
-    );
-  } else {
+  if (!gameState.allPlayerShipsPlaced || !gameState.playerReadyToPlay) {
     return (
       <PlaceShips
         settings={settings}
@@ -198,6 +190,28 @@ const Game = (props) => {
       />
     );
   }
+
+  return (
+    <>
+      <GameContent
+        gameState={gameState}
+        setGameState={setGameState}
+        playerBattleGrid={playerBattleGrid}
+        setPlayerBattleGrid={setPlayerBattleGrid}
+        enemyBattleGrid={enemyBattleGrid}
+        setEnemyBattleGrid={setEnemyBattleGrid}
+        playerShipGrid={playerShipGrid}
+        enemyShipGrid={enemyShipGrid}
+        setEnemyShipGrid={setEnemyShipGrid}
+        gameLog={gameLog}
+        setGameLog={setGameLog}
+        handleForfeit={handleForfeit}
+        settings={settings}
+
+        currentHeatMap={currentHeatMap}
+      />
+    </>
+  );
 };
 
 Game.propTypes = {
