@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography, Slider, TextField, Grid } from "@mui/material";
 
-
 const CustomSlider = (props) => {
   const value = props.value;
   const setValue = props.setValue;
@@ -43,6 +42,4 @@ const CustomSlider = (props) => {
 
 };
 
-export {
-  CustomSlider as Slider,
-};
+export default CustomSlider;

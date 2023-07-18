@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid, Button, Typography, Checkbox} from "@mui/material";
-import { Slider } from "../components/general/slider";
-import {ColorPicker} from "../components/general/color_picker";
+import { Slider, ColorPicker } from "../components/general";
 
 const Settings = (props) => {
   const settings = props.settings;
