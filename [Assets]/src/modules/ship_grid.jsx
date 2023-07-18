@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import SelectionGrid from "../components/game/selection_grid";
+import {SelectionGrid} from "../components";
 import {shipGridLegend} from "../utils/grid_legends";
 import useNewGridColors from "../utils/hooks/use_new_grid_colors";
 

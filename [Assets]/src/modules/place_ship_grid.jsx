@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectionGrid from "../components/game/selection_grid";
+import { SelectionGrid } from "../components/";
 import { shipGridLegend } from "../utils/grid_legends";
 import { shipLengths} from "../utils/ship_details";
 
