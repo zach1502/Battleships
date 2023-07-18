@@ -4,10 +4,10 @@ import propTypes from 'prop-types';
 import { Grid, Button } from '@mui/material';
 
 import createGrid from '../utils/create_grid';
-import BattleGrid from '../scenes/game/battle_grid';
-import GameLogDisplay from '../scenes/game/game_log_display';
-import ShipGrid from '../scenes/game/ship_grid';
-import PlaceShips from '../scenes/game/place_ships';
+import BattleGrid from '../modules/battle_grid';
+import GameLogDisplay from '../modules/game_log_display';
+import ShipGrid from '../modules/ship_grid';
+import PlaceShips from '../scenes/place_ships';
 
 // Hooks
 import { useLocalStorage } from '../utils/hooks/use_local_storage';
