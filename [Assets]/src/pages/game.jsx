@@ -156,19 +156,11 @@ const Game = (props) => {
     let timeoutId = null;
 
     if (!gameState.playerTurn) {
-
-      // AI is "thinking"
       timeoutId = setTimeout(() => {
-        // AI makes a shot
-
         const shotResult = makeSmarterShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
         (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
         setGameLog([...gameLog, shotResult]);
-      }, 2000);
-
-      // AI is done "thinking"
-      timeoutId = setTimeout(() => {
-        setGameState({...gameState, playerTurn: true});
+        setGameState((prevState)=> ({...prevState, playerTurn: true}));
       }, 1000);
     }
 

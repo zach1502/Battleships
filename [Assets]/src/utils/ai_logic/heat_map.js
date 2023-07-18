@@ -62,7 +62,7 @@ const createProbabilityGrid = (playerShipGrid, remainingShips) => {
 
 const getNextShotPosition = (enemyBattleGrid, currentHeatMap) => {
   let bestPositions = [];
-  let maxProbability = 0;
+  let maxProbability = -1;
 
   for(let i = 0; i < enemyBattleGrid.length; i++) {
     for(let j = 0; j < enemyBattleGrid[i].length; j++) {
