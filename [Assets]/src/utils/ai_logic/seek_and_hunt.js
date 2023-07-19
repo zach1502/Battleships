@@ -1,11 +1,11 @@
-// DIFFICULTY: MEDIUM
+// DIFFICULTY: EASY
 
 const AIStates = {
   seek: "seek",
   hunt: "hunt",
 };
 
-let state = {
+const DEFAULT_STATE = {
   currentAIState: AIStates.seek,
   lastHitPosition: null,
   targetDirections: [[-1, 0], [1, 0], [0, -1], [0, 1]],  // Up, Down, Left, Right
@@ -20,6 +20,17 @@ let state = {
   }
 };
 
+const saveStateToLocalStorage = (state) => {
+  localStorage.setItem('hunt_and_seek_state', JSON.stringify(state));
+}
+
+const getStateFromLocalStorage = () => {
+  const savedState = localStorage.getItem('hunt_and_seek_state');
+  return savedState ? JSON.parse(savedState) : null;
+}
+
+let state = getStateFromLocalStorage() || DEFAULT_STATE;
+
 const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   console.time("makeSmartShot");
   let shotPosition = null;
@@ -27,12 +38,13 @@ const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
 
   if (state.currentAIState === AIStates.seek) {
     shotPosition = getRandomShotPosition(enemyBattleGrid);
-    if (!shotPosition) return;
     shotResult = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+
     if (shotResult === "hit") {
       state.currentAIState = AIStates.hunt;
       state.lastHitPosition = shotPosition;
       state.toTryPositions = getSurroundingPositions(state.lastHitPosition, enemyBattleGrid);
+      saveStateToLocalStorage(state);
     }
   } else if (state.currentAIState === AIStates.hunt) {
     if (state.toTryPositions.length === 0) {
@@ -45,11 +57,13 @@ const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
       if (shotResult === "hit") {
         state.lastHitPosition = shotPosition;
         state.toTryPositions = state.toTryPositions.concat(getSurroundingPositions(state.lastHitPosition, enemyBattleGrid));
+        saveStateToLocalStorage(state);
       }
     }
   }
 
   updateSmallShipSize(playerShipGrid, enemyBattleGrid);
+  saveStateToLocalStorage(state);
 
   console.timeEnd("makeSmartShot");
 

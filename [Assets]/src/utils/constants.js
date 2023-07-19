@@ -1,16 +1,16 @@
 const INITIAL_GAME_STATE = {
-    playerTurn: true,
-    gameOver: false,
-    winner: null,
-    playerReadyToPlay: false,
-    allPlayerShipsPlaced: false,
-    playerShipsPlaced: {
-      carrier: false,
-      battleship: false,
-      cruiser: false,
-      submarine: false,
-      destroyer: false,
-    },
+  playerTurn: true,
+  gameOver: false,
+  winner: null,
+  playerReadyToPlay: false,
+  allPlayerShipsPlaced: false,
+  playerShipsPlaced: {
+    carrier: false,
+    battleship: false,
+    cruiser: false,
+    submarine: false,
+    destroyer: false,
+  },
 };
 
 const DEFAULT_SETTINGS = {
@@ -22,10 +22,10 @@ const DEFAULT_SETTINGS = {
   gridMissColor: "#ffffff",
   gridBlankColor: "#add8e6",
   enableAnimation: true,
+  difficulty: null,
 };
 
-export { 
-    INITIAL_GAME_STATE,
-    DEFAULT_SETTINGS,
+export {
+  INITIAL_GAME_STATE,
+  DEFAULT_SETTINGS,
 };
-  

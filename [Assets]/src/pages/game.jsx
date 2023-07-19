@@ -157,7 +157,7 @@ const Game = (props) => {
 
     if (!gameState.playerTurn) {
       timeoutId = setTimeout(() => {
-        const shotResult = makeSmarterShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
+        const shotResult = makeSmartShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
         (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
         setGameLog([...gameLog, shotResult]);
         setGameState((prevState)=> ({...prevState, playerTurn: true}));

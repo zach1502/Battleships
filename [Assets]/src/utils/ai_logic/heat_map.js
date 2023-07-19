@@ -1,3 +1,5 @@
+// DIFFICULTY: MEDIUM
+
 let currentHeatMap = null;
 
 const originalShipSizes = {

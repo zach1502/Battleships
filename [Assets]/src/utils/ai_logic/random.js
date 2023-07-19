@@ -1,3 +1,5 @@
+// DIFFICULTY: SUPER EASY
+
 const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   let possibleShots = [];
 
