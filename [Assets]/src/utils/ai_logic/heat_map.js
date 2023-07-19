@@ -5,12 +5,12 @@ const HORIZONTAL = [[0, 1], [0, -1]]; // Right, Left
 const VERTICAL = [[1, 0], [-1, 0]]; // Down, Up
 
 const CELL_HIT = 'hit';
+const CELL_MISS = 'miss';
 const DEFAULT_MODIFIER = 0;
 const HIT_MODIFIER = 10;
 const ADJACENT_HIT_MODIFIER = 20;
 
 let currentHeatMap = null;
-let previousRemainingShips = null;
 
 const originalShipSizes = {
   "carrier": 5,
@@ -19,6 +19,9 @@ const originalShipSizes = {
   "submarine": 3,
   "destroyer": 2,
 };
+
+const initializeGrid = (rows, cols, defaultValue = DEFAULT_MODIFIER) => Array(rows).fill().map(() => Array(cols).fill(defaultValue));
+const isValidCoordinate = (x, y, grid) => x >= 0 && y >= 0 && x < grid.length && y < grid[0].length;
 
 const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
   const remainingShips = getRemainingShips(playerShipGrid);
@@ -35,27 +38,20 @@ const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, se
   currentHeatMap = updateHeatMap(shotPosition, shotResult, newEnemyBattleGrid, playerShipGrid, remainingShips, currentHeatMap);
 
   setDebugState(currentHeatMap);
-  previousRemainingShips = remainingShips;
-
-  console.log("currentHeatMap", currentHeatMap);
 
   return shotResult;
 };
 
-const getRemainingShips = (playerShipGrid) => {
-  // set
+const getRemainingShips = (grid) => {
   const remainingShips = new Set();
-  playerShipGrid.forEach(row => 
+  grid.forEach(row => 
     row.forEach(cell => {
-      if(cell !== null && cell !== "hit" && cell !== "miss") {
+      if(cell && cell !== CELL_HIT && cell !== CELL_MISS) {
         remainingShips.add(cell);
       }
     })
   );
-  
-  // convert to array
-  const remainingShipsArray = Array.from(remainingShips);
-  return remainingShipsArray;
+  return Array.from(remainingShips);
 };
 
 const createProbabilityGrid = (playerShipGrid, remainingShips) => {
@@ -96,7 +92,7 @@ const getNextShotPosition = (enemyBattleGrid, currentHeatMap) => {
 const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   const [row, col] = shotPosition;
 
-  const shotResult = playerShipGrid[row][col] !== null ? "hit" : "miss";
+  const shotResult = playerShipGrid[row][col] !== null ? CELL_HIT : CELL_MISS;
 
   // Update enemy battle grid
   const newEnemyBattleGrid = [...enemyBattleGrid];
@@ -109,13 +105,13 @@ const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerSh
 const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid, remainingShips, currentHeatMap) => {
   const [row, col] = shotPosition;
   
-  if (shotResult === "hit") {
+  if (shotResult === CELL_HIT) {
     // increase tracking in the 4 directions around the hit
     for(let i = 0; i < 4; i++) {
       DIRECTIONS.forEach(([rowDir, colDir]) => {
         let i = row + rowDir;
         let j = col + colDir;
-        while(i >= 0 && i < enemyBattleGrid.length && j >= 0 && j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === "hit") {
+        while(i >= 0 && i < enemyBattleGrid.length && j >= 0 && j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === CELL_HIT) {
           currentHeatMap[i][j].tracking++;
           i += rowDir;
           j += colDir;
@@ -131,18 +127,18 @@ const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid
   const trackingGrid = getTrackingModifiers(enemyBattleGrid, playerShipGrid, baseGrid);
 
   // decrease tracking around a sunk ship
-  if (shotResult === "hit") {
+  if (shotResult === CELL_HIT) {
     // Horizontal check
 
     // Check left
     let i = row;
     let j = col - 1;
-    while(j >= 0 && enemyBattleGrid[i][j] === "hit") {
+    while(j >= 0 && enemyBattleGrid[i][j] === CELL_HIT) {
       j--;
     }
     if(j >= 0 && enemyBattleGrid[i][j] === null) {
       j++;
-      while(j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === "hit") {
+      while(j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === CELL_HIT) {
         currentHeatMap[i][j].tracking--;
         j++;
       }
@@ -151,12 +147,12 @@ const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid
     // Check right
     i = row;
     j = col + 1;
-    while(j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === "hit") {
+    while(j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === CELL_HIT) {
       j++;
     }
     if(j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === null) {
       j--;
-      while(j >= 0 && enemyBattleGrid[i][j] === "hit") {
+      while(j >= 0 && enemyBattleGrid[i][j] === CELL_HIT) {
         currentHeatMap[i][j].tracking--;
         j--;
       }
@@ -167,12 +163,12 @@ const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid
     // Check up
     i = row - 1;
     j = col;
-    while(i >= 0 && enemyBattleGrid[i][j] === "hit") {
+    while(i >= 0 && enemyBattleGrid[i][j] === CELL_HIT) {
       i--;
     }
     if(i >= 0 && enemyBattleGrid[i][j] === null) {
       i++;
-      while(i < enemyBattleGrid.length && enemyBattleGrid[i][j] === "hit") {
+      while(i < enemyBattleGrid.length && enemyBattleGrid[i][j] === CELL_HIT) {
         currentHeatMap[i][j].tracking--;
         i++;
       }
@@ -181,12 +177,12 @@ const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid
     // Check down
     i = row + 1;
     j = col;
-    while(i < enemyBattleGrid.length && enemyBattleGrid[i][j] === "hit") {
+    while(i < enemyBattleGrid.length && enemyBattleGrid[i][j] === CELL_HIT) {
       i++;
     }
     if(i < enemyBattleGrid.length && enemyBattleGrid[i][j] === null) {
       i--;
-      while(i >= 0 && enemyBattleGrid[i][j] === "hit") {
+      while(i >= 0 && enemyBattleGrid[i][j] === CELL_HIT) {
         currentHeatMap[i][j].tracking--;
         i--;
       }
@@ -207,7 +203,7 @@ const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid
 
 // function to get the base probability
 const getBaseProbability = (playerShipGrid, remainingShips) => {
-  const baseGrid = Array(playerShipGrid.length).fill().map(() => Array(playerShipGrid[0].length).fill(DEFAULT_MODIFIER));
+  const baseGrid = initializeGrid(playerShipGrid.length, playerShipGrid[0].length, DEFAULT_MODIFIER);
 
   remainingShips.forEach(ship => {
     const shipSize = originalShipSizes[ship];
@@ -217,7 +213,7 @@ const getBaseProbability = (playerShipGrid, remainingShips) => {
       for(let j = 0; j <= playerShipGrid[i].length - shipSize; j++) {
         let potentialSpot = true;
         for(let k = 0; k < shipSize; k++) {
-          if(playerShipGrid[i][j+k] === "miss") {
+          if(playerShipGrid[i][j+k] === CELL_MISS) {
             potentialSpot = false;
             break;
           }
@@ -235,7 +231,7 @@ const getBaseProbability = (playerShipGrid, remainingShips) => {
       for(let j = 0; j < playerShipGrid[0].length; j++) {
         let potentialSpot = true;
         for(let k = 0; k < shipSize; k++) {
-          if(playerShipGrid[i+k][j] === "miss") {
+          if(playerShipGrid[i+k][j] === CELL_MISS) {
             potentialSpot = false;
             break;
           }
@@ -254,14 +250,14 @@ const getBaseProbability = (playerShipGrid, remainingShips) => {
 
 // Function to get the tracking modifiers
 const getTrackingModifiers = (enemyBattleGrid, playerShipGrid, baseGrid) => {
-  const trackingGrid = Array(enemyBattleGrid.length).fill().map(() => Array(enemyBattleGrid[0].length).fill(0));
+  const trackingGrid = initializeGrid(enemyBattleGrid.length, enemyBattleGrid[0].length, DEFAULT_MODIFIER);
 
   if (!baseGrid) return trackingGrid;
 
   const remainingShipLengths = JSON.parse(JSON.stringify(originalShipSizes));
   playerShipGrid.forEach((row, i) => {
     row.forEach((cell, j) => {
-      if (cell !== null && enemyBattleGrid[i][j] === "hit") {
+      if (cell !== null && enemyBattleGrid[i][j] === CELL_HIT) {
         remainingShipLengths[cell]--;
       }
     });
@@ -276,7 +272,7 @@ const getTrackingModifiers = (enemyBattleGrid, playerShipGrid, baseGrid) => {
           DIRECTIONS.forEach(([dx, dy]) => {
             // set the tracking modifier to 0 for all cells around the sunk ship
             const x = i + dx, y = j + dy;
-            if(x >= 0 && y >= 0 && x < enemyBattleGrid.length && y < enemyBattleGrid[0].length) {
+            if(isValidCoordinate(x, y, enemyBattleGrid)) {
               trackingGrid[x][y] = 0;
             }
           });
@@ -290,8 +286,8 @@ const getTrackingModifiers = (enemyBattleGrid, playerShipGrid, baseGrid) => {
         let adjacentHits = [];
         DIRECTIONS.forEach(([dx, dy]) => {
           const x = i + dx, y = j + dy;
-          if(x >= 0 && y >= 0 && x < enemyBattleGrid.length && y < enemyBattleGrid[0].length) {
-            if(enemyBattleGrid[x][y] === "hit") {
+          if(isValidCoordinate(x, y, enemyBattleGrid)) {
+            if(enemyBattleGrid[x][y] === CELL_HIT) {
               adjacentHits.push([dx, dy]); // This direction has a hit
               horizontalHit = horizontalHit || HORIZONTAL.includes([dx, dy]);
               verticalHit = verticalHit || VERTICAL.includes([dx, dy]);
@@ -306,7 +302,7 @@ const getTrackingModifiers = (enemyBattleGrid, playerShipGrid, baseGrid) => {
           adjacentHits.forEach(([dx, dy]) => {
             let x = i + dx
             let y = j + dy;
-            while(x >= 0 && y >= 0 && x < enemyBattleGrid.length && y < enemyBattleGrid[0].length && enemyBattleGrid[x][y] === null) {
+            while(isValidCoordinate(x, y, enemyBattleGrid) && enemyBattleGrid[x][y] === null) {
               // Increase the modifier in the direction of hits
               if(horizontalHit && HORIZONTAL.includes([dx, dy]) || verticalHit && VERTICAL.includes([dx, dy])){
                 trackingGrid[x][y] += ADJACENT_HIT_MODIFIER;
