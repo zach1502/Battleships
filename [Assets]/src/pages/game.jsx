@@ -17,6 +17,13 @@ import { makeRandomShot, makeSmartShot, makeSmarterShot } from '../utils/ai_logi
 import { placeEnemyShips } from '../utils/ship_placement';
 import { INITIAL_GAME_STATE } from '../utils/constants';
 
+const AI_LOGIC_OPTIONS = {
+  'easy': makeRandomShot,
+  'medium': makeSmartShot,
+  'hard': makeSmarterShot,
+  'impossible': makeSmarterShot, // TEMP: use the same logic as hard for now
+};
+
 const Game = (props) => {
   const setStats = props.setStats;
   const settings = props.settings;
@@ -70,7 +77,8 @@ const Game = (props) => {
 
     if (!gameState.playerTurn) {
       timeoutId = setTimeout(() => {
-        const shotResult = makeSmarterShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
+        const shotLogic = AI_LOGIC_OPTIONS[selectedDifficulty];
+        const shotResult = shotLogic(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
         (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
         setGameLog([...gameLog, shotResult]);
         setGameState((prevState)=> ({...prevState, playerTurn: true}));
