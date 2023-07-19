@@ -57,7 +57,7 @@ const PickDifficulty = (props) => {
             </Grid>
             {renderDifficultyOptions()}
 
-            <Grid item xs={12}>
+            <Grid item xs={6}>
                 <Button
                     variant="contained"
                     color="success"
@@ -69,6 +69,15 @@ const PickDifficulty = (props) => {
                     }}
                 >
                     Start Game
+                </Button>
+            </Grid>
+            <Grid item xs={6}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    href="/"
+                >
+                    Main Menu
                 </Button>
             </Grid>
         </Grid>
