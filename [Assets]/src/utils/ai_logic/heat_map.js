@@ -28,8 +28,6 @@ const isValidCoordinate = (x, y, grid) => x >= 0 && y >= 0 && x < grid.length &&
 const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
   console.time("makeSmarterShot");
 
-  console.log(currentHeatMap)
-
   const remainingShips = getRemainingShips(playerShipGrid);
 
   if (!currentHeatMap) {
