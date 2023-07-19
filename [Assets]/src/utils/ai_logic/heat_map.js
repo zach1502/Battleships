@@ -1,5 +1,7 @@
 // DIFFICULTY: MEDIUM
 
+import { NATURAL_BIAS_GRID } from "../constants";
+
 const DIRECTIONS = [[0, 1], [1, 0], [0, -1], [-1, 0]]; // Right, Down, Left, Up
 const HORIZONTAL = [[0, 1], [0, -1]]; // Right, Left
 const VERTICAL = [[1, 0], [-1, 0]]; // Down, Up
@@ -24,6 +26,10 @@ const initializeGrid = (rows, cols, defaultValue = DEFAULT_MODIFIER) => Array(ro
 const isValidCoordinate = (x, y, grid) => x >= 0 && y >= 0 && x < grid.length && y < grid[0].length;
 
 const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
+  console.time("makeSmarterShot");
+
+  console.log(currentHeatMap)
+
   const remainingShips = getRemainingShips(playerShipGrid);
 
   if (!currentHeatMap) {
@@ -39,6 +45,7 @@ const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, se
 
   setDebugState(currentHeatMap);
 
+  console.timeEnd("makeSmarterShot");
   return shotResult;
 };
 
@@ -61,6 +68,7 @@ const createProbabilityGrid = (playerShipGrid, remainingShips) => {
   const probabilityGrid = baseGrid.map((row, i) => row.map((cell, j) => ({
     base: cell,
     tracking: trackingGrid[i][j],
+    bias: NATURAL_BIAS_GRID[i][j],
   })));
 
   return probabilityGrid;
@@ -74,7 +82,7 @@ const getNextShotPosition = (enemyBattleGrid, currentHeatMap) => {
     for(let j = 0; j < enemyBattleGrid[i].length; j++) {
       if(enemyBattleGrid[i][j] !== null) continue; // Skip cells that have already been shot
 
-      const cellProbability = currentHeatMap[i][j].base + currentHeatMap[i][j].tracking;
+      const cellProbability = currentHeatMap[i][j].base + currentHeatMap[i][j].tracking + currentHeatMap[i][j].bias;
       
       if(cellProbability > maxProbability) {
         bestPositions = [i, j];
@@ -111,7 +119,7 @@ const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid
       DIRECTIONS.forEach(([rowDir, colDir]) => {
         let i = row + rowDir;
         let j = col + colDir;
-        while(i >= 0 && i < enemyBattleGrid.length && j >= 0 && j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === CELL_HIT) {
+        while(isValidCoordinate(i, j, enemyBattleGrid) && enemyBattleGrid[i][j] === CELL_HIT) {
           currentHeatMap[i][j].tracking++;
           i += rowDir;
           j += colDir;
@@ -126,75 +134,12 @@ const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid
   // Calculate tracking modifiers
   const trackingGrid = getTrackingModifiers(enemyBattleGrid, playerShipGrid, baseGrid);
 
-  // decrease tracking around a sunk ship
-  if (shotResult === CELL_HIT) {
-    // Horizontal check
-
-    // Check left
-    let i = row;
-    let j = col - 1;
-    while(j >= 0 && enemyBattleGrid[i][j] === CELL_HIT) {
-      j--;
-    }
-    if(j >= 0 && enemyBattleGrid[i][j] === null) {
-      j++;
-      while(j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === CELL_HIT) {
-        currentHeatMap[i][j].tracking--;
-        j++;
-      }
-    }
-
-    // Check right
-    i = row;
-    j = col + 1;
-    while(j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === CELL_HIT) {
-      j++;
-    }
-    if(j < enemyBattleGrid[i].length && enemyBattleGrid[i][j] === null) {
-      j--;
-      while(j >= 0 && enemyBattleGrid[i][j] === CELL_HIT) {
-        currentHeatMap[i][j].tracking--;
-        j--;
-      }
-    }
-
-    // Vertical check
-
-    // Check up
-    i = row - 1;
-    j = col;
-    while(i >= 0 && enemyBattleGrid[i][j] === CELL_HIT) {
-      i--;
-    }
-    if(i >= 0 && enemyBattleGrid[i][j] === null) {
-      i++;
-      while(i < enemyBattleGrid.length && enemyBattleGrid[i][j] === CELL_HIT) {
-        currentHeatMap[i][j].tracking--;
-        i++;
-      }
-    }
-
-    // Check down
-    i = row + 1;
-    j = col;
-    while(i < enemyBattleGrid.length && enemyBattleGrid[i][j] === CELL_HIT) {
-      i++;
-    }
-    if(i < enemyBattleGrid.length && enemyBattleGrid[i][j] === null) {
-      i--;
-      while(i >= 0 && enemyBattleGrid[i][j] === CELL_HIT) {
-        currentHeatMap[i][j].tracking--;
-        i--;
-      }
-    }
-  }
-
   // Update current heat map
-
   for(let i = 0; i < enemyBattleGrid.length; i++) {
     for(let j = 0; j < enemyBattleGrid[i].length; j++) {
       currentHeatMap[i][j].base = baseGrid[i][j];
       currentHeatMap[i][j].tracking = trackingGrid[i][j];
+      currentHeatMap[i][j].bias = NATURAL_BIAS_GRID[i][j];
     }
   }
 

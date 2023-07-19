@@ -15,16 +15,16 @@ const Heatmap = ({ currentHeatMap }) => {
         <>
           <div key={i} className="heatmap-row" style={{display: 'flex'}}>
             {row.map((cell, j) => {
-              const heatValue = (cell.base + cell.tracking) / maxHeat * 255;
+              const heatValue = (cell.base + cell.tracking + cell.bias) / maxHeat * 255;
               const color = `rgb(${255 - heatValue}, ${255 - heatValue}, 255)`;
               return (
                 <div
                   key={j}
                   className="heatmap-cell"
                   style={{ backgroundColor: color, height: '20px', width: '20px' }}
-                  title={`base: ${cell.base}, tracking: ${cell.tracking}`}
+                  title={`base: ${cell.base}, tracking: ${cell.tracking}, bias: ${cell.bias}`}
                 >
-                  {cell.base + cell.tracking}
+                  {cell.base + cell.tracking + cell.bias}
                 </div>
               );
             })}
