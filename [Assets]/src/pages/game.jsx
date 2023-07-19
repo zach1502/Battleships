@@ -46,21 +46,6 @@ const Game = (props) => {
     setSelectedTrack(1);  // Play the first track when the game starts
   }, []);
 
-  const handleForfeit = React.useCallback(() => {
-    // remove specific local storage items
-    localStorage.removeItem('playerBattleGrid');
-    localStorage.removeItem('enemyBattleGrid');
-    localStorage.removeItem('playerShipGrid');
-    localStorage.removeItem('enemyShipGrid');
-    localStorage.removeItem('gameLog');
-    localStorage.removeItem('gameState');
-    localStorage.removeItem('hunt_and_seek_state');
-    localStorage.removeItem('selectedDifficulty');
-
-    // refresh page
-    window.location.reload();
-  }, []);
-
   // place enemy ships randomly
   const placeEnemyShipsIfNeeded = React.useCallback(() => {
     if (gameState.allPlayerShipsPlaced && !gameState.playerReadyToPlay) {
@@ -126,7 +111,6 @@ const Game = (props) => {
         setEnemyShipGrid={setEnemyShipGrid}
         gameLog={gameLog}
         setGameLog={setGameLog}
-        handleForfeit={handleForfeit}
         settings={settings}
 
         currentHeatMap={currentHeatMap}

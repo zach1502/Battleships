@@ -16,10 +16,24 @@ const GameContent = (props) => {
   const setGameState = props.setGameState;
   const playerShipGrid = props.playerShipGrid;
   const enemyBattleGrid = props.enemyBattleGrid;
-  const handleForfeit = props.handleForfeit;
   const settings = props.settings;
 
   const currentHeatMap = props.currentHeatMap;
+
+  const handleForfeit = React.useCallback(() => {
+    // remove specific local storage items
+    localStorage.removeItem('playerBattleGrid');
+    localStorage.removeItem('enemyBattleGrid');
+    localStorage.removeItem('playerShipGrid');
+    localStorage.removeItem('enemyShipGrid');
+    localStorage.removeItem('gameLog');
+    localStorage.removeItem('gameState');
+    localStorage.removeItem('hunt_and_seek_state');
+    localStorage.removeItem('selectedDifficulty');
+
+    // go to the main menu
+    window.location.href = '/';
+  }, []);
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
