@@ -136,6 +136,7 @@ const Game = (props) => {
     localStorage.removeItem('enemyShipGrid');
     localStorage.removeItem('gameLog');
     localStorage.removeItem('gameState');
+    localStorage.removeItem('hunt_and_seek_state');
 
     // refresh page
     window.location.reload();
