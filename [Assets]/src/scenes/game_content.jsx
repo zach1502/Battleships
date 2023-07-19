@@ -87,9 +87,9 @@ const GameContent = (props) => {
         </Button>
       </Grid>
 
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <Heatmap currentHeatMap={currentHeatMap} />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }
