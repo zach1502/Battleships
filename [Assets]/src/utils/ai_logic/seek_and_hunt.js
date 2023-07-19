@@ -14,7 +14,6 @@ const getStateFromLocalStorage = () => {
 let state = getStateFromLocalStorage() || DEFAULT_SEEK_AND_HUNT_STATE;
 
 const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
-  console.time("makeSmartShot");
   let shotPosition = null;
   let shotResult = null;
 
@@ -46,8 +45,6 @@ const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
 
   updateSmallShipSize(playerShipGrid, enemyBattleGrid);
   saveStateToLocalStorage(state);
-
-  console.timeEnd("makeSmartShot");
 
   return shotResult;
 };

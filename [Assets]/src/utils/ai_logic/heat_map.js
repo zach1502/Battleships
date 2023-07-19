@@ -26,8 +26,6 @@ const initializeGrid = (rows, cols, defaultValue = DEFAULT_MODIFIER) => Array(ro
 const isValidCoordinate = (x, y, grid) => x >= 0 && y >= 0 && x < grid.length && y < grid[0].length;
 
 const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
-  console.time("makeSmarterShot");
-
   const remainingShips = getRemainingShips(playerShipGrid);
 
   if (!currentHeatMap) {
@@ -42,8 +40,6 @@ const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, se
   currentHeatMap = updateHeatMap(shotPosition, shotResult, newEnemyBattleGrid, playerShipGrid, remainingShips, currentHeatMap);
 
   setDebugState(currentHeatMap);
-
-  console.timeEnd("makeSmarterShot");
   return shotResult;
 };
 
