@@ -1,24 +1,6 @@
 // DIFFICULTY: EASY
 
-const AIStates = {
-  seek: "seek",
-  hunt: "hunt",
-};
-
-const DEFAULT_STATE = {
-  currentAIState: AIStates.seek,
-  lastHitPosition: null,
-  targetDirections: [[-1, 0], [1, 0], [0, -1], [0, 1]],  // Up, Down, Left, Right
-  toTryPositions: [],
-  smallestShipSize: 2,
-  remainingShipLengths: {
-    "carrier": 5,
-    "battleship": 4,
-    "cruiser": 3,
-    "submarine": 3,
-    "destroyer": 2,
-  }
-};
+import { AI_STATES, DEFAULT_SEEK_AND_HUNT_STATE } from "../constants";
 
 const saveStateToLocalStorage = (state) => {
   localStorage.setItem('hunt_and_seek_state', JSON.stringify(state));
@@ -29,26 +11,26 @@ const getStateFromLocalStorage = () => {
   return savedState ? JSON.parse(savedState) : null;
 }
 
-let state = getStateFromLocalStorage() || DEFAULT_STATE;
+let state = getStateFromLocalStorage() || DEFAULT_SEEK_AND_HUNT_STATE;
 
 const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   console.time("makeSmartShot");
   let shotPosition = null;
   let shotResult = null;
 
-  if (state.currentAIState === AIStates.seek) {
+  if (state.currentAIState === AI_STATES.seek) {
     shotPosition = getRandomShotPosition(enemyBattleGrid);
     shotResult = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
 
     if (shotResult === "hit") {
-      state.currentAIState = AIStates.hunt;
+      state.currentAIState = AI_STATES.hunt;
       state.lastHitPosition = shotPosition;
       state.toTryPositions = getSurroundingPositions(state.lastHitPosition, enemyBattleGrid);
       saveStateToLocalStorage(state);
     }
-  } else if (state.currentAIState === AIStates.hunt) {
+  } else if (state.currentAIState === AI_STATES.hunt) {
     if (state.toTryPositions.length === 0) {
-      state.currentAIState = AIStates.seek;
+      state.currentAIState = AI_STATES.seek;
       state.lastHitPosition = null;
       return makeSmartShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid); // revert back to seek
     } else {
