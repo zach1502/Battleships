@@ -9,8 +9,8 @@ import Credits from "./pages/credits";
 import Settings from './pages/settings';
 import Achievements from './pages/achievements';
 import Help from './pages/help';
-import BackgroundMusic from './components/musicplayer';
-import SoundEffects from './components/soundeffects';
+import BackgroundMusic from './components/background_music';
+import SoundEffects from './components/sound_effects';
 
 import { DEFAULT_SETTINGS } from './utils/constants';
 import { useLocalStorage } from './utils/hooks/use_local_storage';

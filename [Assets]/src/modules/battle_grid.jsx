@@ -1,11 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import SelectionGrid from "../../components/game/selection_grid";
+import { SelectionGrid } from "../components/";
 
-import { shipGridLegend } from "../../utils/grid_legends";
-import useNewGridColors from "../../utils/hooks/use_new_grid_colors";
-import { useSoundEffect } from '../../utils/hooks/use_sound_effect';
+import { shipGridLegend } from "../utils/grid_legends";
+import useNewGridColors from "../utils/hooks/use_new_grid_colors";
+import { useSoundEffect } from '../utils/hooks/use_sound_effect';
 
 const BattleGrid = (props) => {
   const gameState = props.gameState;
@@ -50,7 +50,6 @@ const BattleGrid = (props) => {
           }
           setPlayerBattleGrid(newGrid);
 
-          console.log("You clicked on: " + row + ", " + col);
           setSelectedSquare(null);
 
           // flip game state

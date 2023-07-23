@@ -42,6 +42,4 @@ const ColorPicker = (props) => {
   );
 }
 
-export {
-  ColorPicker,
-}
+export default ColorPicker;

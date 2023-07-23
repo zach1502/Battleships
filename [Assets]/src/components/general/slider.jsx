@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography, Slider, TextField, Grid } from "@mui/material";
 
-
 const CustomSlider = (props) => {
   const value = props.value;
   const setValue = props.setValue;
@@ -26,7 +25,6 @@ const CustomSlider = (props) => {
           <Slider sx={{width: 300}}
             value={value}
             onChange={(_, newValue) => {
-              console.log("Slider changed " + newValue);
               setValue(newValue);
             }}
             defaultValue={defaultValue}
@@ -44,6 +42,4 @@ const CustomSlider = (props) => {
 
 };
 
-export {
-  CustomSlider as Slider,
-};
+export default CustomSlider;
