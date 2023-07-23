@@ -6,6 +6,7 @@ import createGrid from '../utils/create_grid';
 import PlaceShips from '../scenes/place_ships';
 import PickDifficulty from '../scenes/pick_difficulty';
 import GameContent from '../scenes/game_content';
+import WinScreen from '../scenes/win_screen';
 
 // Hooks
 import { useLocalStorage } from '../utils/hooks/use_local_storage';
@@ -75,6 +76,35 @@ const Game = (props) => {
       clearTimeout(timeoutId);
     }
   }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState]);
+
+  React.useEffect(() => {
+    const enemyShots = enemyBattleGrid.flat();
+    const playerShots = playerBattleGrid.flat();
+
+    // hit counts
+    const enemyHitCount = enemyShots.filter((shot) => shot === 'hit').length;
+    const playerHitCount = playerShots.filter((shot) => shot === 'hit').length;
+
+    if (playerHitCount === 17) {
+      setGameState((prevState) => ({...prevState, gameOver: true, playerWon: true}));
+      setStats((prevState) => ({...prevState, wins: prevState.wins + 1}));
+    }
+
+    // if 17 hits, game over
+    if (enemyHitCount === 17) {
+      setGameState((prevState) => ({...prevState, gameOver: true, playerWon: false}));
+      setStats((prevState) => ({...prevState, losses: prevState.losses + 1}));
+    }
+
+  }, [enemyBattleGrid, playerShipGrid]);
+
+  if (gameState.gameOver) {
+    return (
+      <WinScreen
+        gameState={gameState}
+      />
+    )
+  }
 
   if (!selectedDifficulty) {
     return (

@@ -1,7 +1,7 @@
 const INITIAL_GAME_STATE = {
   playerTurn: true,
   gameOver: false,
-  winner: null,
+  playerWon: null,
   playerReadyToPlay: false,
   allPlayerShipsPlaced: false,
   playerShipsPlaced: {
