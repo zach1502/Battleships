@@ -17,6 +17,7 @@ const GameContent = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const enemyBattleGrid = props.enemyBattleGrid;
   const settings = props.settings;
+  const setStats = props.setStats;
 
   const currentHeatMap = props.currentHeatMap;
 
@@ -31,6 +32,11 @@ const GameContent = (props) => {
     localStorage.removeItem('hunt_and_seek_state');
     localStorage.removeItem('selectedDifficulty');
     localStorage.removeItem('statsUpdated');
+
+    setStats((prevState) => ({ ...prevState, 
+      forfeits: prevState.forfeits + 1 || 1,
+      losses: prevState.losses + 1 || 1,
+    }));
 
     // go to the main menu
     window.location.href = '/';
@@ -55,6 +61,7 @@ const GameContent = (props) => {
           setGameLog={setGameLog}
           gameLog={gameLog}
           settings={settings}
+          setStats={setStats}
         />
       </Grid>
       <Grid item xs={2}>
@@ -107,6 +114,8 @@ GameContent.propTypes = {
   setGameLog: propTypes.func.isRequired,
   gameLog: propTypes.array.isRequired,
   handleForfeit: propTypes.func.isRequired,
+  settings: propTypes.object.isRequired,
+  setStats: propTypes.func.isRequired,
 };
 
 export default GameContent;

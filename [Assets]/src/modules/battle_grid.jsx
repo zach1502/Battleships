@@ -16,6 +16,7 @@ const BattleGrid = (props) => {
   const setGameLog = props.setGameLog;
   const gameLog = props.gameLog;
   const settings = props.settings;
+  const setStats = props.setStats;
 
   const [selectedSquare, setSelectedSquare] = React.useState(null);
 
@@ -50,10 +51,12 @@ const BattleGrid = (props) => {
             newGrid[row][col] = "hit";
             playHitSoundEffect();
             setGameLog([...gameLog, `Hit! ${convertXYToGridIndex(row, col)}`]);
+            setStats((prevState) => ({ ...prevState, hits: prevState.hits + 1 || 1 }));
           } else {
             newGrid[row][col] = "miss";
             playMissSoundEffect();
             setGameLog([...gameLog, `Miss! ${convertXYToGridIndex(row, col)}`]);
+            setStats((prevState) => ({ ...prevState, misses: prevState.misses + 1 || 1 }));
           }
           setPlayerBattleGrid(newGrid);
 

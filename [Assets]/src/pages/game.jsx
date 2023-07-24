@@ -162,6 +162,7 @@ const Game = (props) => {
         gameLog={gameLog}
         setGameLog={setGameLog}
         settings={settings}
+        setStats={setStats}
 
         currentHeatMap={currentHeatMap}
       />

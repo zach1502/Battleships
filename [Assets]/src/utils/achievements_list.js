@@ -16,6 +16,14 @@ const listOfAllAchievements = [
         },
         "image": "https://i.imgur.com/JsDd8CZ.png",
         "isHidden": true,
+    },
+    {
+        "name": "First Blood",
+        "description": "You got your first hit!",
+        "condition": (stats) => {
+            return stats.hits > 0;
+        },
+        "image": "https://i.imgur.com/JsDd8CZ.png",
     }
 ];
 
