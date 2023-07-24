@@ -3,9 +3,9 @@ import { Howl } from 'howler';
 import { useLocation } from 'react-router-dom';
 
 const tracks = [
-  { id: 1, title: 'Music 1', src: '/sound/1.mp3', sound: new Howl({ src: ['/sound/1.mp3'], loop: true }) },
-  { id: 2, title: 'Music 2', src: '/sound/2.mp3', sound: new Howl({ src: ['/sound/2.mp3'], loop: true }) },
-  { id: 3, title: 'Music 3', src: '/sound/3.mp3', sound: new Howl({ src: ['/sound/3.mp3'], loop: true }) },
+  { id: 1, title: 'Music 1', src: '/sound/1.mp3', html5: false, sound: new Howl({ src: ['/sound/1.mp3'], loop: true}) },
+  { id: 2, title: 'Music 2', src: '/sound/2.mp3', html5: false, sound: new Howl({ src: ['/sound/2.mp3'], loop: true}) },
+  { id: 3, title: 'Music 3', src: '/sound/3.mp3', html5: false, sound: new Howl({ src: ['/sound/3.mp3'], loop: true}) },
 ];
 
 const BackgroundMusic = (props) => {
@@ -14,13 +14,19 @@ const BackgroundMusic = (props) => {
   const settings = props.settings;
 
   useEffect(() => {
+    tracks.forEach(track => {
+      track.sound.on('end', () => setSelectedTrack(Math.ceil(Math.random() * tracks.length)));
+    });
+  }, [setSelectedTrack]);
+
+  useEffect(() => {
     tracks.forEach(track => track.sound.volume((settings.musicVolume * settings.masterVolume) / 10000));
   }, [settings.musicVolume, settings.masterVolume, tracks]);
 
   useEffect(() => {
-    tracks.forEach(track => 
-      (track.id === selectedTrack) ? 
-      track.sound.play() : track.sound.stop()
+    tracks.forEach(track =>
+      (track.id === selectedTrack) ?
+        track.sound.play() : track.sound.stop()
     );
 
     // Cleanup function to stop all sounds when the component is unmounted
@@ -29,7 +35,7 @@ const BackgroundMusic = (props) => {
 
   // FOR DEBUG/TESTING ONLY
   // Check if the user is within the "settings" view to add buttons
-  const location = useLocation(); 
+  const location = useLocation();
   const handleTrackSelection = (trackId) => setSelectedTrack(trackId);
   if (location.pathname === '/settings') {
     return (
