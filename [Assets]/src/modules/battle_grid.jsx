@@ -22,8 +22,9 @@ const BattleGrid = (props) => {
 
   useNewGridColors(settings);
 
-  const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3');
-  const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3');
+  console.log(settings);
+  const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3', settings);
+  const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3', settings);
 
   const convertXYToGridIndex = (y, x) => {
     const letter = String.fromCharCode(65 + x);

@@ -41,8 +41,8 @@ const Game = (props) => {
 
   const [currentHeatMap, setCurrentHeatMap] = React.useState([]);
 
-  const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3');
-  const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3');
+  const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3', settings);
+  const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3', settings);
 
   React.useEffect(() => {
     setSelectedTrack(1);  // Play the first track when the game starts

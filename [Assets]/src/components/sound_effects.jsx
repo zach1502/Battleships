@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Howl } from 'howler';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 
 const SoundEffects = (props) => {
+  const settings = props.settings;
+
   let location = useLocation();
   const playSound = (src) => {
     const sound = new Howl({
       src: [src],
-      volume: 0.5,
+      volume: settings.sfxVolume / 100,
     });
     sound.play();
   };
