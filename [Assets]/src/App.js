@@ -13,13 +13,15 @@ import BackgroundMusic from './components/background_music';
 import SoundEffects from './components/sound_effects';
 
 import { DEFAULT_SETTINGS } from './utils/constants';
-import { useLocalStorage } from './utils/hooks/use_local_storage';
+import { useLocalStorage} from './utils/hooks/use_local_storage';
+import { useAchievements } from './utils/hooks/use_achievements';
 
 const App = () => {
   const [settings, setSettings] = useLocalStorage("settings", DEFAULT_SETTINGS);
   const [stats, setStats] = useLocalStorage("stats", {});
-  const [obtainedAchievements, setObtainedAchievements] = useLocalStorage("obtainedAchievements", []);
   const [selectedTrack, setSelectedTrack] = React.useState(0);
+
+  console.log("STATS:", stats);
 
   return (
     <BrowserRouter>
@@ -42,12 +44,12 @@ const App = () => {
           }/>
           <Route path="achievements" element={
             <Achievements
-              obtainedAchievements={obtainedAchievements}
+              obtainedAchievements={useAchievements(stats)}
             />
           }/>
           <Route path="help" element={<Help />}/>
-          <Route path="credits" element={<Credits />} />
-          <Route path="*" element={<NoPage />} />
+          <Route path="credits" element={<Credits setStats={setStats}/>} />
+          <Route path="*" element={<NoPage setStats={setStats}/>} />
         </Route>
       </Routes>
       <SoundEffects 

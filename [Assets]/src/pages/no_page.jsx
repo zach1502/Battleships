@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Typography } from '@mui/material';
 
 const NoPage = (props) => {
+    const setStats = props.setStats;
     return (
         <>
             <Typography variant="h1" component="div" gutterBottom>
@@ -15,7 +16,12 @@ const NoPage = (props) => {
                 That leads to the question of how the hell did you get here?
             </Typography>
 
-            <Button variant="contained" href="/">
+            <Button variant="contained" onClick={
+                () => {
+                    setStats((prevState) => ({...prevState, lostInTheVoid: true}));
+                }
+            }
+            href="/">
                 Take me to somewhere safe!
             </Button>
         </>

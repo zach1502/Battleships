@@ -26,19 +26,23 @@ const Achievements = (props) => {
 
     return (
         <>
-            <Typography variant="h1" component="div" gutterBottom>
-                Achievements
-            </Typography>
             <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Typography variant="h1" component="div" gutterBottom>
+                        Achievements
+                    </Typography>
+                </Grid>
                 {
                     listOfAllAchievements.map((achievement, index) => {
                         const isUnlocked = obtainedAchievements.includes(achievement.name);
+
+                        if (!isUnlocked && achievement.isHidden) return null; // skip hidden achievements
                         
                         const name = achievement.name;
                         const image = achievement.image;
                         const description = achievement.description;
 
-                        const checkmark = isUnlocked ? "✓ Obtained" : "Not Obtained";
+                        const checkmark = isUnlocked ? "✓ Obtained" : "✗ Not Obtained";
                         return (
                             <Grid item key={index}>
                                 <Box
@@ -48,7 +52,7 @@ const Achievements = (props) => {
                                     sx={{ width: 128, height: 128 }}
                                 />
                                 <Box>
-                                    <Typography variant="h3" component="div" gutterBottom>
+                                    <Typography variant="h5" component="div" gutterBottom>
                                         {name}
                                     </Typography>
                                     <Typography variant="body1" component="div" gutterBottom>
