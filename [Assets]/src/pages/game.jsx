@@ -57,12 +57,12 @@ const Game = (props) => {
   // place enemy ships randomly
   React.useEffect(placeEnemyShipsIfNeeded, [gameState, placeEnemyShipsIfNeeded]);
 
-  const convertXYToGridIndex = (y, x) => {
+  const convertXYToGridIndex = React.useCallback((y, x) => {
     const letter = String.fromCharCode(65 + x);
     const number = y + 1;
 
     return `${letter}${number}`;
-  }
+  }, []);
 
   // AI Logic, triggered when it's the AI's turn
   React.useEffect(() => {
@@ -86,20 +86,19 @@ const Game = (props) => {
   }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState]);
 
   React.useEffect(() => {
-    const enemyShots = enemyBattleGrid.flat();
-    const playerShots = playerBattleGrid.flat();
+    const maxHits = 17;
 
     // hit counts
-    const enemyHitCount = enemyShots.filter((shot) => shot === 'hit').length;
-    const playerHitCount = playerShots.filter((shot) => shot === 'hit').length;
+    const enemyHitCount = enemyBattleGrid.flat().filter((shot) => shot === 'hit').length;
+    const playerHitCount = playerBattleGrid.flat().filter((shot) => shot === 'hit').length;
 
-    if (playerHitCount === 17) {
+    if (playerHitCount === maxHits) {
       setGameState((prevState) => ({...prevState, gameOver: true, playerWon: true}));
       setStats((prevState) => ({...prevState, wins: prevState.wins + 1}));
     }
 
     // if 17 hits, game over
-    if (enemyHitCount === 17) {
+    if (enemyHitCount === maxHits) {
       setGameState((prevState) => ({...prevState, gameOver: true, playerWon: false}));
       setStats((prevState) => ({...prevState, losses: prevState.losses + 1}));
     }
