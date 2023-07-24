@@ -15,7 +15,7 @@ const INITIAL_GAME_STATE = {
 
 const DEFAULT_SETTINGS = {
   gridSize: 10,
-  masterVolume: 30,
+  masterVolume: 50,
   musicVolume: 30,
   sfxVolume: 30,
   gridHitColor: "#ff0000",

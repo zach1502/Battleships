@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Howl } from 'howler';
 import { useLocation } from 'react-router-dom';
 
+const tracks = [
+  { id: 1, title: 'Music 1', src: '/sound/1.mp3', sound: new Howl({ src: ['/sound/1.mp3'], loop: true }) },
+  { id: 2, title: 'Music 2', src: '/sound/2.mp3', sound: new Howl({ src: ['/sound/2.mp3'], loop: true }) },
+  { id: 3, title: 'Music 3', src: '/sound/3.mp3', sound: new Howl({ src: ['/sound/3.mp3'], loop: true }) },
+];
+
 const BackgroundMusic = (props) => {
   const selectedTrack = props.selectedTrack;
   const setSelectedTrack = props.setSelectedTrack;
   const settings = props.settings;
-
-  const tracks = [
-    { id: 1, title: 'Music 1', src: '/sound/1.mp3', sound: new Howl({ src: ['/sound/1.mp3'], loop: true }) },
-    { id: 2, title: 'Music 2', src: '/sound/2.mp3', sound: new Howl({ src: ['/sound/2.mp3'], loop: true }) },
-    { id: 3, title: 'Music 3', src: '/sound/3.mp3', sound: new Howl({ src: ['/sound/3.mp3'], loop: true }) },
-  ];
 
   useEffect(() => {
     tracks.forEach(track => track.sound.volume((settings.musicVolume * settings.masterVolume) / 10000));
