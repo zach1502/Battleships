@@ -3,6 +3,11 @@ import { Button, Typography } from '@mui/material';
 
 const NoPage = (props) => {
     const setStats = props.setStats;
+
+    React.useEffect(() => {
+        setStats((prevState) => ({...prevState, lostInTheVoid: true}));
+    }, []);
+
     return (
         <>
             <Typography variant="h1" component="div" gutterBottom>
@@ -16,12 +21,7 @@ const NoPage = (props) => {
                 That leads to the question of how the hell did you get here?
             </Typography>
 
-            <Button variant="contained" onClick={
-                () => {
-                    setStats((prevState) => ({...prevState, lostInTheVoid: true}));
-                }
-            }
-            href="/">
+            <Button variant="contained" href="/">
                 Take me to somewhere safe!
             </Button>
         </>

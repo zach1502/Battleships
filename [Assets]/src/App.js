@@ -44,7 +44,7 @@ const App = () => {
           }/>
           <Route path="achievements" element={
             <Achievements
-              obtainedAchievements={useAchievements(stats)}
+              obtainedAchievements={useAchievements(stats)[0]}
             />
           }/>
           <Route path="help" element={<Help />}/>

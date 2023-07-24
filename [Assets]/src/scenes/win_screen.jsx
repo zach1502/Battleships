@@ -16,6 +16,7 @@ const WinScreen = (props) => {
     localStorage.removeItem('gameState');
     localStorage.removeItem('hunt_and_seek_state');
     localStorage.removeItem('selectedDifficulty');
+    localStorage.removeItem('statsUpdated');
 
     // go to the main menu
     window.location.href = '/';
@@ -30,6 +31,7 @@ const WinScreen = (props) => {
     localStorage.removeItem('gameState');
     localStorage.removeItem('hunt_and_seek_state');
     localStorage.removeItem('selectedDifficulty');
+    localStorage.removeItem('statsUpdated');
 
     // go to the main menu
     window.location.href = '/game';

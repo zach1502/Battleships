@@ -30,6 +30,7 @@ const GameContent = (props) => {
     localStorage.removeItem('gameState');
     localStorage.removeItem('hunt_and_seek_state');
     localStorage.removeItem('selectedDifficulty');
+    localStorage.removeItem('statsUpdated');
 
     // go to the main menu
     window.location.href = '/';
@@ -60,6 +61,7 @@ const GameContent = (props) => {
         <GameLogDisplay
           gameLog={gameLog}
         />
+        something
       </Grid>
       <Grid item xs={2}>
         <Button

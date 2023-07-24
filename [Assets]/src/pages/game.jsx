@@ -37,6 +37,7 @@ const Game = (props) => {
   const [gameLog, setGameLog] = useLocalStorage('gameLog', []);
   const [gameState, setGameState] = useLocalStorage('gameState', INITIAL_GAME_STATE);
   const [selectedDifficulty, setSelectedDifficulty] = useLocalStorage('selectedDifficulty', null);
+  const [statsUpdated, setStatsUpdated] = useLocalStorage('statsUpdated', false);
 
   const [currentHeatMap, setCurrentHeatMap] = React.useState([]);
 
@@ -85,25 +86,37 @@ const Game = (props) => {
     }
   }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState]);
 
+
+  // Game end condition
   React.useEffect(() => {
     const maxHits = 17;
 
-    // hit counts
     const enemyHitCount = enemyBattleGrid.flat().filter((shot) => shot === 'hit').length;
     const playerHitCount = playerBattleGrid.flat().filter((shot) => shot === 'hit').length;
 
-    if (playerHitCount === maxHits) {
-      setGameState((prevState) => ({...prevState, gameOver: true, playerWon: true}));
-      setStats((prevState) => ({...prevState, wins: prevState.wins + 1}));
+    if (!statsUpdated && (playerHitCount === maxHits || enemyHitCount === maxHits)) {
+      if (playerHitCount === maxHits) {
+        setGameState((prevState) => ({...prevState, gameOver: true, playerWon: true}));
+
+        setStats((prevState) => ({...prevState, 
+          wins: prevState.wins + 1 || 1, 
+          gamesPlayed: prevState.gamesPlayed + 1 || 1,
+          [`${selectedDifficulty}Wins`]: prevState[`${selectedDifficulty}Wins`] + 1 || 1,
+        }));
+      }
+
+      if (enemyHitCount === maxHits) {
+        setGameState((prevState) => ({...prevState, gameOver: true, playerWon: false}));
+        setStats((prevState) => ({...prevState, 
+          losses: prevState.losses + 1 || 1, 
+          gamesPlayed: prevState.gamesPlayed + 1 || 1,
+        }));
+      }
+
+      setStatsUpdated(true);
     }
 
-    // if 17 hits, game over
-    if (enemyHitCount === maxHits) {
-      setGameState((prevState) => ({...prevState, gameOver: true, playerWon: false}));
-      setStats((prevState) => ({...prevState, losses: prevState.losses + 1}));
-    }
-
-  }, [enemyBattleGrid, playerShipGrid]);
+  }, [enemyBattleGrid, playerShipGrid, statsUpdated]);
 
   if (gameState.gameOver) {
     return (
