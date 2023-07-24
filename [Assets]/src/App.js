@@ -26,7 +26,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout/>}>
+        <Route path="/" element={<Layout stats={stats} settings={settings}/>}>
           <Route index element={<Menu/>}></Route>
 
           <Route path="game" element={

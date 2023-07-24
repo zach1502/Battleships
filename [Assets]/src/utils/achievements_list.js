@@ -18,6 +18,15 @@ const listOfAllAchievements = [
         "isHidden": true,
     },
     {
+        "name": "Who reads the damn credits?",
+        "description": "Whoa! Someone actually reads these things? You've painstakingly scrolled through the entire credits page. Here's a digital high-five for appreciating the hard work that goes into making a game.",
+        "condition": (stats) => {
+            return stats.credits;
+        },
+        "image": "https://i.imgur.com/JsDd8CZ.png",
+        "isHidden": true,
+    },
+    {
         "name": "First Blood",
         "description": "You got your first hit!",
         "condition": (stats) => {

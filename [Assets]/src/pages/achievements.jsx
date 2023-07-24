@@ -6,12 +6,17 @@ import { listOfAllAchievements } from '../utils/achievements_list';
 const Achievements = (props) => {
   const obtainedAchievements = props.obtainedAchievements;
   return (
-    <Box sx={{ maxHeight: '80vh', overflowY: 'auto' }}>
+    <Box sx={{ maxHeight: '100%', overflowY: 'auto' }}>
       <Grid container spacing={2} alignContent={'center'}>
         <Grid item xs={12}>
           <Typography variant="h1" component="div" gutterBottom>
             Achievements
           </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Button color="primary" variant="contained" href="/">
+            Back to main menu
+          </Button>
         </Grid>
         {
           listOfAllAchievements.map((achievement, index) => {
