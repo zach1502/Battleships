@@ -4,29 +4,10 @@ import { Button, Grid, Typography, Box, Paper } from '@mui/material';
 import { listOfAllAchievements } from '../utils/achievements_list';
 
 const Achievements = (props) => {
-  const obtainedAchievements = props.obtainedAchievements; // array of achievements earnt by the player
-  /*
-      obtainedAchievements should be an array of objects, each object containing:
-      {
-          name: "Achievement Name",
-          time: "Time of achievement",
-      }
-
-      for each achievement in listOfAllAchievements, create a grid item with the achievement name and image
-      if the achievement is in obtainedAchievements, add a checkmark to the grid item
-
-      listOfAllAchievements is an array of objects, each object containing:
-      {
-          name: "Achievement Name",
-          description: "Achievement Description",
-          image: "Image of achievement",
-          condition: "Lambda function to unlock achievement",
-      }
-  */
-  console.log(obtainedAchievements)
+  const obtainedAchievements = props.obtainedAchievements;
   return (
-    <>
-      <Grid container spacing={2}>
+    <Box sx={{ maxHeight: '80vh', overflowY: 'auto' }}>
+      <Grid container spacing={2} alignContent={'center'}>
         <Grid item xs={12}>
           <Typography variant="h1" component="div" gutterBottom>
             Achievements
@@ -58,7 +39,8 @@ const Achievements = (props) => {
                   <Typography variant="body1" component="div" gutterBottom>
                     {description}
                   </Typography>
-                  <Typography variant="body1" component="div" gutterBottom>
+                  <Typography variant="body1" component="div" gutterBottom
+                  color={(isUnlocked)?"success":"error"}>
                     <b>Status: </b>
                     {checkmark}
                   </Typography>
@@ -67,12 +49,13 @@ const Achievements = (props) => {
             );
           })
         }
+        <Grid item xs={12}>
+          <Button color="primary" variant="contained" href="/">
+            Back to main menu
+          </Button>
+        </Grid>
       </Grid>
-
-      <Button color="primary" variant="contained" href="/">
-        Back to main menu
-      </Button>
-    </>
+    </Box>
   );
 };
 
