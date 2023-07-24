@@ -65,28 +65,6 @@ const Game = (props) => {
     return `${letter}${number}`;
   }, []);
 
-  // AI Logic, triggered when it's the AI's turn
-  React.useEffect(() => {
-    let timeoutId = null;
-
-    if (!gameState.playerTurn) {
-      timeoutId = setTimeout(() => {
-        const shotLogic = AI_LOGIC_OPTIONS[selectedDifficulty];
-        const {shotResult, row, col} = shotLogic(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
-        (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
-        const shotResultMessage = (shotResult === 'hit') ? 'Hit!' : 'Miss!';
-        setGameLog([...gameLog, `${shotResultMessage} ${convertXYToGridIndex(row, col)}`]);
-        setGameState((prevState)=> ({...prevState, playerTurn: true}));
-      }, 1000);
-    }
-
-    return () => {
-      // Cleanup function: if the component is unmounted before the delay, the timeout is cleared
-      clearTimeout(timeoutId);
-    }
-  }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState]);
-
-
   // Game end condition
   React.useEffect(() => {
     const maxHits = 17;
@@ -96,19 +74,21 @@ const Game = (props) => {
 
     if (!statsUpdated && (playerHitCount === maxHits || enemyHitCount === maxHits)) {
       if (playerHitCount === maxHits) {
-        setGameState((prevState) => ({...prevState, gameOver: true, playerWon: true}));
+        setGameState((prevState) => ({ ...prevState, gameOver: true, playerWon: true }));
 
-        setStats((prevState) => ({...prevState, 
-          wins: prevState.wins + 1 || 1, 
+        setStats((prevState) => ({
+          ...prevState,
+          wins: prevState.wins + 1 || 1,
           gamesPlayed: prevState.gamesPlayed + 1 || 1,
           [`${selectedDifficulty}Wins`]: prevState[`${selectedDifficulty}Wins`] + 1 || 1,
         }));
       }
 
       if (enemyHitCount === maxHits) {
-        setGameState((prevState) => ({...prevState, gameOver: true, playerWon: false}));
-        setStats((prevState) => ({...prevState, 
-          losses: prevState.losses + 1 || 1, 
+        setGameState((prevState) => ({ ...prevState, gameOver: true, playerWon: false }));
+        setStats((prevState) => ({
+          ...prevState,
+          losses: prevState.losses + 1 || 1,
           gamesPlayed: prevState.gamesPlayed + 1 || 1,
         }));
       }
@@ -117,6 +97,28 @@ const Game = (props) => {
     }
 
   }, [enemyBattleGrid, playerShipGrid, statsUpdated]);
+
+  // AI Logic, triggered when it's the AI's turn
+  React.useEffect(() => {
+    let timeoutId = null;
+
+    if (!gameState.playerTurn) {
+      timeoutId = setTimeout(() => {
+        const shotLogic = AI_LOGIC_OPTIONS[selectedDifficulty];
+        const { shotResult, row, col } = shotLogic(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
+        (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
+        const shotResultMessage = (shotResult === 'hit') ? 'Hit!' : 'Miss!';
+        setGameLog([...gameLog, `${shotResultMessage} ${convertXYToGridIndex(row, col)}`]);
+        setGameState((prevState) => ({ ...prevState, playerTurn: true }));
+      }, 1500);
+    }
+
+    return () => {
+      // Cleanup function: if the component is unmounted before the delay, the timeout is cleared
+      clearTimeout(timeoutId);
+    }
+  }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState]);
+
 
   if (gameState.gameOver) {
     return (
