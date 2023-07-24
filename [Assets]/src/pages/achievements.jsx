@@ -44,7 +44,7 @@ const Achievements = (props) => {
 
             const checkmark = isUnlocked ? "✓ Obtained" : "✗ Not Obtained";
             return (
-              <Grid item key={index}>
+              <Grid item key={index} xs={4}>
                 <Box
                   component="img"
                   alt={description}

@@ -15,6 +15,8 @@ import { useSoundEffect } from '../utils/hooks/use_sound_effect';
 // AI Logic options
 import { makeRandomShot, makeSmartShot, makeSmarterShot } from '../utils/ai_logic/index';
 
+import { achievementsCheck } from '../utils/achievements_checks';
+
 import { placeEnemyShips } from '../utils/ship_placement';
 import { INITIAL_GAME_STATE } from '../utils/constants';
 
@@ -73,14 +75,34 @@ const Game = (props) => {
     const playerHitCount = playerBattleGrid.flat().filter((shot) => shot === 'hit').length;
 
     if (!statsUpdated && (playerHitCount === maxHits || enemyHitCount === maxHits)) {
+
+      // Check for achievements
+      const {
+        cantTouchThis,
+        battleIsnt,
+        areYouEvenTrying,
+        stormtrooper,
+        cantStopWontStop,
+        hawkeye,
+        iThoughtThisWasChess,
+        patienceIsAVirtue,
+      } = achievementsCheck(enemyBattleGrid, playerBattleGrid, gameLog)
+
       if (playerHitCount === maxHits) {
         setGameState((prevState) => ({ ...prevState, gameOver: true, playerWon: true }));
-
         setStats((prevState) => ({
           ...prevState,
           wins: prevState.wins + 1 || 1,
           gamesPlayed: prevState.gamesPlayed + 1 || 1,
           [`${selectedDifficulty}Wins`]: prevState[`${selectedDifficulty}Wins`] + 1 || 1,
+          cantTouchThis: cantTouchThis || prevState.cantTouchThis,
+          battleIsnt: battleIsnt || prevState.battleIsnt,
+          areYouEvenTrying: areYouEvenTrying || prevState.areYouEvenTrying,
+          stormtrooper: stormtrooper || prevState.stormtrooper,
+          cantStopWontStop: cantStopWontStop || prevState.cantStopWontStop,
+          hawkeye: hawkeye || prevState.hawkeye,
+          iThoughtThisWasChess: iThoughtThisWasChess || prevState.iThoughtThisWasChess,
+          patienceIsAVirtue: patienceIsAVirtue || prevState.patienceIsAVirtue,
         }));
       }
 
@@ -90,6 +112,13 @@ const Game = (props) => {
           ...prevState,
           losses: prevState.losses + 1 || 1,
           gamesPlayed: prevState.gamesPlayed + 1 || 1,
+          [`${selectedDifficulty}Losses`]: prevState[`${selectedDifficulty}Losses`] + 1 || 1,
+          battleIsnt: battleIsnt || prevState.battleIsnt,
+          areYouEvenTrying: areYouEvenTrying || prevState.areYouEvenTrying,
+          stormtrooper: stormtrooper || prevState.stormtrooper,
+          cantStopWontStop: cantStopWontStop || prevState.cantStopWontStop,
+          iThoughtThisWasChess: iThoughtThisWasChess || prevState.iThoughtThisWasChess,
+          patienceIsAVirtue: patienceIsAVirtue || prevState.patienceIsAVirtue,
         }));
       }
 
