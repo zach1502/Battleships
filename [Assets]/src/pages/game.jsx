@@ -57,6 +57,13 @@ const Game = (props) => {
   // place enemy ships randomly
   React.useEffect(placeEnemyShipsIfNeeded, [gameState, placeEnemyShipsIfNeeded]);
 
+  const convertXYToGridIndex = (y, x) => {
+    const letter = String.fromCharCode(65 + x);
+    const number = y + 1;
+
+    return `${letter}${number}`;
+  }
+
   // AI Logic, triggered when it's the AI's turn
   React.useEffect(() => {
     let timeoutId = null;
@@ -64,9 +71,10 @@ const Game = (props) => {
     if (!gameState.playerTurn) {
       timeoutId = setTimeout(() => {
         const shotLogic = AI_LOGIC_OPTIONS[selectedDifficulty];
-        const shotResult = shotLogic(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
+        const {shotResult, row, col} = shotLogic(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
         (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
-        setGameLog([...gameLog, shotResult]);
+        const shotResultMessage = (shotResult === 'hit') ? 'Hit!' : 'Miss!';
+        setGameLog([...gameLog, `${shotResultMessage} ${convertXYToGridIndex(row, col)}`]);
         setGameState((prevState)=> ({...prevState, playerTurn: true}));
       }, 1000);
     }

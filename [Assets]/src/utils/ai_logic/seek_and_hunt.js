@@ -46,7 +46,11 @@ const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   updateSmallShipSize(playerShipGrid, enemyBattleGrid);
   saveStateToLocalStorage(state);
 
-  return shotResult;
+  return {
+    shotResult,
+    row: shotPosition[0],
+    col: shotPosition[1],
+  };
 };
 
 const updateSmallShipSize = (playerShipGrid, enemyBattleGrid) => {

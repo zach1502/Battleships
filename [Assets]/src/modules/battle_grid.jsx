@@ -24,6 +24,13 @@ const BattleGrid = (props) => {
   const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3');
   const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3');
 
+  const convertXYToGridIndex = (y, x) => {
+    const letter = String.fromCharCode(65 + x);
+    const number = y + 1;
+
+    return `${letter}${number}`;
+  }
+
   return (
     <>
       <SelectionGrid
@@ -42,11 +49,11 @@ const BattleGrid = (props) => {
           if (enemyShipGrid[row][col] !== null) {
             newGrid[row][col] = "hit";
             playHitSoundEffect();
-            setGameLog([...gameLog, "You Hit!"]);
+            setGameLog([...gameLog, `Hit! ${convertXYToGridIndex(row, col)}`]);
           } else {
             newGrid[row][col] = "miss";
             playMissSoundEffect();
-            setGameLog([...gameLog, "You missed!"]);
+            setGameLog([...gameLog, `Miss! ${convertXYToGridIndex(row, col)}`]);
           }
           setPlayerBattleGrid(newGrid);
 

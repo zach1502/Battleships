@@ -85,7 +85,7 @@ const PickDifficulty = (props) => {
 };
 
 PickDifficulty.propTypes = {
-    selectedDifficulty: propTypes.string.isRequired,
+    selectedDifficulty: propTypes.string,
     setSelectedDifficulty: propTypes.func.isRequired,
 };
 

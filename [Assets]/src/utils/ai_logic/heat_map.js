@@ -40,7 +40,11 @@ const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, se
   currentHeatMap = updateHeatMap(shotPosition, shotResult, newEnemyBattleGrid, playerShipGrid, remainingShips, currentHeatMap);
 
   setDebugState(currentHeatMap);
-  return shotResult;
+  return {
+    shotResult,
+    row: shotPosition[0],
+    col: shotPosition[1],
+  }
 };
 
 const getRemainingShips = (grid) => {
