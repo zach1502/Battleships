@@ -31,22 +31,26 @@ const PickDifficulty = (props) => {
     const renderDifficultyOptions = React.useCallback(() => {
         return difficultyOptions.map((option) => {
             return (
-                <Grid item xs={12/difficultyOptions.length} key={option.value}>
-                    <Button
-                        variant="contained"
-                        color={(tempDifficulty === option.value)? 'success' : 'primary'}
-                        value={option.value}
-                        onClick={() => setTempDifficulty(option.value)}
-                    >
-                        {option.name}
-                    </Button>
+                <Grid container direction="column" justifyContent="space-evenly" alignItems="center">
+                    <Grid item spacing={2} xs={12/difficultyOptions.length} key={option.value}>
+                        <Button
+                            variant="contained"
+                            color={(tempDifficulty === option.value)? 'success' : 'primary'}
+                            value={option.value}
+                            onClick={() => setTempDifficulty(option.value)}
+                        >
+                            {option.name}
+                        </Button>
+                    </Grid>
                 </Grid>
+                
+                
             );
         });
     }, [tempDifficulty]);
 
     return (
-        <Grid container spacing={2} justifyContent='center' alignItems="center" >
+        <Grid container justifyContent='space-evenly' alignItems="center">
             <Grid item xs={12}>
                 <Typography variant="h3">
                     Pick a difficulty level
@@ -56,29 +60,30 @@ const PickDifficulty = (props) => {
                 </Typography>
             </Grid>
             {renderDifficultyOptions()}
-
-            <Grid item xs={6}>
-                <Button
-                    variant="contained"
-                    color="success"
-                    href="/game"
-                    onClick={() => {
-                        if (tempDifficulty) {
-                            setSelectedDifficulty(tempDifficulty);
-                        }
-                    }}
-                >
-                    Start Game
-                </Button>
-            </Grid>
-            <Grid item xs={6}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    href="/"
-                >
-                    Main Menu
-                </Button>
+            <Grid container spacing={12} direction="row" justifyContent="space-between" alignItems="center">
+                <Grid item xs={2}>
+                    <Button
+                        variant="contained"
+                        color="success"
+                        href="/game"
+                        onClick={() => {
+                            if (tempDifficulty) {
+                                setSelectedDifficulty(tempDifficulty);
+                            }
+                        }}
+                    >
+                        Start Game
+                    </Button>
+                </Grid>
+                <Grid item xs={2}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        href="/"
+                    >
+                        Main Menu
+                    </Button>
+                </Grid>
             </Grid>
         </Grid>
     );
