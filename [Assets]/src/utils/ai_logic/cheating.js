@@ -36,6 +36,8 @@ const makeCheatingShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, s
   const shotPosition = (Math.random() < ODDS_OF_CHEATING) ? 
     cheatAndGetNextShotPosition(playerShipGrid, enemyBattleGrid) :
     getNextShotPosition(enemyBattleGrid, currentHeatMap);
+
+  console.log("shotPosition", shotPosition);
   
   const {shotResult, newEnemyBattleGrid} = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
 
@@ -57,14 +59,12 @@ const cheatAndGetNextShotPosition = (playerShipGrid, enemyBattleGrid) => {
     playerShipGrid.forEach((row, rowIndex) => {
         row.forEach((square, colIndex) => {
             if (square !== null && enemyBattleGrid[rowIndex][colIndex] === null) {
-            possiblePositions.push([rowIndex, colIndex]);
+              possiblePositions.push([rowIndex, colIndex]);
             }
         });
     });
 
-    // randomly pick one of those tiles
-    const randomIndex = Math.floor(Math.random() * possiblePositions.length);
-    return possiblePositions[randomIndex];
+    return possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
 };
 
 const getRemainingShips = (grid) => {
@@ -103,7 +103,7 @@ const getNextShotPosition = (enemyBattleGrid, currentHeatMap) => {
       const cellProbability = currentHeatMap[i][j].base + currentHeatMap[i][j].tracking + currentHeatMap[i][j].bias;
       
       if(cellProbability > maxProbability) {
-        bestPositions = [i, j];
+        bestPositions = [[i, j]];
         maxProbability = cellProbability;
       }
       else if (cellProbability === maxProbability) {
@@ -116,7 +116,8 @@ const getNextShotPosition = (enemyBattleGrid, currentHeatMap) => {
 };
 
 const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
-  const [row, col] = shotPosition;
+  const row = shotPosition[0];
+  const col = shotPosition[1];
 
   const shotResult = playerShipGrid[row][col] !== null ? CELL_HIT : CELL_MISS;
 
@@ -129,7 +130,8 @@ const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerSh
 };
 
 const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid, remainingShips, currentHeatMap) => {
-  const [row, col] = shotPosition;
+  const row = shotPosition[0];
+  const col = shotPosition[1];
   
   if (shotResult === CELL_HIT) {
     // increase tracking in the 4 directions around the hit

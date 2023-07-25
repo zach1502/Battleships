@@ -83,7 +83,7 @@ const getNextShotPosition = (enemyBattleGrid, currentHeatMap) => {
       const cellProbability = currentHeatMap[i][j].base + currentHeatMap[i][j].tracking + currentHeatMap[i][j].bias;
       
       if(cellProbability > maxProbability) {
-        bestPositions = [i, j];
+        bestPositions = [[i, j]];
         maxProbability = cellProbability;
       }
       else if (cellProbability === maxProbability) {
@@ -92,11 +92,12 @@ const getNextShotPosition = (enemyBattleGrid, currentHeatMap) => {
     }
   }
 
-  return bestPositions;
+  return bestPositions[Math.floor(Math.random() * bestPositions.length)];
 };
 
 const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
-  const [row, col] = shotPosition;
+  const row = shotPosition[0];
+  const col = shotPosition[1];
 
   const shotResult = playerShipGrid[row][col] !== null ? CELL_HIT : CELL_MISS;
 
@@ -109,7 +110,8 @@ const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerSh
 };
 
 const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid, remainingShips, currentHeatMap) => {
-  const [row, col] = shotPosition;
+  const row = shotPosition[0];
+  const col = shotPosition[1];
   
   if (shotResult === CELL_HIT) {
     // increase tracking in the 4 directions around the hit
