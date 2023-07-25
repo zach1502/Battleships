@@ -1,7 +1,7 @@
 import React from 'react'
 import { SelectionGrid } from "../components/";
 import { shipGridLegend } from "../utils/grid_legends";
-import { shipLengths} from "../utils/ship_details";
+import { shipLengths } from "../utils/ship_details";
 
 const PlaceShipGrid = (props) => {
   const playerShipGrid = props.playerShipGrid;
@@ -103,58 +103,58 @@ const PlaceShipGrid = (props) => {
   };
 
   // Function to remove a ship from the grid
-const removeShip = (ship) => {
-  const shipPositions = [];
+  const removeShip = (ship) => {
+    const shipPositions = [];
 
-  // Remember the ship's positions
-  playerShipGrid.forEach((row, i) => {
-    row.forEach((value, j) => {
-      if (value === ship) {
-        shipPositions.push([i, j]);
+    // Remember the ship's positions
+    playerShipGrid.forEach((row, i) => {
+      row.forEach((value, j) => {
+        if (value === ship) {
+          shipPositions.push([i, j]);
+        }
+      });
+    });
+
+    // Remove the ship from the grid
+    shipPositions.forEach(([i, j]) => {
+      playerShipGrid[i][j] = null;
+    });
+
+    return shipPositions;
+  };
+
+  // Function to place the ship back to the grid
+  const placeShipBack = (ship, shipPositions) => {
+    shipPositions.forEach(([i, j]) => {
+      playerShipGrid[i][j] = ship;
+    });
+  };
+
+  // Function to handle onClick
+  const handleOnClick = (row, col) => {
+    let shipPositions = [];
+
+    // If the ship is already placed
+    if (gameState.playerShipsPlaced[selectedShip]) {
+      console.log("Already placed this ship");
+      shipPositions = removeShip(selectedShip);
+    }
+
+    // Try to place the ship in both directions
+    const directions = [1, -1];
+    const placed = directions.find(direction => {
+      if (canPlaceShip(row, col, selectedShip, shipOrientation, direction)) {
+        placeShip(row, col, selectedShip, shipOrientation, direction);
+        setSelectedSquare(null);
+        return true;
       }
     });
-  });
 
-  // Remove the ship from the grid
-  shipPositions.forEach(([i, j]) => {
-    playerShipGrid[i][j] = null;
-  });
-
-  return shipPositions;
-};
-
-// Function to place the ship back to the grid
-const placeShipBack = (ship, shipPositions) => {
-  shipPositions.forEach(([i, j]) => {
-    playerShipGrid[i][j] = ship;
-  });
-};
-
-// Function to handle onClick
-const handleOnClick = (row, col) => {
-  let shipPositions = [];
-
-  // If the ship is already placed
-  if (gameState.playerShipsPlaced[selectedShip]) {
-    console.log("Already placed this ship");
-    shipPositions = removeShip(selectedShip);
-  }
-
-  // Try to place the ship in both directions
-  const directions = [1, -1];
-  const placed = directions.find(direction => {
-    if (canPlaceShip(row, col, selectedShip, shipOrientation, direction)) {
-      placeShip(row, col, selectedShip, shipOrientation, direction);
-      setSelectedSquare(null);
-      return true;
+    // If the ship couldn't be placed, put it back
+    if (!placed) {
+      placeShipBack(selectedShip, shipPositions);
     }
-  });
-
-  // If the ship couldn't be placed, put it back
-  if (!placed) {
-    placeShipBack(selectedShip, shipPositions);
-  }
-};
+  };
 
   return (
     <SelectionGrid

@@ -6,6 +6,10 @@ import { BattleGrid, GameLogDisplay, ShipGrid } from '../modules';
 
 import Heatmap from '../utils/ai_logic/heat_map_debug';
 
+import FlagIcon from '@mui/icons-material/Flag';
+import MenuIcon from '@mui/icons-material/Menu';
+import HelpIcon from '@mui/icons-material/Help';
+
 const GameContent = (props) => {
   const playerBattleGrid = props.playerBattleGrid;
   const setPlayerBattleGrid = props.setPlayerBattleGrid;
@@ -75,6 +79,7 @@ const GameContent = (props) => {
           variant='contained'
           onClick={handleForfeit}
         >
+          <FlagIcon/>
           Forfeit
         </Button>
       </Grid>
@@ -83,6 +88,7 @@ const GameContent = (props) => {
           variant='contained'
           href="/"
         >
+          <MenuIcon/>
           Menu
         </Button>
       </Grid>
@@ -91,6 +97,7 @@ const GameContent = (props) => {
           variant='contained'
           href="/help"
         >
+          <HelpIcon/>
           Help
         </Button>
       </Grid>
