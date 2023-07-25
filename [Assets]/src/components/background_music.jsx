@@ -31,7 +31,7 @@ const BackgroundMusic = (props) => {
 
     // Cleanup function to stop all sounds when the component is unmounted
     return () => tracks.forEach(track => track.sound.stop());
-  }, [selectedTrack, tracks]);
+  }, [selectedTrack]);
 
   // FOR DEBUG/TESTING ONLY
   // Check if the user is within the "settings" view to add buttons

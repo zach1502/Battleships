@@ -51,14 +51,14 @@ const SelectionGrid = (props) => {
     <>
       <Grid container spacing={squareSpacing}>
         <Grid item xs={12}>
-          <Grid container spacing={squareSpacing}>
+          <Grid container spacing={squareSpacing} justifyContent="center" alignItems="center">
             {columnMarkers}
           </Grid>
         </Grid>
         {
           grid.map((row, rowIndex) => (
             <Grid item xs={12} key={rowIndex}>
-              <Grid container spacing={squareSpacing}>
+              <Grid container spacing={squareSpacing} justifyContent="center" alignItems="center">
                 {rowMarkers[rowIndex]}
                 {row.map((gridItem, colIndex) => {
                   const legendItem = legend[gridItem];

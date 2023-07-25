@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import { Grid, Button } from '@mui/material';
+import { Grid, Button, Box } from '@mui/material';
 import { BattleGrid, GameLogDisplay, ShipGrid } from '../modules';
 
 import Heatmap from '../utils/ai_logic/heat_map_debug';
@@ -43,15 +43,15 @@ const GameContent = (props) => {
   }, []);
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Grid item xs={6}>
-        <ShipGrid
-          playerShipGrid={playerShipGrid}
-          enemyBattleGrid={enemyBattleGrid}
-          settings={settings}
-        />
+    <Grid direction="row" container justifyContent="center" alignItems="center">
+      <Grid item xs={6} container justifyContent="center" alignItems="center">
+          <ShipGrid
+            playerShipGrid={playerShipGrid}
+            enemyBattleGrid={enemyBattleGrid}
+            settings={settings}
+          />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} container justifyContent="center" alignItems="center">
         <BattleGrid
           gameState={gameState}
           setGameState={setGameState}
@@ -64,13 +64,12 @@ const GameContent = (props) => {
           setStats={setStats}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3} container justifyContent="center" alignItems="center">
         <GameLogDisplay
           gameLog={gameLog}
         />
-        something
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3} container justifyContent="center" alignItems="center">
         <Button
           color='error'
           variant='contained'
@@ -79,7 +78,7 @@ const GameContent = (props) => {
           Forfeit
         </Button>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3} container justifyContent="center" alignItems="center">
         <Button
           variant='contained'
           href="/"
@@ -87,7 +86,7 @@ const GameContent = (props) => {
           Menu
         </Button>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3} container justifyContent="center" alignItems="center">
         <Button
           variant='contained'
           href="/help"
