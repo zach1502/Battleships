@@ -6,6 +6,7 @@ import { shipLengths} from "../utils/ship_details";
 const PlaceShipGrid = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const selectedShip = props.selectedShip;
+  const setSelectedShip = props.setSelectedShip;
   const shipOrientation = props.shipOrientation;
   const selectedSquare = props.selectedSquare;
   const setSelectedSquare = props.setSelectedSquare;
@@ -42,11 +43,31 @@ const PlaceShipGrid = (props) => {
 
   // Function to check if a ship can be placed at a position
   const canPlaceShip = (row, col, ship, orientation, direction = 1) => {
-    // If ship has already been placed, return false
-    if (gameState.playerShipsPlaced[ship]) return false;
-  
+
     // Checks if the ship can be placed based on the orientation
     return orientation === "horizontal" ? fitsHorizontally(row, col, ship, direction) : fitsVertically(row, col, ship, direction);
+  };
+
+  // Function to get the next ship to be selected
+  const getNextShip = (currentShip, placedShips) => {
+    const shipOrder = ["carrier", "battleship", "cruiser", "submarine", "destroyer"];
+    const currentIndex = shipOrder.indexOf(currentShip);
+
+    for (let i = currentIndex + 1; i < shipOrder.length; i++) {
+      if (!placedShips[shipOrder[i]]) {
+        return shipOrder[i];
+      }
+    }
+
+    // If all the next ships are placed, start again from the first ship
+    for (let i = 0; i < currentIndex; i++) {
+      if (!placedShips[shipOrder[i]]) {
+        return shipOrder[i];
+      }
+    }
+
+    // If all ships are placed, return the current ship
+    return currentShip;
   };
 
   // Function to place a ship at a position
@@ -69,6 +90,9 @@ const PlaceShipGrid = (props) => {
       [ship]: true,
     };
 
+    const nextShip = getNextShip(ship, newShipsPlaced);
+    setSelectedShip(nextShip);
+
     setPlayerShipGrid(newGrid);
     // Update game state
     setGameState(prevState => ({
@@ -78,22 +102,64 @@ const PlaceShipGrid = (props) => {
     }));
   };
 
+  // Function to remove a ship from the grid
+const removeShip = (ship) => {
+  const shipPositions = [];
+
+  // Remember the ship's positions
+  playerShipGrid.forEach((row, i) => {
+    row.forEach((value, j) => {
+      if (value === ship) {
+        shipPositions.push([i, j]);
+      }
+    });
+  });
+
+  // Remove the ship from the grid
+  shipPositions.forEach(([i, j]) => {
+    playerShipGrid[i][j] = null;
+  });
+
+  return shipPositions;
+};
+
+// Function to place the ship back to the grid
+const placeShipBack = (ship, shipPositions) => {
+  shipPositions.forEach(([i, j]) => {
+    playerShipGrid[i][j] = ship;
+  });
+};
+
+// Function to handle onClick
+const handleOnClick = (row, col) => {
+  let shipPositions = [];
+
+  // If the ship is already placed
+  if (gameState.playerShipsPlaced[selectedShip]) {
+    console.log("Already placed this ship");
+    shipPositions = removeShip(selectedShip);
+  }
+
+  // Try to place the ship in both directions
+  const directions = [1, -1];
+  const placed = directions.find(direction => {
+    if (canPlaceShip(row, col, selectedShip, shipOrientation, direction)) {
+      placeShip(row, col, selectedShip, shipOrientation, direction);
+      setSelectedSquare(null);
+      return true;
+    }
+  });
+
+  // If the ship couldn't be placed, put it back
+  if (!placed) {
+    placeShipBack(selectedShip, shipPositions);
+  }
+};
+
   return (
     <SelectionGrid
       grid={playerShipGrid}
-      onClick={(row, col)=>{
-        // try placing the ship up/right
-        if (canPlaceShip(row, col, selectedShip, shipOrientation, 1)) {
-          placeShip(row, col, selectedShip, shipOrientation, 1);
-          setSelectedSquare(null);
-        // try place the ship down/left
-        } else if (canPlaceShip(row, col, selectedShip, shipOrientation, -1)) {
-          placeShip(row, col, selectedShip, shipOrientation, -1);
-          setSelectedSquare(null);
-        } else {
-          console.log("Can't place ship here")
-        }
-      }}
+      onClick={handleOnClick}
       selectedSquare={selectedSquare}
       setSelectedSquare={setSelectedSquare}
       legend={shipGridLegend}

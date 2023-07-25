@@ -61,6 +61,7 @@ const PlaceShips = (props) => {
             setSelectedSquare={setSelectedSquare}
             shipOrientation={shipOrientation}
             selectedShip={selectedShip}
+            setSelectedShip={setSelectedShip}
             gameState={gameState}
             setGameState={setGameState}
           />
