@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 
 import Header from "../components/header";
 import { useAchievements } from '../utils/hooks/use_achievements';
+import {PopUp} from "../components";
 
 const Layout = (props) => {
   const [activatePopupBox, setActivatePopupBox] = React.useState(false);
@@ -13,12 +14,15 @@ const Layout = (props) => {
 
   const [obtainedAchievements, theNewAchievement, clearNewAchievements] = useAchievements(stats, settings);
 
-  console.log(theNewAchievement)
+  React.useEffect(() => {
+    if (theNewAchievement) {
+      setActivatePopupBox(true);
+    }
+  }, [theNewAchievement]);
+
   return (
     <>
       <Header />
-      {// box is full width by default, centered
-      }
       <Box
         sx={{
           width: "90vw",
@@ -37,16 +41,21 @@ const Layout = (props) => {
         <Box        
           sx={{
             position: "absolute",
-            border: "1px solid black",
-            // show in top right corner
             top: "10vh",
             right: "10vw",
             width: "20vw",
-            height: "10vh",
-          }}>
-
-
-
+            overflow: "auto"
+          }}
+        >
+          <PopUp 
+            title={theNewAchievement.name}
+            message={theNewAchievement.description}
+            imgSrc={theNewAchievement.image}
+            closePopup={() => {
+              setActivatePopupBox(false);
+              clearNewAchievements();
+            }}
+          />
         </Box>
       }
     </>
