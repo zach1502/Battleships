@@ -4,7 +4,7 @@ import { Howl } from 'howler';
 import { listOfAllAchievements } from '../achievements_list';
 
 const useAchievements = (playerData, settings) => {
-  const [obtainedAchievements, setObtainedAchievements] = useLocalStorage("obtainedAchievements", []);
+  const [obtainedAchievements, setObtainedAchievements] = useLocalStorage("obtainedAchievements", [], true);
   const [theNewAchievement, setTheNewAchievement] = useState(null);
   const sound = new Howl({ src: ['/sound/achievementGet.mp3'], volume: settings.sfxVolume * settings.masterVolume / 10000});
 

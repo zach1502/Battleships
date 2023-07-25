@@ -18,7 +18,7 @@ import { useAchievements } from './utils/hooks/use_achievements';
 
 const App = () => {
   const [settings, setSettings] = useLocalStorage("settings", DEFAULT_SETTINGS);
-  const [stats, setStats] = useLocalStorage("stats", {});
+  const [stats, setStats] = useLocalStorage("stats", {}, true);
   const [selectedTrack, setSelectedTrack] = React.useState(0);
 
   console.log("STATS:", stats);

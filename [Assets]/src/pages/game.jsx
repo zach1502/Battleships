@@ -32,12 +32,12 @@ const Game = (props) => {
   const settings = props.settings;
   const setSelectedTrack = props.setSelectedTrack;
 
-  const [playerBattleGrid, setPlayerBattleGrid] = useLocalStorage('playerBattleGrid', createGrid(settings.gridSize));
-  const [enemyBattleGrid, setEnemyBattleGrid] = useLocalStorage('enemyBattleGrid', createGrid(settings.gridSize));
-  const [playerShipGrid, setPlayerShipGrid] = useLocalStorage('playerShipGrid', createGrid(settings.gridSize));
-  const [enemyShipGrid, setEnemyShipGrid] = useLocalStorage('enemyShipGrid', createGrid(settings.gridSize));
-  const [gameLog, setGameLog] = useLocalStorage('gameLog', []);
-  const [gameState, setGameState] = useLocalStorage('gameState', INITIAL_GAME_STATE);
+  const [playerBattleGrid, setPlayerBattleGrid] = useLocalStorage('playerBattleGrid', createGrid(settings.gridSize), true);
+  const [enemyBattleGrid, setEnemyBattleGrid] = useLocalStorage('enemyBattleGrid', createGrid(settings.gridSize), true);
+  const [playerShipGrid, setPlayerShipGrid] = useLocalStorage('playerShipGrid', createGrid(settings.gridSize), true);
+  const [enemyShipGrid, setEnemyShipGrid] = useLocalStorage('enemyShipGrid', createGrid(settings.gridSize), true);
+  const [gameLog, setGameLog] = useLocalStorage('gameLog', [], true);
+  const [gameState, setGameState] = useLocalStorage('gameState', INITIAL_GAME_STATE, true);
   const [selectedDifficulty, setSelectedDifficulty] = useLocalStorage('selectedDifficulty', null);
   const [statsUpdated, setStatsUpdated] = useLocalStorage('statsUpdated', false);
 
