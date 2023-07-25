@@ -13,7 +13,7 @@ import { useLocalStorage } from '../utils/hooks/use_local_storage';
 import { useSoundEffect } from '../utils/hooks/use_sound_effect';
 
 // AI Logic options
-import { makeRandomShot, makeSmartShot, makeSmarterShot } from '../utils/ai_logic/index';
+import { makeRandomShot, makeSmartShot, makeSmarterShot, makeCheatingShot } from '../utils/ai_logic/index';
 
 import { achievementsCheck } from '../utils/achievements_checks';
 
@@ -24,7 +24,7 @@ const AI_LOGIC_OPTIONS = {
   'easy': makeRandomShot,
   'medium': makeSmartShot,
   'hard': makeSmarterShot,
-  'impossible': makeSmarterShot, // TEMP: use the same logic as hard for now
+  'impossible': makeCheatingShot,
 };
 
 const Game = (props) => {
