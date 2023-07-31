@@ -7,6 +7,7 @@ import PlaceShips from '../scenes/place_ships';
 import PickDifficulty from '../scenes/pick_difficulty';
 import GameContent from '../scenes/game_content';
 import WinScreen from '../scenes/win_screen';
+import GameLoading from '../scenes/game_loading';
 
 // Hooks
 import { useLocalStorage } from '../utils/hooks/use_local_storage';
@@ -175,6 +176,15 @@ const Game = (props) => {
         setPlayerShipGrid={setPlayerShipGrid}
         setGameState={setGameState}
         setSelectedDifficulty={setSelectedDifficulty}
+      />
+    );
+  }
+
+  if (!gameState.gameLoaded) {
+    return (
+      <GameLoading
+        gameState={gameState}
+        setGameState={setGameState}
       />
     );
   }
