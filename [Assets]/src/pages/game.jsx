@@ -174,6 +174,7 @@ const Game = (props) => {
         playerShipGrid={playerShipGrid}
         setPlayerShipGrid={setPlayerShipGrid}
         setGameState={setGameState}
+        setSelectedDifficulty={setSelectedDifficulty}
       />
     );
   }
