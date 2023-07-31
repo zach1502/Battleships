@@ -61,7 +61,6 @@ const PickDifficulty = (props) => {
                 <Button
                     variant="contained"
                     color="success"
-                    href="/game"
                     onClick={() => {
                         if (tempDifficulty) {
                             setSelectedDifficulty(tempDifficulty);
