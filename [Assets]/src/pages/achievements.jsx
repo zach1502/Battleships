@@ -3,6 +3,8 @@ import { Button, Grid, Typography, Box, Paper } from '@mui/material';
 
 import { listOfAllAchievements } from '../utils/achievements_list';
 
+import MenuIcon from '@mui/icons-material/Menu';
+
 const Achievements = (props) => {
   const obtainedAchievements = props.obtainedAchievements;
   return (
@@ -13,10 +15,18 @@ const Achievements = (props) => {
             Achievements
           </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <Button color="primary" variant="contained" href="/">
+        <Grid item xs={12} container justifyContent="center" alignItems="center">
+          <Button color="primary" variant="contained" href="/" startIcon={<MenuIcon/>}>
             Back to main menu
           </Button>
+        </Grid>
+        <Grid item xs={12} container justifyContent="center" alignItems="center">
+          <Typography variant="subtitle1" component="div" gutterBottom>
+            Obtained Achievements
+          </Typography>
+          <Grid item xs={12} container justifyContent="center" alignContent='center'>
+            {obtainedAchievements.length} / {listOfAllAchievements.length}
+          </Grid>
         </Grid>
         {
           listOfAllAchievements.map((achievement, index) => {
@@ -54,8 +64,8 @@ const Achievements = (props) => {
             );
           })
         }
-        <Grid item xs={12}>
-          <Button color="primary" variant="contained" href="/">
+        <Grid item xs={12} container justifyContent="center" alignItems="center">
+          <Button color="primary" variant="contained" href="/" startIcon={<MenuIcon/>}>
             Back to main menu
           </Button>
         </Grid>

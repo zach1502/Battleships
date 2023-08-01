@@ -1,7 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import { Grid, Button, Typography } from '@mui/material';
+import { Grid, Button, Typography, SvgIcon} from '@mui/material';
+
+import MenuIcon from '@mui/icons-material/Menu';
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 const PickDifficulty = (props) => {
     const selectedDifficulty = props.selectedDifficulty;
@@ -31,7 +34,7 @@ const PickDifficulty = (props) => {
     const renderDifficultyOptions = React.useCallback(() => {
         return difficultyOptions.map((option) => {
             return (
-                <Grid item xs={12/difficultyOptions.length} key={option.value}>
+                <Grid item xs={12/difficultyOptions.length} key={option.value} container justifyContent='center' alignItems="center">
                     <Button
                         variant="contained"
                         color={(tempDifficulty === option.value)? 'success' : 'primary'}
@@ -47,20 +50,24 @@ const PickDifficulty = (props) => {
 
     return (
         <Grid container spacing={2} justifyContent='center' alignItems="center" >
-            <Grid item xs={12}>
-                <Typography variant="h3">
-                    Pick a difficulty level
+            <Grid item xs={12} container justifyContent='center' alignItems='center'>
+                <Typography variant="h2">
+                    Pick a Difficulty Level
                 </Typography>
-                <Typography variant="h4">
+            </Grid>
+            <Grid item xs={12} container justifyContent='center' alignItems="center">
+                <Typography variant="h3">
                     Selected: {difficultyOptions.find((option) => option.value === tempDifficulty)?.name || 'None'}
                 </Typography>
             </Grid>
+
             {renderDifficultyOptions()}
 
-            <Grid item xs={6}>
+            <Grid item xs={6} container justifyContent='center' alignItems="center">
                 <Button
                     variant="contained"
                     color="success"
+                    startIcon={<PlayArrowIcon/>}
                     onClick={() => {
                         if (tempDifficulty) {
                             setSelectedDifficulty(tempDifficulty);
@@ -70,11 +77,12 @@ const PickDifficulty = (props) => {
                     Start Game
                 </Button>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} container justifyContent='center' alignItems="center">
                 <Button
                     variant="contained"
                     color="primary"
                     href="/"
+                    startIcon={<MenuIcon/>}
                 >
                     Main Menu
                 </Button>

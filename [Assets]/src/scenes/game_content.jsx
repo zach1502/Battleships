@@ -41,9 +41,6 @@ const GameContent = (props) => {
       forfeits: prevState.forfeits + 1 || 1,
       losses: prevState.losses + 1 || 1,
     }));
-
-    // go to the main menu
-    window.location.href = '/';
   }, []);
 
   return (
@@ -77,27 +74,28 @@ const GameContent = (props) => {
         <Button
           color='error'
           variant='contained'
+          startIcon={<FlagIcon/>}
           onClick={handleForfeit}
+          href='/'
         >
-          <FlagIcon/>
           Forfeit
         </Button>
       </Grid>
       <Grid item xs={3} container justifyContent="center" alignItems="center">
         <Button
           variant='contained'
+          startIcon={<MenuIcon/>}
           href="/"
         >
-          <MenuIcon/>
           Menu
         </Button>
       </Grid>
       <Grid item xs={3} container justifyContent="center" alignItems="center">
         <Button
           variant='contained'
+          startIcon={<HelpIcon/>}
           href="/help"
         >
-          <HelpIcon/>
           Help
         </Button>
       </Grid>

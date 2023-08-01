@@ -16,6 +16,7 @@ const Menu = (props) => {
                         Menu
                     </Typography> */}
                     <Grid item>
+                        {}
                         <Button variant="contained" color='success' href="/game">Play</Button>
                     </Grid>
                     <Grid item>

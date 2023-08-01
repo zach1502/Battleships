@@ -3,10 +3,14 @@ import propTypes from 'prop-types';
 
 import { Grid, Button, Typography } from '@mui/material';
 
+import MenuIcon from '@mui/icons-material/Menu';
+import ReplayIcon from '@mui/icons-material/Replay';
+
+
 const WinScreen = (props) => {
   const gameState = props.gameState;
 
-  const handleReturnToMenu = React.useCallback(() => {
+  const handleMatchReset = React.useCallback(() => {
     // remove specific local storage items
     localStorage.removeItem('playerBattleGrid');
     localStorage.removeItem('enemyBattleGrid');
@@ -17,24 +21,6 @@ const WinScreen = (props) => {
     localStorage.removeItem('hunt_and_seek_state');
     localStorage.removeItem('selectedDifficulty');
     localStorage.removeItem('statsUpdated');
-
-    // go to the main menu
-    window.location.href = '/';
-  }, []);
-
-  const handlePlayAgain = React.useCallback(() => {
-    localStorage.removeItem('playerBattleGrid');
-    localStorage.removeItem('enemyBattleGrid');
-    localStorage.removeItem('playerShipGrid');
-    localStorage.removeItem('enemyShipGrid');
-    localStorage.removeItem('gameLog');
-    localStorage.removeItem('gameState');
-    localStorage.removeItem('hunt_and_seek_state');
-    localStorage.removeItem('selectedDifficulty');
-    localStorage.removeItem('statsUpdated');
-
-    // go to the main menu
-    window.location.href = '/game';
   }, []);
 
   return (
@@ -48,7 +34,9 @@ const WinScreen = (props) => {
         <Button
           variant="contained"
           color='primary'
-          onClick={handleReturnToMenu}
+          onClick={handleMatchReset}
+          href='/'
+          startIcon={<MenuIcon />}
         >
           Return to Menu
         </Button>
@@ -57,7 +45,9 @@ const WinScreen = (props) => {
         <Button
           variant="contained"
           color='success'
-          onClick={handlePlayAgain}
+          onClick={handleMatchReset}
+          href='/game'
+          startIcon={<ReplayIcon />}
         >
           Play Again
         </Button>

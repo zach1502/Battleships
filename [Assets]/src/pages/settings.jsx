@@ -2,6 +2,8 @@ import React from "react";
 import { Grid, Button, Typography, Checkbox} from "@mui/material";
 import { Slider, ColorPicker } from "../components";
 
+import MenuIcon from '@mui/icons-material/Menu';
+
 const Settings = (props) => {
   const settings = props.settings;
   const setSettings = props.setSettings;
@@ -120,7 +122,9 @@ const Settings = (props) => {
           </Typography>
         </Grid>
         <Grid item xs={12} align='center'>
-          <Button variant="contained" align='center' href="/">Back to main menu</Button>
+          <Button variant="contained" align='center' href="/" startIcon={<MenuIcon/>}>
+            Back to main menu
+          </Button>
         </Grid>
       </Grid>
     </>
