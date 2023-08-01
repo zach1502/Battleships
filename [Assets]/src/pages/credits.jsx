@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography, Box, Container, List, ListItem } from '@mui/material';
+import { Button, Typography, Box, Container, Grid } from '@mui/material';
 
 const Credits = (props) => {
     const setStats = props.setStats;
@@ -27,30 +27,17 @@ const Credits = (props) => {
                     </Box>
                 </Typography>
 
-                <List>
-                    <ListItem>
-                        <Typography variant="body1">
-                            <Box fontWeight="fontWeightBold">Lead Developer:</Box> John Doe
-                        </Typography>
-                    </ListItem>
-                    <ListItem>
-                        <Typography variant="body1">
-                            <Box fontWeight="fontWeightBold">UI/UX Designer:</Box> Jane Smith
-                        </Typography>
-                    </ListItem>
-                    <ListItem>
-                        <Typography variant="body1">
-                            <Box fontWeight="fontWeightBold">QA Tester:</Box> Alex Johnson
-                        </Typography>
-                    </ListItem>
-                    <ListItem>
-                        <Typography variant="body1">
-                            <Box fontWeight="fontWeightBold">Product Manager:</Box> Emily Davis
-                        </Typography>
-                    </ListItem>
-                </List>
+                <Grid container>
+                    {['Zachary Chan', 'Curtis Huang', 'Kyle Mollard', 'Mark He', 'Angela Yung'].map(name => (
+                        <Grid item key={name} sx={12} container justifyContent='center' alignContent='center'>
+                            <Typography variant="body1" gutterBottom>
+                                <Box fontWeight="fontWeightBold">Team Member:</Box> {name}
+                            </Typography>
+                        </Grid>
+                    ))}
+                </Grid>
 
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="h4" gutterBottom>
                     We hope you enjoyed our game!
                 </Typography>
 

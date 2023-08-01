@@ -10,8 +10,8 @@ const Achievements = (props) => {
   return (
     <Box sx={{ maxHeight: '100%', overflowY: 'auto' }}>
       <Grid container spacing={2} alignContent={'center'}>
-        <Grid item xs={12}>
-          <Typography variant="h1" component="div" gutterBottom>
+        <Grid item xs={12} container justifyContent="center" alignItems="center">
+          <Typography variant="h2" component="div" gutterBottom>
             Achievements
           </Typography>
         </Grid>
