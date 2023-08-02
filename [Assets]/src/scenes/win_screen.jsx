@@ -1,14 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import { Grid, Button, Typography } from '@mui/material';
-
+import { Box, Grid, Button, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ReplayIcon from '@mui/icons-material/Replay';
 
-
 const WinScreen = (props) => {
-  const gameState = props.gameState;
+  const { gameState } = props;
 
   const handleMatchReset = React.useCallback(() => {
     // remove specific local storage items
@@ -23,17 +21,25 @@ const WinScreen = (props) => {
     localStorage.removeItem('statsUpdated');
   }, []);
 
+  const imageUrl = gameState.playerWon ? 
+  'https://levvvel.com/wp-content/uploads/how-to-play-a-battleship-in-world-of-warships.jpg' : 
+  'https://hips.hearstapps.com/hmg-prod/images/in-this-u-s-navy-released-handout-a-fire-continues-to-be-news-photo-1594671916.jpg';
+
   return (
-    <Grid container spacing={2} justifyContent='center' alignItems="center" >
+    <Grid container spacing={2} justifyContent='center' alignItems="center">
       <Grid item xs={12}>
-        <Typography variant="h3">
-          {gameState.playerWon ? 'You Won!' : 'The AI has Won!'}
+        <Typography variant="h2" align='center'>
+          {gameState.playerWon ? 'Congratulations, You Won!' : 'Game Over, The AI Won!'}
         </Typography>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} container justifyContent='center' alignItems="center">
+        <img src={imageUrl} alt={gameState.playerWon ? 'You won' : 'You lost'} style={{ width: '90%', height: 'auto' }} />
+      </Grid>
+      <Grid item>
         <Button
           variant="contained"
           color='primary'
+          fullWidth
           onClick={handleMatchReset}
           href='/'
           startIcon={<MenuIcon />}
@@ -41,10 +47,11 @@ const WinScreen = (props) => {
           Return to Menu
         </Button>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item>
         <Button
           variant="contained"
           color='success'
+          fullWidth
           onClick={handleMatchReset}
           href='/game'
           startIcon={<ReplayIcon />}
