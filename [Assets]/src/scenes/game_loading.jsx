@@ -1,77 +1,119 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Grid, Typography, Box, CircularProgress } from '@mui/material';
+import { KeyboardArrowDown } from '@mui/icons-material';
 
-import { Grid, Typography } from '@mui/material';
+import { STATUS_MESSAGES, TIPS } from '../utils/constants';
 
 const GameLoading = (props) => {
-  const gameState = props.gameState;
   const setGameState = props.setGameState;
-  const [statusMessage, setStatusMessage] = React.useState('Connecting to matchmaking server...');
-  const [onlineCount, setOnlineCount] = React.useState(Math.floor(Math.random() * 100) + 200);
-  const [playingCount, setPlayingCount] = React.useState(Math.floor(Math.random() * 25) *2 + 10);
-  const [countdown, setCountdown] = React.useState(null);
+  const setStats = props.setStats;
+
+  const [statusMessage, setStatusMessage] = React.useState(STATUS_MESSAGES[0]);
+  const [countdown, setCountdown] = React.useState(STATUS_MESSAGES.length);
+
+  const [tipIndex, setTipIndex] = React.useState(0);
+
+  const getNextTipIndex = (currentIndex) => {
+    let nextIndex;
+    do {
+      nextIndex = Math.floor(Math.random() * TIPS.length);
+    } while (nextIndex === currentIndex);
+    return nextIndex;
+  };
 
   React.useEffect(() => {
-    const updateStatus = setTimeout(() => {
-      setStatusMessage('Searching for a match...');
-    }, 2000);
+    if (countdown > -1) {
+      const countdownTimer = setTimeout(() => {
+        setCountdown(countdown - 1);
+        setStatusMessage(STATUS_MESSAGES[STATUS_MESSAGES.length - countdown]);
+      }, 2000);
 
-    const findMatch = setTimeout(() => {
-      setStatusMessage('Match found!');
-      setCountdown(3);
-    }, 7000);
-
-    const updateCounts = setInterval(() => {
-      setOnlineCount((prevCount) => prevCount + Math.floor(Math.random() * 10) - 5);
-      setPlayingCount((prevCount) => prevCount + Math.floor(Math.random() * 2)*2 - 2);
-    }, 1500);
-
-    return () => {
-      clearTimeout(updateStatus);
-      clearTimeout(findMatch);
-      clearInterval(updateCounts);
-    };
-  }, []);
-
-  React.useEffect(() => {
-    let countdownTimer = null;
-    if (countdown > 0) {
-      countdownTimer = setTimeout(() => setCountdown(countdown - 1), 1000);
-    } else if (countdown === 0) {
-      countdownTimer = setTimeout(() => {
-        setGameState((prevState) => ({ ...prevState, gameLoaded: true }));
-      }, 1000);
+      return () => clearTimeout(countdownTimer);
+    } else {
+      setGameState(prevState => ({ ...prevState, gameLoaded: true }));
     }
+  }, [countdown, setGameState]);
 
-    return () => countdownTimer && clearTimeout(countdownTimer);
-  }, [countdown]);
+  React.useEffect(() => {
+    const tipTimer = setTimeout(() => {
+      setTipIndex(getNextTipIndex);
+    }, 5000);
+
+    return () => clearTimeout(tipTimer);
+  }, [tipIndex]);
+
+  const handleTipClick = () => {
+    if(tipIndex === TIPS.length - 1){
+      setStats(prevStats => ({ ...prevStats, tipEasterEggFound: true }));
+    }
+    setTipIndex(getNextTipIndex);
+  };
+
+  const variants = {
+    enter: () => {
+      return {
+        x: -1000,
+        opacity: 0
+      };
+    },
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1
+    },
+    exit: () => {
+      return {
+        zIndex: 0,
+        x: 1000,
+        opacity: 0
+      };
+    }
+  };
 
   return (
-    <Grid 
-        container 
-        direction="column" 
-        justifyContent="center" 
-        alignItems="center"
-        style={{ minHeight: '100vh' }}
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      style={{ minHeight: '100vh' }}
+      sx={{overflow: 'hidden'}}
     >
-      <Typography variant="h1" style={{ marginBottom: '20px' }}>
-        {countdown !== null ? countdown : ""}
-      </Typography>
+      <CircularProgress color="primary" style={{ marginBottom: '20px' }} />
       <Typography variant="h5" style={{ marginBottom: '20px' }}>
         {statusMessage}
       </Typography>
-      <Typography variant="subtitle1">
-        Online players: {onlineCount}
-      </Typography>
-      <Typography variant="subtitle1">
-        Currently playing: {playingCount}
-      </Typography>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={tipIndex}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          onClick={handleTipClick}
+          transition={{
+            x: { type: "spring", stiffness: 300, damping: 30 },
+            opacity: { duration: 0.5 }
+          }}
+          style={{cursor: 'pointer'}}
+        >
+          <Typography variant="subtitle1" style={{ marginBottom: '10px' }}>
+            {TIPS[tipIndex]}
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <KeyboardArrowDown fontSize="small" />
+          </Box>
+        </motion.div>
+      </AnimatePresence>
     </Grid>
   );
 };
 
 GameLoading.propTypes = {
-  gameState: propTypes.object.isRequired,
+  setGameState: propTypes.func.isRequired,
+  setStats: propTypes.func.isRequired
 };
 
 export default GameLoading;

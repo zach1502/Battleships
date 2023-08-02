@@ -162,7 +162,16 @@ const listOfAllAchievements = [
         },
         "image": "https://i.imgur.com/JsDd8CZ.png",
         "isHidden": false,
-    }
+    },
+    {
+        "name": "Touching Tips",
+        "description": "Curiosity pays off, and now you're part of an elite group of players in the know. Always remember to explore every nook and cranny, for hidden treasures might just be lurking around the corner!",
+        "condition": (stats) => {
+            return stats.tipEasterEggFound  === true;
+        },
+        "image": "https://i.imgur.com/JsDd8CZ.png",
+        "isHidden": false,
+    },
 ];
 
 export {

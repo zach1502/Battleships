@@ -183,8 +183,8 @@ const Game = (props) => {
   if (!gameState.gameLoaded) {
     return (
       <GameLoading
-        gameState={gameState}
         setGameState={setGameState}
+        setStats={setStats}
       />
     );
   }
