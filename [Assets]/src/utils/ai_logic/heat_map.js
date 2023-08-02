@@ -96,6 +96,7 @@ const getNextShotPosition = (enemyBattleGrid, currentHeatMap) => {
 };
 
 const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
+  if (!shotPosition) return {shotResult: CELL_MISS, newEnemyBattleGrid: enemyBattleGrid};
   const row = shotPosition[0];
   const col = shotPosition[1];
 
@@ -249,7 +250,7 @@ const getTrackingModifiers = (enemyBattleGrid, playerShipGrid, baseGrid) => {
             let y = j + dy;
             while(isValidCoordinate(x, y, enemyBattleGrid) && enemyBattleGrid[x][y] === null) {
               // Increase the modifier in the direction of hits
-              if(horizontalHit && HORIZONTAL.includes([dx, dy]) || verticalHit && VERTICAL.includes([dx, dy])){
+              if((horizontalHit && HORIZONTAL.includes([dx, dy])) || (verticalHit && VERTICAL.includes([dx, dy]))){
                 trackingGrid[x][y] += ADJACENT_HIT_MODIFIER;
               }
               x += dx;

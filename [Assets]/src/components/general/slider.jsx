@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Slider, TextField, Grid } from "@mui/material";
+import { Typography, Slider, Grid } from "@mui/material";
 
 const CustomSlider = (props) => {
   const value = props.value;

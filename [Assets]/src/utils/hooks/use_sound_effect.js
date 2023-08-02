@@ -6,7 +6,7 @@ const useSoundEffect = (src, settings) => {
   const play = React.useCallback(() => {
     const sound = new Howl({ src: [src], volume: settings.sfxVolume * settings.masterVolume / 10000});
     sound.play();
-  }, []);
+  }, [src, settings.sfxVolume, settings.masterVolume]);
 
   // Return the 'play' function to be used by the component
   return play;

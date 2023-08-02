@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Howl } from 'howler';
 import { useLocation } from 'react-router-dom';
 
@@ -13,17 +13,17 @@ const BackgroundMusic = (props) => {
   const setSelectedTrack = props.setSelectedTrack;
   const settings = props.settings;
 
-  useEffect(() => {
+  React.useEffect(() => {
     tracks.forEach(track => {
       track.sound.on('end', () => setSelectedTrack(Math.ceil(Math.random() * tracks.length)));
     });
   }, [setSelectedTrack]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     tracks.forEach(track => track.sound.volume((settings.musicVolume * settings.masterVolume) / 10000));
-  }, [settings.musicVolume, settings.masterVolume, tracks]);
+  }, [settings.musicVolume, settings.masterVolume]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     tracks.forEach(track =>
       (track.id === selectedTrack) ?
         track.sound.play() : track.sound.stop()

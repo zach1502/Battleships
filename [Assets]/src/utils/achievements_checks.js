@@ -6,22 +6,29 @@ const achievementsCheck = (enemyBattleGrid, playerBattleGrid, gameLog) => {
 
     // game log contents is an array of strings "Hit! E4" or "Miss! E4". every 2nd element is the Ai's move
     // find the longest streak of hits of the player in the game log
-    const playerHitStreak = gameLog.reduce((acc, curr, index) => {
-        if (index % 2 === 0 && curr.includes('Hit!')) {
-            acc += 1;
-        } else {
-            acc = 0;
+
+    let maxPlayerHitStreak = 0;
+    let maxPlayerMissStreak = 0;
+
+    let playerHitStreak = 0;
+    let playerMissStreak = 0;
+
+    for (let i = 0; i < gameLog.length; i++) {
+        if (i % 2 === 0 && gameLog[i].includes('Hit!')) {
+            playerHitStreak++;
+            playerMissStreak = 0;
         }
-        return acc;
-    }, 0);
-    const playerMissStreak = gameLog.reduce((acc, curr, index) => {
-        if (index % 2 === 0 && curr.includes('Miss!')) {
-            acc += 1;
-        } else {
-            acc = 0;
+        if (i % 2 === 0 && gameLog[i].includes('Miss!')) {
+            playerMissStreak++;
+            playerHitStreak = 0;
         }
-        return acc;
-    }, 0);
+        if (playerHitStreak > maxPlayerHitStreak) {
+            maxPlayerHitStreak = playerHitStreak;
+        }
+        if (playerMissStreak > maxPlayerMissStreak) {
+            maxPlayerMissStreak = playerMissStreak;
+        }
+    }
 
     // Win a game without any of your ships getting hit
     if (enemyHitCount === 0 && playerHitCount === 17) {
@@ -34,18 +41,18 @@ const achievementsCheck = (enemyBattleGrid, playerBattleGrid, gameLog) => {
     }
 
     // miss at least n times in a row
-    if (playerMissStreak >= 10) {
+    if (maxPlayerMissStreak >= 10) {
         achievements.areYouEvenTrying = true;
     }
-    if (playerMissStreak >= 20) {
+    if (maxPlayerMissStreak >= 20) {
         achievements.stormtrooper = true;
     }
 
     // hit at least n times in a row
-    if (playerHitStreak >= 10) {
+    if (maxPlayerHitStreak >= 10) {
         achievements.cantStopWontStop = true;
     }
-    if (playerHitStreak >= 17) {
+    if (maxPlayerHitStreak >= 17) {
         achievements.hawkeye = true;
     }
 

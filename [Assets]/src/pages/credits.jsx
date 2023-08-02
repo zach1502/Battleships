@@ -6,7 +6,7 @@ const Credits = (props) => {
 
     React.useEffect(() => {
         setStats((prevState) => ({...prevState, credits: true}));
-    }, []);
+    }, [setStats]);
 
     return (
         <Container maxWidth="sm">

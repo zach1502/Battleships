@@ -5,7 +5,7 @@ import { Grid, Button } from '@mui/material';
 import { BattleGrid, GameLogDisplay, ShipGrid } from '../modules';
 import { TurnIndicator, DialogBox } from '../components';
 
-import Heatmap from '../utils/ai_logic/heat_map_debug';
+// import Heatmap from '../utils/ai_logic/heat_map_debug';
 
 import FlagIcon from '@mui/icons-material/Flag';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -24,7 +24,7 @@ const GameContent = (props) => {
   const settings = props.settings;
   const setStats = props.setStats;
 
-  const currentHeatMap = props.currentHeatMap;
+  // const currentHeatMap = props.currentHeatMap;
 
   const handleForfeit = React.useCallback(() => {
     // remove specific local storage items
@@ -43,7 +43,7 @@ const GameContent = (props) => {
       forfeits: prevState.forfeits + 1 || 1,
       losses: prevState.losses + 1 || 1,
     }));
-  }, []);
+  }, [setStats]);
 
   const [openHelp, setOpenHelp] = useState(false);
 

@@ -1,7 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
 
-import { Button, Typography, Grid } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import GridTile from "./grid_tile.jsx";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 

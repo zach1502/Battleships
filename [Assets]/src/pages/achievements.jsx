@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, Typography, Box, Paper } from '@mui/material';
+import { Button, Grid, Typography, Box} from '@mui/material';
 
 import { listOfAllAchievements } from '../utils/achievements_list';
 

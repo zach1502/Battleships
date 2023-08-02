@@ -148,6 +148,7 @@ const PlaceShipGrid = (props) => {
         setSelectedSquare(null);
         return true;
       }
+      return false;
     });
 
     // If the ship couldn't be placed, put it back

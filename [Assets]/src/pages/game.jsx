@@ -49,7 +49,7 @@ const Game = (props) => {
 
   React.useEffect(() => {
     setSelectedTrack(1);  // Play the first track when the game starts
-  }, []);
+  }, [setSelectedTrack]);
 
   // place enemy ships randomly
   const placeEnemyShipsIfNeeded = React.useCallback(() => {
@@ -74,6 +74,8 @@ const Game = (props) => {
 
     const enemyHitCount = enemyBattleGrid.flat().filter((shot) => shot === 'hit').length;
     const playerHitCount = playerBattleGrid.flat().filter((shot) => shot === 'hit').length;
+
+    console.log(gameLog)
 
     if (!statsUpdated && (playerHitCount === maxHits || enemyHitCount === maxHits)) {
 
@@ -126,7 +128,7 @@ const Game = (props) => {
       setStatsUpdated(true);
     }
 
-  }, [enemyBattleGrid, playerShipGrid, statsUpdated]);
+  }, [enemyBattleGrid, playerShipGrid, statsUpdated, gameLog, setStats, setStatsUpdated, gameState, setGameState, selectedDifficulty, playerBattleGrid]);
 
   // AI Logic, triggered when it's the AI's turn
   React.useEffect(() => {
@@ -147,7 +149,7 @@ const Game = (props) => {
       // Cleanup function: if the component is unmounted before the delay, the timeout is cleared
       clearTimeout(timeoutId);
     }
-  }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState]);
+  }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState, gameLog, setGameLog, selectedDifficulty, playHitSoundEffect, playMissSoundEffect, convertXYToGridIndex]);
 
 
   if (gameState.gameOver) {

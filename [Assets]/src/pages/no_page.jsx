@@ -6,7 +6,7 @@ const NoPage = (props) => {
 
     React.useEffect(() => {
         setStats((prevState) => ({...prevState, lostInTheVoid: true}));
-    }, []);
+    }, [setStats]);
 
     return (
         <>

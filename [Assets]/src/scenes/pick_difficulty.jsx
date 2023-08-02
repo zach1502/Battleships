@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext, createContext } from 'react';
+import React, { useState, useCallback, useContext, createContext, useMemo } from 'react';
 import propTypes from 'prop-types';
 import { Grid, Button, Typography, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -50,26 +50,26 @@ const MainMenuButton = () => (
     </Button>
 );
 
-const DifficultyOptions = ({ options }) => (
-    <Grid item xs={12} container spacing={2} alignItems="center">
-        {options.map((option) => <DifficultyButton key={option.value} option={option} />)}
-    </Grid>
-);
-
 const PickDifficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
     const [tempDifficulty, setTempDifficulty] = useState(selectedDifficulty);
 
-    const difficultyOptions = [
+    const difficultyOptions = useMemo(() => [
         { name: 'Easy', value: 'easy' },
         { name: 'Medium', value: 'medium' },
         { name: 'Hard', value: 'hard' },
         { name: 'Impossible', value: 'impossible' }
-    ];
+    ], []);
 
     const selectedDifficultyName = useCallback(() =>
         difficultyOptions.find((option) => option.value === tempDifficulty)?.name || 'None',
         [tempDifficulty, difficultyOptions]
     );
+
+    const DifficultyOptions = useMemo(() => ({ options }) => (
+        <Grid item xs={12} container spacing={2} alignItems="center">
+            {options.map((option) => <DifficultyButton key={option.value} option={option} />)}
+        </Grid>
+    ), []);
 
     return (
         <DifficultyContext.Provider value={{ tempDifficulty, setTempDifficulty }}>

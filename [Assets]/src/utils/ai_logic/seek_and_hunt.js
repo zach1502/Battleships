@@ -79,11 +79,9 @@ const updateSmallShipSize = (playerShipGrid, enemyBattleGrid) => {
   };
 
   // find the smallest surviving ship
-  let smallestShip = null;
   let smallestShipLength = 100;
   for (const [ship, length] of Object.entries(state.remainingShipLengths)) {
     if (length > 0 && originalLengths[ship] < smallestShipLength) {
-      smallestShip = ship;
       smallestShipLength = length;
     }
   }
