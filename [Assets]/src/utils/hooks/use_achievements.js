@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocalStorage } from './use_local_storage';
+import useLocalStorage from './use_local_storage';
 import { Howl } from 'howler';
 import { listOfAllAchievements } from '../achievements_list';
 
@@ -31,6 +31,4 @@ const useAchievements = (playerData, settings) => {
   return [obtainedAchievements, theNewAchievement, clearNewAchievements];
 };
 
-export {
-  useAchievements,
-};
+export default useAchievements;

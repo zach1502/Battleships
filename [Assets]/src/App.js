@@ -13,8 +13,7 @@ import BackgroundMusic from './components/background_music';
 import SoundEffects from './components/sound_effects';
 
 import { DEFAULT_SETTINGS } from './utils/constants';
-import { useLocalStorage} from './utils/hooks/use_local_storage';
-import { useAchievements } from './utils/hooks/use_achievements';
+import { useLocalStorage, useAchievements } from './utils/hooks/';
 
 const App = () => {
   const [settings, setSettings] = useLocalStorage("settings", DEFAULT_SETTINGS);

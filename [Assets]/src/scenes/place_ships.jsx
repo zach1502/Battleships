@@ -12,7 +12,7 @@ import {DialogBox, DropdownSelect} from "../components/";
 
 import createGrid from "../utils/create_grid";
 import {shipNames} from "../utils/ship_details";
-import useNewGridColors from "../utils/hooks/use_new_grid_colors";
+import {useNewGridColors} from "../utils/hooks/";
 
 const PlaceShips = (props) => {
   const [selectedShip, setSelectedShip] = React.useState('carrier');

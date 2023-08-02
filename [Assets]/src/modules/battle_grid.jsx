@@ -4,8 +4,7 @@ import propTypes from 'prop-types';
 import { SelectionGrid } from "../components/";
 
 import { shipGridLegend } from "../utils/grid_legends";
-import useNewGridColors from "../utils/hooks/use_new_grid_colors";
-import { useSoundEffect } from '../utils/hooks/use_sound_effect';
+import { useSoundEffect, useNewGridColors } from '../utils/hooks/';
 
 const BattleGrid = (props) => {
   const gameState = props.gameState;

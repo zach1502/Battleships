@@ -12,6 +12,4 @@ const useSoundEffect = (src, settings) => {
   return play;
 };
 
-export {
-  useSoundEffect
-};
+export default useSoundEffect;

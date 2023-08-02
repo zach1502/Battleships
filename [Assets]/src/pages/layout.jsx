@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 
 import Header from "../components/header";
-import { useAchievements } from '../utils/hooks/use_achievements';
+import { useAchievements } from '../utils/hooks';
 import {PopUp} from "../components";
 
 const Layout = (props) => {

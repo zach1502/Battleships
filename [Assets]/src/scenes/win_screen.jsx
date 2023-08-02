@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import { Box, Grid, Button, Typography } from '@mui/material';
+import {Grid, Button, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ReplayIcon from '@mui/icons-material/Replay';
 

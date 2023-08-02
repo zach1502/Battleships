@@ -22,6 +22,4 @@ function useLocalStorage(key, initialValue, enableObfuscation = false) {
   return [state, setState];
 }
 
-export {
-  useLocalStorage,
-};
+export default useLocalStorage;

@@ -10,14 +10,12 @@ import WinScreen from '../scenes/win_screen';
 import GameLoading from '../scenes/game_loading';
 
 // Hooks
-import { useLocalStorage } from '../utils/hooks/use_local_storage';
-import { useSoundEffect } from '../utils/hooks/use_sound_effect';
+import { useLocalStorage, useSoundEffect } from '../utils/hooks/';
 
 // AI Logic options
 import { makeRandomShot, makeSmartShot, makeSmarterShot, makeCheatingShot } from '../utils/ai_logic/index';
 
 import { achievementsCheck } from '../utils/achievements_checks';
-
 import { placeEnemyShips } from '../utils/ship_placement';
 import { INITIAL_GAME_STATE } from '../utils/constants';
 
