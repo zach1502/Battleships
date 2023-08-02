@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 
-import { Grid, Button, Box } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import { BattleGrid, GameLogDisplay, ShipGrid } from '../modules';
+import { TurnIndicator, DialogBox } from '../components';
 
 import Heatmap from '../utils/ai_logic/heat_map_debug';
 
@@ -37,22 +38,38 @@ const GameContent = (props) => {
     localStorage.removeItem('selectedDifficulty');
     localStorage.removeItem('statsUpdated');
 
-    setStats((prevState) => ({ ...prevState, 
+    setStats((prevState) => ({
+      ...prevState,
       forfeits: prevState.forfeits + 1 || 1,
       losses: prevState.losses + 1 || 1,
     }));
   }, []);
 
+  const [openHelp, setOpenHelp] = useState(false);
+
+  const handleOpenHelp = () => {
+    setOpenHelp(true);
+  };
+
+  const handleCloseHelp = () => {
+    setOpenHelp(false);
+  };
+
   return (
     <Grid direction="row" container justifyContent="center" alignItems="center">
-      <Grid item xs={6} container justifyContent="center" alignItems="center">
-          <ShipGrid
-            playerShipGrid={playerShipGrid}
-            enemyBattleGrid={enemyBattleGrid}
-            settings={settings}
-          />
+      <Grid item xs={12} container justifyContent="center" alignItems="center">
+        <TurnIndicator
+          playerTurn={gameState.playerTurn}
+        />
       </Grid>
-      <Grid item xs={6} container justifyContent="center" alignItems="center">
+      <Grid item xs={6} container justifyContent="center" alignItems="center" sx={{ marginLeft: '-3rem' }}>
+        <ShipGrid
+          playerShipGrid={playerShipGrid}
+          enemyBattleGrid={enemyBattleGrid}
+          settings={settings}
+        />
+      </Grid>
+      <Grid item xs={6} container justifyContent="center" alignItems="center" sx={{ marginLeft: '-3rem' }}>
         <BattleGrid
           gameState={gameState}
           setGameState={setGameState}
@@ -74,7 +91,7 @@ const GameContent = (props) => {
         <Button
           color='error'
           variant='contained'
-          startIcon={<FlagIcon/>}
+          startIcon={<FlagIcon />}
           onClick={handleForfeit}
           href='/'
         >
@@ -84,7 +101,7 @@ const GameContent = (props) => {
       <Grid item xs={3} container justifyContent="center" alignItems="center">
         <Button
           variant='contained'
-          startIcon={<MenuIcon/>}
+          startIcon={<MenuIcon />}
           href="/"
         >
           Menu
@@ -93,11 +110,42 @@ const GameContent = (props) => {
       <Grid item xs={3} container justifyContent="center" alignItems="center">
         <Button
           variant='contained'
-          startIcon={<HelpIcon/>}
-          href="/help"
+          startIcon={<HelpIcon />}
+          onClick={handleOpenHelp}
         >
           Help
         </Button>
+        <DialogBox
+          open={openHelp}
+          handleClose={handleCloseHelp}
+          titleContentPairs={[
+            {
+              title: "Goal of the Game",
+              content: `The goal of the game is to destroy all enemy ships before your opponent does the same to you. Each player starts with a fleet of ships placed on their own grid. On each turn, a player can launch an attack on the opponent's grid, aiming to hit and sink their ships. The game continues until one player's entire fleet is sunk.`,
+            },
+            {
+              title: "Ships Grid (Left)",
+              content: "The Ships Grid on the left side of the screen represents your fleet. It displays the position of your ships and the status of each ship segment (either intact or hit). Your opponent's attacks will be marked on this grid so you can see all their shots.",
+            },
+            {
+              title: "Attack Grid (Right)",
+              content: "The Attack Grid on the right side of the screen represents your opponent's grid where you launch your attacks. It shows the result of your past attacks (hits or misses) and helps you strategize your future moves. When you hit an enemy ship, it will be marked on this grid.",
+            },
+            {
+              title: "Game Log",
+              content: "The Game Log at the bottom of the screen displays the history of your attacks and your opponent's attacks. It shows the result of each attack (hit or miss) and the position of the attack on the grid.",
+            },
+            {
+              title: "Forfeit",
+              content: "If you wish to forfeit the game, you can click the Forfeit button at the bottom of the screen. This will end the game and return you to the Main Menu. The game will be counted as a loss.",
+            },
+            {
+              title: "Saving and Loading",
+              content: "This is done automatically. You can close the game at any time and your progress will be saved. When you return to the game, you will be able to continue where you left off."
+            }
+          ]}
+          buttonText={"Close"} 
+        />
       </Grid>
 
       {/* <Grid item xs={12}>

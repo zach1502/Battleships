@@ -1,15 +1,14 @@
 import React from "react";
 import propTypes from "prop-types";
-import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
+import { Grid, Button} from "@mui/material";
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import MenuIcon from '@mui/icons-material/Menu';
 import HelpIcon from '@mui/icons-material/Help';
-import CloseIcon from '@mui/icons-material/Close';
 
-import DropdownSelect from "../components/general/dropdown_select";
-import PlaceShipGrid from "../modules/place_ship_grid";
+import {PlaceShipGrid} from "../modules/";
+import {DialogBox, DropdownSelect} from "../components/";
 
 import createGrid from "../utils/create_grid";
 import {shipNames} from "../utils/ship_details";
@@ -120,6 +119,37 @@ const PlaceShips = (props) => {
           >
             {"Help"}
           </Button>
+          <DialogBox
+            open={openHelp}
+            handleClose={handleCloseHelp}
+            titleContentPairs={[
+              {
+                title: "Select A Ship",
+                content: `Use the 'Ship' dropdown to select the type of ship you want to place on the grid. The ships are the same as the original 1990 version of the game.`,
+              },
+              {
+                title: "Rotate Ship",
+                content: `Use the 'Rotate' button to change the orientation of the ship. The default orientation is horizontal.`,
+              },
+              {
+                title: "Select A Square",
+                content: `Click on a square in the grid where you want to place the selected ship. The ship will take up a number of squares extending from the selected square in the chosen orientation. \n\nIf a ship is already placed and you click on a square, it will attempt to move the ship to that square.`
+              },
+              {
+                title: "Place Ship",
+                content: `If the ship fits in the chosen location without overlapping another ship or going outside the grid, it will appear on the grid. If it doesn't fit, try selecting a different square or changing the ship's orientation.`
+              },
+              {
+                title: "Clear Placement",
+                content: `If you want to clear the placement of your ships, click the 'Clear Ships' button to remove all ships from the grid and start over.`
+              },
+              {
+                title: "Ready To Play?",
+                content: `Once you are satisfied with the placement of all your ships, click the 'Ready?' button to start the game.`,
+              },
+            ]}
+            buttonText={"Close"} 
+          />
         </Grid>
         <Grid item xs={4} container justifyContent="center" alignItems="center">
           <Button
@@ -138,25 +168,6 @@ const PlaceShips = (props) => {
           </Button>
         </Grid>
       </Grid>
-
-      <Dialog open={openHelp} onClose={handleCloseHelp}>
-        <DialogTitle>
-          {"How to Play"}
-          <Button onClick={handleCloseHelp} style={{float: 'right'}}>
-            <CloseIcon />
-          </Button>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {"Select a ship from the dropdown menu, then choose its orientation. Click on the grid to place the ship. A ship can't be placed if it overlaps with another ship or goes outside the grid. Continue placing all ships until you're ready to play. Click on 'Ready?' to start the game when all ships are placed."}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseHelp}>
-            {"Close"}
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   )
 };
