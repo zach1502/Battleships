@@ -1,6 +1,5 @@
 import React from 'react';
 import { Howl } from 'howler';
-import { useLocation } from 'react-router-dom';
 
 const tracks = [
   { id: 1, title: 'Music 1', src: '/sound/1.mp3', html5: false, sound: new Howl({ src: ['/sound/1.mp3'], loop: true}) },

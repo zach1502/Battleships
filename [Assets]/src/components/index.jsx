@@ -1,6 +1,5 @@
 import Header from "./header";
 import BackgroundMusic from "./background_music";
-import SoundEffect from "./sound_effects";
 import Slider from "./general/slider";
 import ColorPicker from "./general/color_picker";
 import DropdownSelect from "./general/dropdown_select";
@@ -24,6 +23,5 @@ export {
     SelectionGrid,
     Slider,
     StatsTable,
-    SoundEffect,
     TurnIndicator,
 };

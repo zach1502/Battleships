@@ -10,7 +10,6 @@ import Settings from './pages/settings';
 import Achievements from './pages/achievements';
 import Profile from './pages/profile';
 import BackgroundMusic from './components/background_music';
-import SoundEffects from './components/sound_effects';
 
 import { DEFAULT_SETTINGS } from './utils/constants';
 import { useLocalStorage, useAchievements } from './utils/hooks/';
@@ -49,9 +48,6 @@ const App = () => {
           <Route path="*" element={<NoPage setStats={setStats}/>} />
         </Route>
       </Routes>
-      <SoundEffects 
-        settings={settings}
-      />
       <BackgroundMusic 
         selectedTrack={selectedTrack} 
         setSelectedTrack={setSelectedTrack}
