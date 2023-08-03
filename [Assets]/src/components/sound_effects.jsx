@@ -14,23 +14,7 @@ const SoundEffects = (props) => {
     sound.play();
   };
 
-
-  // FOR DEBUG/TESTING ONLY
-  if (location.pathname === '/settings') {
-    return (
-      <div>
-        <h2>Test Sound Effects:</h2>
-        <ul>
-          <li>
-            <button onClick={() => playSound('/sound/Hit.mp3')}>Hit</button>
-          </li>
-          <li>
-            <button onClick={() => playSound('/sound/Miss.mp3')}>Miss</button>
-          </li>
-        </ul>
-      </div>
-    );
-  }
+  return null;
 };
 
 export default SoundEffects;

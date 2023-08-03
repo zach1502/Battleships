@@ -33,23 +33,6 @@ const BackgroundMusic = (props) => {
     return () => tracks.forEach(track => track.sound.stop());
   }, [selectedTrack]);
 
-  // FOR DEBUG/TESTING ONLY
-  // Check if the user is within the "settings" view to add buttons
-  const location = useLocation();
-  const handleTrackSelection = (trackId) => setSelectedTrack(trackId);
-  if (location.pathname === '/settings') {
-    return (
-      <div>
-        <h2>Choose Background Music:</h2>
-        <ul>
-          {tracks.map(track => <li key={track.id}><button onClick={() => handleTrackSelection(track.id)}>{track.title}</button></li>)}
-          <li><button onClick={() => handleTrackSelection(0)}>Stop Music</button></li>
-        </ul>
-      </div>
-    )
-  }
-
-  // Return null when not in the "/settings" path
   return null;
 };
 
