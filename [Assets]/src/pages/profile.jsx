@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import { useLocalStorage } from '../utils/hooks';
 
 import { Typography, Button, Grid } from '@mui/material';
-import { StatsTable } from '../components';
+import { StatsTable} from '../components';
 import { UserCard } from '../modules';
 
 const UserStats = ({ stats }) => {

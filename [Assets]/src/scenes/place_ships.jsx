@@ -8,11 +8,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HelpIcon from '@mui/icons-material/Help';
 
 import {PlaceShipGrid} from "../modules/";
-import {DialogBox, DropdownSelect} from "../components/";
+import {GuideDialog, DropdownSelect} from "../components/";
 
 import createGrid from "../utils/create_grid";
 import {shipNames} from "../utils/ship_details";
 import {useNewGridColors} from "../utils/hooks/";
+import { SHIP_PLACING_HELP } from "../utils/constants";
 
 const PlaceShips = (props) => {
   const [selectedShip, setSelectedShip] = React.useState('carrier');
@@ -119,35 +120,10 @@ const PlaceShips = (props) => {
           >
             {"Help"}
           </Button>
-          <DialogBox
+          <GuideDialog
             open={openHelp}
             handleClose={handleCloseHelp}
-            titleContentPairs={[
-              {
-                title: "Select A Ship",
-                content: `Use the 'Ship' dropdown to select the type of ship you want to place on the grid. The ships are the same as the original 1990 version of the game.`,
-              },
-              {
-                title: "Rotate Ship",
-                content: `Use the 'Rotate' button to change the orientation of the ship. The default orientation is horizontal.`,
-              },
-              {
-                title: "Select A Square",
-                content: `Click on a square in the grid where you want to place the selected ship. The ship will take up a number of squares extending from the selected square in the chosen orientation. \n\nIf a ship is already placed and you click on a square, it will attempt to move the ship to that square.`
-              },
-              {
-                title: "Place Ship",
-                content: `If the ship fits in the chosen location without overlapping another ship or going outside the grid, it will appear on the grid. If it doesn't fit, try selecting a different square or changing the ship's orientation.`
-              },
-              {
-                title: "Clear Placement",
-                content: `If you want to clear the placement of your ships, click the 'Clear Ships' button to remove all ships from the grid and start over.`
-              },
-              {
-                title: "Ready To Play?",
-                content: `Once you are satisfied with the placement of all your ships, click the 'Ready?' button to start the game.`,
-              },
-            ]}
+            titleContentPairs={SHIP_PLACING_HELP}
             buttonText={"Close"} 
           />
         </Grid>

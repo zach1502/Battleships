@@ -9,13 +9,13 @@ import GridTile from "./game/grid_tile";
 import SelectionGrid from "./game/selection_grid";
 import StatsTable from "./general/stats_table";
 import TurnIndicator from "./game/turn_indicator";
-import DialogBox from "./general/dialog_box";
+import GuideDialog from "./general/guide_dialog";
 
 export {
   BackgroundMusic,
   ColorPicker,
   DropdownSelect,
-  DialogBox,
+  GuideDialog,
   EditField,
   GridTile,
   Header,

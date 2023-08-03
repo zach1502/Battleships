@@ -3,7 +3,8 @@ import propTypes from 'prop-types';
 
 import { Grid, Button } from '@mui/material';
 import { BattleGrid, GameLogDisplay, ShipGrid } from '../modules';
-import { TurnIndicator, DialogBox } from '../components';
+import { TurnIndicator, GuideDialog } from '../components';
+import { GAMEPLAY_HELP } from '../utils/constants';
 
 // import Heatmap from '../utils/ai_logic/heat_map_debug';
 
@@ -115,35 +116,10 @@ const GameContent = (props) => {
         >
           Help
         </Button>
-        <DialogBox
+        <GuideDialog
           open={openHelp}
           handleClose={handleCloseHelp}
-          titleContentPairs={[
-            {
-              title: "Goal of the Game",
-              content: `The goal of the game is to destroy all enemy ships before your opponent does the same to you. Each player starts with a fleet of ships placed on their own grid. On each turn, a player can launch an attack on the opponent's grid, aiming to hit and sink their ships. The game continues until one player's entire fleet is sunk.`,
-            },
-            {
-              title: "Ships Grid (Left)",
-              content: "The Ships Grid on the left side of the screen represents your fleet. It displays the position of your ships and the status of each ship segment (either intact or hit). Your opponent's attacks will be marked on this grid so you can see all their shots.",
-            },
-            {
-              title: "Attack Grid (Right)",
-              content: "The Attack Grid on the right side of the screen represents your opponent's grid where you launch your attacks. It shows the result of your past attacks (hits or misses) and helps you strategize your future moves. When you hit an enemy ship, it will be marked on this grid.",
-            },
-            {
-              title: "Game Log",
-              content: "The Game Log at the bottom of the screen displays the history of your attacks and your opponent's attacks. It shows the result of each attack (hit or miss) and the position of the attack on the grid.",
-            },
-            {
-              title: "Forfeit",
-              content: "If you wish to forfeit the game, you can click the Forfeit button at the bottom of the screen. This will end the game and return you to the Main Menu. The game will be counted as a loss.",
-            },
-            {
-              title: "Saving and Loading",
-              content: "This is done automatically. You can close the game at any time and your progress will be saved. When you return to the game, you will be able to continue where you left off."
-            }
-          ]}
+          titleContentPairs={GAMEPLAY_HELP}
           buttonText={"Close"} 
         />
       </Grid>

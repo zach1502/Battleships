@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, List, ListItemButton, Grid } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const DialogBox = ({ open, handleClose, titleContentPairs, buttonText }) => {
+const GuideDialog = ({ open, handleClose, titleContentPairs, buttonText }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const handlePageSelection = (index) => {
@@ -49,7 +49,7 @@ const DialogBox = ({ open, handleClose, titleContentPairs, buttonText }) => {
   );
 };
 
-DialogBox.propTypes = {
+GuideDialog.propTypes = {
   open: propTypes.bool.isRequired,
   handleClose: propTypes.func.isRequired,
   titleContentPairs: propTypes.arrayOf(propTypes.shape({
@@ -59,4 +59,4 @@ DialogBox.propTypes = {
   buttonText: propTypes.string.isRequired,
 };
 
-export default DialogBox;
+export default GuideDialog;
