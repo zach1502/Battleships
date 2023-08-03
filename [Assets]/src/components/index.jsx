@@ -12,16 +12,16 @@ import TurnIndicator from "./game/turn_indicator";
 import DialogBox from "./general/dialog_box";
 
 export {
-    BackgroundMusic,
-    ColorPicker,
-    DropdownSelect,
-    DialogBox,
-    EditField,
-    GridTile,
-    Header,
-    PopUp,
-    SelectionGrid,
-    Slider,
-    StatsTable,
-    TurnIndicator,
+  BackgroundMusic,
+  ColorPicker,
+  DropdownSelect,
+  DialogBox,
+  EditField,
+  GridTile,
+  Header,
+  PopUp,
+  SelectionGrid,
+  Slider,
+  StatsTable,
+  TurnIndicator,
 };

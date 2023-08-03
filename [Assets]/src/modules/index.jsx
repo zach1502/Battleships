@@ -5,9 +5,9 @@ import PlaceShipGrid from "./place_ship_grid";
 import UserCard from "./user_card";
 
 export {
-    BattleGrid,
-    GameLogDisplay,
-    ShipGrid,
-    PlaceShipGrid,
-    UserCard,
-}
+  BattleGrid,
+  GameLogDisplay,
+  ShipGrid,
+  PlaceShipGrid,
+  UserCard,
+};
