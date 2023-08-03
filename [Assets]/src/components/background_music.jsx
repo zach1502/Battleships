@@ -5,6 +5,7 @@ const tracks = [
   { id: 1, title: 'Music 1', src: '/sound/1.mp3', html5: false, sound: new Howl({ src: ['/sound/1.mp3'], loop: true}) },
   { id: 2, title: 'Music 2', src: '/sound/2.mp3', html5: false, sound: new Howl({ src: ['/sound/2.mp3'], loop: true}) },
   { id: 3, title: 'Music 3', src: '/sound/3.mp3', html5: false, sound: new Howl({ src: ['/sound/3.mp3'], loop: true}) },
+  { id: 4, title: 'Music 4', src: '/sound/4.mp3', html5: false, sound: new Howl({ src: ['/sound/4.mp3'], loop: true}) },
 ];
 
 const BackgroundMusic = (props) => {
@@ -14,7 +15,15 @@ const BackgroundMusic = (props) => {
 
   React.useEffect(() => {
     tracks.forEach(track => {
-      track.sound.on('end', () => setSelectedTrack(Math.ceil(Math.random() * tracks.length)));
+      track.sound.on('end', () => {
+        while (true) {
+          const randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+          if (randomTrack.id !== selectedTrack) {
+            setSelectedTrack(randomTrack.id);
+            break;
+          }
+        }
+      });
     });
   }, [setSelectedTrack]);
 
