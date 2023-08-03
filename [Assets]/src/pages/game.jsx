@@ -73,8 +73,6 @@ const Game = (props) => {
     const enemyHitCount = enemyBattleGrid.flat().filter((shot) => shot === 'hit').length;
     const playerHitCount = playerBattleGrid.flat().filter((shot) => shot === 'hit').length;
 
-    console.log(gameLog)
-
     if (!statsUpdated && (playerHitCount === maxHits || enemyHitCount === maxHits)) {
 
       // Check for achievements

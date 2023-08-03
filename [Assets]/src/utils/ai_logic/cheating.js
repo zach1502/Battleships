@@ -36,8 +36,6 @@ const makeCheatingShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, s
   const shotPosition = (Math.random() < ODDS_OF_CHEATING) ? 
     cheatAndGetNextShotPosition(playerShipGrid, enemyBattleGrid) :
     getNextShotPosition(enemyBattleGrid, currentHeatMap);
-
-  console.log("shotPosition", shotPosition);
   
   const {shotResult, newEnemyBattleGrid} = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
 

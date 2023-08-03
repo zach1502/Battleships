@@ -29,6 +29,8 @@ const Layout = (props) => {
           height: "85vh",
           display: "flex",
           border: "1px solid black",
+          paddingLeft: "1em",
+          paddingBottom: "1em",
           marginLeft: "5vw",
           marginRight: "5vw",
         }}
@@ -36,7 +38,6 @@ const Layout = (props) => {
         <Outlet />
       </Box>
 
-      {/* popup box*/}
       {activatePopupBox &&
         <Box        
           sx={{

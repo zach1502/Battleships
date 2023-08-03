@@ -21,7 +21,6 @@ const BattleGrid = (props) => {
 
   useNewGridColors(settings);
 
-  console.log(settings);
   const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3', settings);
   const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3', settings);
 

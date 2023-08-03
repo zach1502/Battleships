@@ -136,7 +136,6 @@ const PlaceShipGrid = (props) => {
 
     // If the ship is already placed
     if (gameState.playerShipsPlaced[selectedShip]) {
-      console.log("Already placed this ship");
       shipPositions = removeShip(selectedShip);
     }
 

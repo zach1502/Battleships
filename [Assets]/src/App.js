@@ -20,8 +20,6 @@ const App = () => {
   const [stats, setStats] = useLocalStorage("stats", {}, true);
   const [selectedTrack, setSelectedTrack] = React.useState(0);
 
-  console.log("STATS:", stats);
-
   return (
     <BrowserRouter>
       <Routes>
