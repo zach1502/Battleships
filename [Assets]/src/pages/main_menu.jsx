@@ -5,6 +5,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SettingsIcon from '@mui/icons-material/Settings';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Diversity1Icon from '@mui/icons-material/Diversity1';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Menu = (props) => {
   return (
@@ -27,6 +28,9 @@ const Menu = (props) => {
           </Grid>
           <Grid item>
             <Button variant="contained" href="/achievements" startIcon={<EmojiEventsIcon/>}>Achievements</Button>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" href="/profile" startIcon={<AccountCircleIcon/>}>Profile</Button>
           </Grid>
           <Grid item>
             <Button variant="contained" href="/credits" startIcon={<Diversity1Icon/>}>Credits</Button>

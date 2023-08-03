@@ -8,7 +8,7 @@ import NoPage from "./pages/no_page";
 import Credits from "./pages/credits";
 import Settings from './pages/settings';
 import Achievements from './pages/achievements';
-import Help from './pages/help';
+import Profile from './pages/profile';
 import BackgroundMusic from './components/background_music';
 import SoundEffects from './components/sound_effects';
 
@@ -46,8 +46,8 @@ const App = () => {
               obtainedAchievements={useAchievements(stats, settings)[0]}
             />
           }/>
-          <Route path="help" element={<Help />}/>
           <Route path="credits" element={<Credits setStats={setStats}/>} />
+          <Route path="profile" element={<Profile stats={stats}/>} />
           <Route path="*" element={<NoPage setStats={setStats}/>} />
         </Route>
       </Routes>

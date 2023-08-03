@@ -22,6 +22,13 @@ const PopUp = ({ title, message, imgSrc, closePopup }) => {
     };
   }, [closePopup]);
 
+  const truncateMessage = (msg) => {
+    if (msg.length > 100) {
+      return `${msg.substring(0, 100)}...`;
+    }
+    return msg;
+  };
+
   return (
     <Box
       sx={{
@@ -39,7 +46,7 @@ const PopUp = ({ title, message, imgSrc, closePopup }) => {
         <LinearProgress variant="determinate" value={progress} />
       </Box>
       <Typography variant="h6">{title}</Typography>
-      <Typography variant="body1">{message}</Typography>
+      <Typography variant="body1">{truncateMessage(message)}</Typography>
       <img src={imgSrc} alt={title} style={{ width: "128px", height: "auto" }} />
     </Box>
   )
