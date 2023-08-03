@@ -1,10 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
-
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 
 const StatsTable = ({ stats }) => {
-  const statEntries = Object.entries(stats);
+  const statEntries = Object.entries(stats).filter(([_, value]) => typeof value !== 'boolean');
 
   return (
     <TableContainer 
@@ -20,20 +19,27 @@ const StatsTable = ({ stats }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {statEntries.map(([key, value]) => {
-            if (typeof value === 'boolean') return null;
-            const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
-            return(
-              <TableRow key={key}>
-                <TableCell align="center">{formattedKey}</TableCell>
-                <TableCell align="center">{value}</TableCell>
-              </TableRow>
-            )
-          })}
+          {statEntries.length === 0 ? (
+            <TableRow>
+              <TableCell align="center" colSpan={2}>
+                <Typography variant="body1">No stats available. Please play the game first!</Typography>
+              </TableCell>
+            </TableRow>
+          ) : (
+            statEntries.map(([key, value]) => {
+              const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
+              return (
+                <TableRow key={key}>
+                  <TableCell align="center">{formattedKey}</TableCell>
+                  <TableCell align="center">{value}</TableCell>
+                </TableRow>
+              )
+            })
+          )}
         </TableBody>
       </Table>
     </TableContainer>
-  )
+  );
 };
 
 StatsTable.propTypes = {
