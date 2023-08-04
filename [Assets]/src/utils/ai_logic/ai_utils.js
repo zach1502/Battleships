@@ -12,6 +12,21 @@ const getRemainingShips = (grid) => {
   return Array.from(remainingShips);
 };
 
+const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
+  if (!shotPosition) return {shotResult: CONFIG.CELL_MISS, newEnemyBattleGrid: enemyBattleGrid};
+  const row = shotPosition[0];
+  const col = shotPosition[1];
+
+  const shotResult = playerShipGrid[row][col] !== null ? CONFIG.CELL_HIT : CONFIG.CELL_MISS;
+
+  // Update enemy battle grid
+  const newEnemyBattleGrid = [...enemyBattleGrid];
+  newEnemyBattleGrid[row][col] = shotResult;
+  setEnemyBattleGrid(newEnemyBattleGrid);
+
+  return { shotResult, newEnemyBattleGrid };
+};
+
 const CONFIG = {
   DIRECTIONS: [[0, 1], [1, 0], [0, -1], [-1, 0]], // Right, Down, Left, Up
   HORIZONTAL: [[0, 1], [0, -1]], // Right, Left
@@ -29,21 +44,6 @@ const CONFIG = {
     "submarine": 3,
     "destroyer": 2,
   }
-};
-
-const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
-  if (!shotPosition) return {shotResult: CONFIG.CELL_MISS, newEnemyBattleGrid: enemyBattleGrid};
-  const row = shotPosition[0];
-  const col = shotPosition[1];
-
-  const shotResult = playerShipGrid[row][col] !== null ? CONFIG.CELL_HIT : CONFIG.CELL_MISS;
-
-  // Update enemy battle grid
-  const newEnemyBattleGrid = [...enemyBattleGrid];
-  newEnemyBattleGrid[row][col] = shotResult;
-  setEnemyBattleGrid(newEnemyBattleGrid);
-
-  return { shotResult, newEnemyBattleGrid };
 };
 
 export {

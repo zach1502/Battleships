@@ -1,35 +1,33 @@
 // DIFFICULTY: SUPER EASY
+import { performShot } from "./ai_utils";
 
 const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
-  let possibleShots = [];
-
-  for(let i = 0; i < enemyBattleGrid.length; i++) {
-    for(let j = 0; j < enemyBattleGrid[i].length; j++) {
-      if (enemyBattleGrid[i][j] === null) {
-        possibleShots.push([i, j]);
-      }
-    }
-  }
-
-  if (possibleShots.length === 0) return;
+  const possibleShots = getAvailableShots(enemyBattleGrid);
   
-  const randomIndex = Math.floor(Math.random() * possibleShots.length);
-  const [row, col] = possibleShots[randomIndex];
+  if (possibleShots.length === 0) return;
 
-  possibleShots.splice(randomIndex, 1);
+  const shotIndex = Math.floor(Math.random() * possibleShots.length);
+  const shotPosition = possibleShots[shotIndex];
 
-  const shotResult = playerShipGrid[row][col] !== null ? "hit" : "miss";
-
-  // Update enemy battle grid
-  const newEnemyBattleGrid = [...enemyBattleGrid];
-  newEnemyBattleGrid[row][col] = shotResult;
-  setEnemyBattleGrid(newEnemyBattleGrid);
-
+  const { shotResult, newEnemyBattleGrid } = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+  
   return {
     shotResult,
-    row: row,
-    col: col,
+    row: shotPosition[0],
+    col: shotPosition[1],
   };
 }
+
+const getAvailableShots = (enemyBattleGrid) => {
+  const availableShots = [];
+  enemyBattleGrid.forEach((row, rowIndex) => {
+    row.forEach((square, colIndex) => {
+      if (square === null) {
+        availableShots.push([rowIndex, colIndex]);
+      }
+    });
+  });
+  return availableShots;
+};
 
 export default makeRandomShot;
