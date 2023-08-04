@@ -143,6 +143,11 @@ const GAMEPLAY_HELP = [
   }
 ];
 
+const SHOT_RESULT_MESSAGES = {
+  'hit': 'Hit!',
+  'miss': 'Miss!'
+};
+
 
 export {
   INITIAL_GAME_STATE,
@@ -154,4 +159,5 @@ export {
   STATUS_MESSAGES,
   SHIP_PLACING_HELP,
   GAMEPLAY_HELP,
+  SHOT_RESULT_MESSAGES,
 };

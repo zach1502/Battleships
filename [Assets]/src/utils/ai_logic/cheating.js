@@ -1,4 +1,4 @@
-// DIFFICULTY: MEDIUM
+// DIFFICULTY: Impossible
 
 import { NATURAL_BIAS_GRID } from "../constants";
 
@@ -11,7 +11,7 @@ const CELL_MISS = 'miss';
 const DEFAULT_MODIFIER = 0;
 const HIT_MODIFIER = 10;
 const ADJACENT_HIT_MODIFIER = 20;
-const ODDS_OF_CHEATING = 0.08;
+const ODDS_OF_CHEATING = 0.10;
 
 let currentHeatMap = null;
 

@@ -17,7 +17,7 @@ import { makeRandomShot, makeSmartShot, makeSmarterShot, makeCheatingShot } from
 
 import { achievementsCheck } from '../utils/achievements_checks';
 import { placeEnemyShips } from '../utils/ship_placement';
-import { INITIAL_GAME_STATE } from '../utils/constants';
+import { INITIAL_GAME_STATE, SHOT_RESULT_MESSAGES } from '../utils/constants';
 
 const AI_LOGIC_OPTIONS = {
   'easy': makeRandomShot,
@@ -44,9 +44,14 @@ const Game = (props) => {
 
   const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3', settings);
   const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3', settings);
+  const SHOT_RESULT_SOUNDS = {
+    'hit': playHitSoundEffect,
+    'miss': playMissSoundEffect
+  };
 
+  // Play music
   React.useEffect(() => {
-    setSelectedTrack(1);  // Play the first track when the game starts
+    setSelectedTrack(1);
   }, [setSelectedTrack]);
 
   // place enemy ships randomly
@@ -55,8 +60,6 @@ const Game = (props) => {
       placeEnemyShips(createGrid(settings.gridSize), setEnemyShipGrid);
     }
   }, [gameState, setEnemyShipGrid, settings.gridSize]);
-
-  // place enemy ships randomly
   React.useEffect(placeEnemyShipsIfNeeded, [gameState, placeEnemyShipsIfNeeded]);
 
   const convertXYToGridIndex = React.useCallback((y, x) => {
@@ -68,84 +71,60 @@ const Game = (props) => {
 
   // Game end condition
   React.useEffect(() => {
-    const maxHits = 17;
-
+    const MAX_HITS = 17;
     const enemyHitCount = enemyBattleGrid.flat().filter((shot) => shot === 'hit').length;
     const playerHitCount = playerBattleGrid.flat().filter((shot) => shot === 'hit').length;
 
-    if (!statsUpdated && (playerHitCount === maxHits || enemyHitCount === maxHits)) {
-
-      // Check for achievements
-      const {
-        cantTouchThis,
-        battleIsnt,
-        areYouEvenTrying,
-        stormtrooper,
-        cantStopWontStop,
-        hawkeye,
-        iThoughtThisWasChess,
-        patienceIsAVirtue,
-      } = achievementsCheck(enemyBattleGrid, playerBattleGrid, gameLog)
-
-      if (playerHitCount === maxHits) {
-        setGameState((prevState) => ({ ...prevState, gameOver: true, playerWon: true }));
-        setStats((prevState) => ({
-          ...prevState,
-          wins: prevState.wins + 1 || 1,
-          gamesPlayed: prevState.gamesPlayed + 1 || 1,
-          [`${selectedDifficulty}Wins`]: prevState[`${selectedDifficulty}Wins`] + 1 || 1,
-          cantTouchThis: cantTouchThis || prevState.cantTouchThis,
-          battleIsnt: battleIsnt || prevState.battleIsnt,
-          areYouEvenTrying: areYouEvenTrying || prevState.areYouEvenTrying,
-          stormtrooper: stormtrooper || prevState.stormtrooper,
-          cantStopWontStop: cantStopWontStop || prevState.cantStopWontStop,
-          hawkeye: hawkeye || prevState.hawkeye,
-          iThoughtThisWasChess: iThoughtThisWasChess || prevState.iThoughtThisWasChess,
-          patienceIsAVirtue: patienceIsAVirtue || prevState.patienceIsAVirtue,
-        }));
-      }
-
-      if (enemyHitCount === maxHits) {
-        setGameState((prevState) => ({ ...prevState, gameOver: true, playerWon: false }));
-        setStats((prevState) => ({
-          ...prevState,
-          losses: prevState.losses + 1 || 1,
-          gamesPlayed: prevState.gamesPlayed + 1 || 1,
-          [`${selectedDifficulty}Losses`]: prevState[`${selectedDifficulty}Losses`] + 1 || 1,
-          battleIsnt: battleIsnt || prevState.battleIsnt,
-          areYouEvenTrying: areYouEvenTrying || prevState.areYouEvenTrying,
-          stormtrooper: stormtrooper || prevState.stormtrooper,
-          cantStopWontStop: cantStopWontStop || prevState.cantStopWontStop,
-          iThoughtThisWasChess: iThoughtThisWasChess || prevState.iThoughtThisWasChess,
-          patienceIsAVirtue: patienceIsAVirtue || prevState.patienceIsAVirtue,
-        }));
-      }
+    if (!statsUpdated && (playerHitCount === MAX_HITS || enemyHitCount === MAX_HITS)) {
+      const objOfAchievementsUpdates = achievementsCheck(enemyBattleGrid, playerBattleGrid, gameLog)
+  
+      const won = playerHitCount === MAX_HITS;
+      setGameState((prevState) => ({ ...prevState, gameOver: true, playerWon: won }));
+  
+      setStats((prevState) => {
+        let newState = { ...prevState };
+        for (const [key, value] of Object.entries(objOfAchievementsUpdates)) {
+          newState[key] = value || newState[key];
+        }
+  
+        const resultKey = `${selectedDifficulty}${won ? 'Wins' : 'Losses'}`;
+        newState[resultKey] = (newState[resultKey] || 0) + 1;
+        newState[won ? 'wins' : 'losses'] = (newState[won ? 'wins' : 'losses'] || 0) + 1;
+        newState.gamesPlayed = (newState.gamesPlayed || 0) + 1;
+  
+        return newState;
+      });
 
       setStatsUpdated(true);
     }
 
   }, [enemyBattleGrid, playerShipGrid, statsUpdated, gameLog, setStats, setStatsUpdated, gameState, setGameState, selectedDifficulty, playerBattleGrid]);
 
-  // AI Logic, triggered when it's the AI's turn
+  // AI Logic
+  const executeAILogic = React.useCallback(() => {
+    const shotLogic = AI_LOGIC_OPTIONS[selectedDifficulty];
+    const { shotResult, row, col } = shotLogic(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
+    SHOT_RESULT_SOUNDS[shotResult]();
+    
+    setGameLog((prevLog) => [
+      ...prevLog, 
+      `${SHOT_RESULT_MESSAGES[shotResult]} ${convertXYToGridIndex(row, col)}`
+    ]);
+    
+    setGameState((prevState) => ({ ...prevState, playerTurn: true }));
+  }, [selectedDifficulty, enemyBattleGrid, playerShipGrid, playHitSoundEffect, playMissSoundEffect, convertXYToGridIndex]);
+
   React.useEffect(() => {
     let timeoutId = null;
-
+  
     if (!gameState.playerTurn) {
-      timeoutId = setTimeout(() => {
-        const shotLogic = AI_LOGIC_OPTIONS[selectedDifficulty];
-        const { shotResult, row, col } = shotLogic(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setCurrentHeatMap);
-        (shotResult === 'hit') ? playHitSoundEffect() : playMissSoundEffect();
-        const shotResultMessage = (shotResult === 'hit') ? 'Hit!' : 'Miss!';
-        setGameLog([...gameLog, `${shotResultMessage} ${convertXYToGridIndex(row, col)}`]);
-        setGameState((prevState) => ({ ...prevState, playerTurn: true }));
-      }, 1500);
+      timeoutId = setTimeout(executeAILogic, 1500);
     }
 
     return () => {
-      // Cleanup function: if the component is unmounted before the delay, the timeout is cleared
       clearTimeout(timeoutId);
     }
-  }, [gameState, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setGameState, gameLog, setGameLog, selectedDifficulty, playHitSoundEffect, playMissSoundEffect, convertXYToGridIndex]);
+  }, [gameState.playerTurn, executeAILogic]);
 
 
   if (gameState.gameOver) {
