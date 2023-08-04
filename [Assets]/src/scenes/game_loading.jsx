@@ -72,6 +72,11 @@ const GameLoading = (props) => {
     }
   };
 
+  const transition = {
+    x: { type: "spring", stiffness: 300, damping: 30 },
+    opacity: { duration: 0.5 }
+  };
+
   return (
     <Grid
       container
@@ -93,10 +98,7 @@ const GameLoading = (props) => {
           animate="center"
           exit="exit"
           onClick={handleTipClick}
-          transition={{
-            x: { type: "spring", stiffness: 300, damping: 30 },
-            opacity: { duration: 0.5 }
-          }}
+          transition={transition}
           style={{cursor: 'pointer'}}
         >
           <Typography variant="subtitle1" style={{ marginBottom: '10px' }}>

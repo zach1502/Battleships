@@ -1,7 +1,6 @@
 import React from 'react';
 import useLocalStorage from './use_local_storage';
 import useSoundEffect from './use_sound_effect';
-import { Howl } from 'howler';
 import { listOfAllAchievements } from '../achievements_list';
 
 const useAchievements = (playerData, settings) => {
@@ -20,7 +19,7 @@ const useAchievements = (playerData, settings) => {
       setTheNewAchievement(achievement);
       playAchievementSound();
     });
-  }, [playerData, setObtainedAchievements, playAchievementSound]);
+  }, [playerData, setObtainedAchievements, obtainedAchievements, playAchievementSound]);
 
   const clearNewAchievements = () => {
     setTheNewAchievement(null);
