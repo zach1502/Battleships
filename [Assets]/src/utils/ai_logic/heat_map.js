@@ -1,29 +1,8 @@
-// DIFFICULTY: MEDIUM
-
+// DIFFICULTY: ImpossibleoriginalShipSizes
+import { initializeGrid, isValidCoordinate, getRemainingShips, CONFIG } from "./ai_utils";
 import { NATURAL_BIAS_GRID } from "../constants";
 
-const DIRECTIONS = [[0, 1], [1, 0], [0, -1], [-1, 0]]; // Right, Down, Left, Up
-const HORIZONTAL = [[0, 1], [0, -1]]; // Right, Left
-const VERTICAL = [[1, 0], [-1, 0]]; // Down, Up
-
-const CELL_HIT = 'hit';
-const CELL_MISS = 'miss';
-const DEFAULT_MODIFIER = 0;
-const HIT_MODIFIER = 10;
-const ADJACENT_HIT_MODIFIER = 20;
-
 let currentHeatMap = null;
-
-const originalShipSizes = {
-  "carrier": 5,
-  "battleship": 4,
-  "cruiser": 3,
-  "submarine": 3,
-  "destroyer": 2,
-};
-
-const initializeGrid = (rows, cols, defaultValue = DEFAULT_MODIFIER) => Array(rows).fill().map(() => Array(cols).fill(defaultValue));
-const isValidCoordinate = (x, y, grid) => x >= 0 && y >= 0 && x < grid.length && y < grid[0].length;
 
 const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
   const remainingShips = getRemainingShips(playerShipGrid);
@@ -45,18 +24,6 @@ const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, se
     row: shotPosition[0],
     col: shotPosition[1],
   }
-};
-
-const getRemainingShips = (grid) => {
-  const remainingShips = new Set();
-  grid.forEach(row => 
-    row.forEach(cell => {
-      if(cell && cell !== CELL_HIT && cell !== CELL_MISS) {
-        remainingShips.add(cell);
-      }
-    })
-  );
-  return Array.from(remainingShips);
 };
 
 const createProbabilityGrid = (playerShipGrid, remainingShips) => {
@@ -96,11 +63,11 @@ const getNextShotPosition = (enemyBattleGrid, currentHeatMap) => {
 };
 
 const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
-  if (!shotPosition) return {shotResult: CELL_MISS, newEnemyBattleGrid: enemyBattleGrid};
+  if (!shotPosition) return {shotResult: CONFIG.CELL_MISS, newEnemyBattleGrid: enemyBattleGrid};
   const row = shotPosition[0];
   const col = shotPosition[1];
 
-  const shotResult = playerShipGrid[row][col] !== null ? CELL_HIT : CELL_MISS;
+  const shotResult = playerShipGrid[row][col] !== null ? CONFIG.CELL_HIT : CONFIG.CELL_MISS;
 
   // Update enemy battle grid
   const newEnemyBattleGrid = [...enemyBattleGrid];
@@ -114,13 +81,13 @@ const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid
   const row = shotPosition[0];
   const col = shotPosition[1];
   
-  if (shotResult === CELL_HIT) {
-    // increase tracking in the 4 directions around the hit
+  if (shotResult === CONFIG.CELL_HIT) {
+    // increase tracking in the 4 CONFIG.DIRECTIONS around the hit
     for(let i = 0; i < 4; i++) {
-      DIRECTIONS.forEach(([rowDir, colDir]) => {
+      CONFIG.DIRECTIONS.forEach(([rowDir, colDir]) => {
         let i = row + rowDir;
         let j = col + colDir;
-        while(isValidCoordinate(i, j, enemyBattleGrid) && enemyBattleGrid[i][j] === CELL_HIT) {
+        while(isValidCoordinate(i, j, enemyBattleGrid) && enemyBattleGrid[i][j] === CONFIG.CELL_HIT) {
           currentHeatMap[i][j].tracking++;
           i += rowDir;
           j += colDir;
@@ -149,17 +116,17 @@ const updateHeatMap = (shotPosition, shotResult, enemyBattleGrid, playerShipGrid
 
 // function to get the base probability
 const getBaseProbability = (playerShipGrid, remainingShips) => {
-  const baseGrid = initializeGrid(playerShipGrid.length, playerShipGrid[0].length, DEFAULT_MODIFIER);
+  const baseGrid = initializeGrid(playerShipGrid.length, playerShipGrid[0].length, CONFIG.DEFAULT_MODIFIER);
 
   remainingShips.forEach(ship => {
-    const shipSize = originalShipSizes[ship];
+    const shipSize = CONFIG.ORIGINAL_SHIP_SIZES[ship];
 
-    // Horizontal check
+    // CONFIG.HORIZONTAL check
     for(let i = 0; i < playerShipGrid.length; i++) {
       for(let j = 0; j <= playerShipGrid[i].length - shipSize; j++) {
         let potentialSpot = true;
         for(let k = 0; k < shipSize; k++) {
-          if(playerShipGrid[i][j+k] === CELL_MISS) {
+          if(playerShipGrid[i][j+k] === CONFIG.CELL_MISS) {
             potentialSpot = false;
             break;
           }
@@ -172,12 +139,12 @@ const getBaseProbability = (playerShipGrid, remainingShips) => {
       }
     }
 
-    // Vertical check
+    // CONFIG.VERTICAL check
     for(let i = 0; i <= playerShipGrid.length - shipSize; i++) {
       for(let j = 0; j < playerShipGrid[0].length; j++) {
         let potentialSpot = true;
         for(let k = 0; k < shipSize; k++) {
-          if(playerShipGrid[i+k][j] === CELL_MISS) {
+          if(playerShipGrid[i+k][j] === CONFIG.CELL_MISS) {
             potentialSpot = false;
             break;
           }
@@ -196,14 +163,14 @@ const getBaseProbability = (playerShipGrid, remainingShips) => {
 
 // Function to get the tracking modifiers
 const getTrackingModifiers = (enemyBattleGrid, playerShipGrid, baseGrid) => {
-  const trackingGrid = initializeGrid(enemyBattleGrid.length, enemyBattleGrid[0].length, DEFAULT_MODIFIER);
+  const trackingGrid = initializeGrid(enemyBattleGrid.length, enemyBattleGrid[0].length, CONFIG.DEFAULT_MODIFIER);
 
   if (!baseGrid) return trackingGrid;
 
-  const remainingShipLengths = JSON.parse(JSON.stringify(originalShipSizes));
+  const remainingShipLengths = JSON.parse(JSON.stringify(CONFIG.ORIGINAL_SHIP_SIZES));
   playerShipGrid.forEach((row, i) => {
     row.forEach((cell, j) => {
-      if (cell !== null && enemyBattleGrid[i][j] === CELL_HIT) {
+      if (cell !== null && enemyBattleGrid[i][j] === CONFIG.CELL_HIT) {
         remainingShipLengths[cell]--;
       }
     });
@@ -212,10 +179,10 @@ const getTrackingModifiers = (enemyBattleGrid, playerShipGrid, baseGrid) => {
 
   for(let i = 0; i < enemyBattleGrid.length; i++) {
     for(let j = 0; j < enemyBattleGrid[i].length; j++) {
-      if(enemyBattleGrid[i][j] === CELL_HIT) {
+      if(enemyBattleGrid[i][j] === CONFIG.CELL_HIT) {
         const shipName = playerShipGrid[i][j];
         if(sunkShips.find((val) => val === shipName)) {
-          DIRECTIONS.forEach(([dx, dy]) => {
+          CONFIG.DIRECTIONS.forEach(([dx, dy]) => {
             // set the tracking modifier to 0 for all cells around the sunk ship
             const x = i + dx, y = j + dy;
             if(isValidCoordinate(x, y, enemyBattleGrid)) {
@@ -223,35 +190,35 @@ const getTrackingModifiers = (enemyBattleGrid, playerShipGrid, baseGrid) => {
             }
           });
 
-          trackingGrid[i][j] = DEFAULT_MODIFIER; // Set the tracking modifier to the default value for the sunk ship
+          trackingGrid[i][j] = CONFIG.DEFAULT_MODIFIER; // Set the tracking modifier to the default value for the sunk ship
           continue;
         }
 
         let horizontalHit = false;
         let verticalHit = false;
         let adjacentHits = [];
-        DIRECTIONS.forEach(([dx, dy]) => {
+        CONFIG.DIRECTIONS.forEach(([dx, dy]) => {
           const x = i + dx, y = j + dy;
           if(isValidCoordinate(x, y, enemyBattleGrid)) {
-            if(enemyBattleGrid[x][y] === CELL_HIT) {
+            if(enemyBattleGrid[x][y] === CONFIG.CELL_HIT) {
               adjacentHits.push([dx, dy]); // This direction has a hit
-              horizontalHit = horizontalHit || HORIZONTAL.includes([dx, dy]);
-              verticalHit = verticalHit || VERTICAL.includes([dx, dy]);
+              horizontalHit = horizontalHit || CONFIG.HORIZONTAL.includes([dx, dy]);
+              verticalHit = verticalHit || CONFIG.VERTICAL.includes([dx, dy]);
             } else if(enemyBattleGrid[x][y] === null) {
-              trackingGrid[x][y] += HIT_MODIFIER; // Increase the modifier around the 'hit' cell
+              trackingGrid[x][y] += CONFIG.HIT_MODIFIER; // Increase the modifier around the 'hit' cell
             }
           }
         });
         
-        // If there are adjacent hits, increase the modifier in those directions
+        // If there are adjacent hits, increase the modifier in those CONFIG.DIRECTIONS
         if(adjacentHits.length > 0) {
           adjacentHits.forEach(([dx, dy]) => {
             let x = i + dx
             let y = j + dy;
             while(isValidCoordinate(x, y, enemyBattleGrid) && enemyBattleGrid[x][y] === null) {
               // Increase the modifier in the direction of hits
-              if((horizontalHit && HORIZONTAL.includes([dx, dy])) || (verticalHit && VERTICAL.includes([dx, dy]))){
-                trackingGrid[x][y] += ADJACENT_HIT_MODIFIER;
+              if((horizontalHit && CONFIG.HORIZONTAL.includes([dx, dy])) || (verticalHit && CONFIG.VERTICAL.includes([dx, dy]))){
+                trackingGrid[x][y] += CONFIG.ADJACENT_HIT_MODIFIER;
               }
               x += dx;
               y += dy;
