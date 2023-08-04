@@ -25,7 +25,7 @@ const BackgroundMusic = (props) => {
         }
       });
     });
-  }, [setSelectedTrack]);
+  }, [setSelectedTrack, selectedTrack]);
 
   React.useEffect(() => {
     tracks.forEach(track => track.sound.volume((settings.musicVolume * settings.masterVolume) / 10000));

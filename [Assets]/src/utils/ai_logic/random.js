@@ -9,6 +9,7 @@ const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => 
   const shotIndex = Math.floor(Math.random() * possibleShots.length);
   const shotPosition = possibleShots[shotIndex];
 
+  // eslint-disable-next-line no-unused-vars
   const { shotResult, newEnemyBattleGrid } = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
   
   return {

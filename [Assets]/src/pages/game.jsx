@@ -44,10 +44,10 @@ const Game = (props) => {
 
   const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3', settings);
   const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3', settings);
-  const SHOT_RESULT_SOUNDS = {
+  const SHOT_RESULT_SOUNDS = React.useMemo(() => ({
     'hit': playHitSoundEffect,
-    'miss': playMissSoundEffect
-  };
+    'miss': playMissSoundEffect,
+  }), [playHitSoundEffect, playMissSoundEffect]);
 
   // Play music
   React.useEffect(() => {
@@ -112,7 +112,7 @@ const Game = (props) => {
     ]);
     
     setGameState((prevState) => ({ ...prevState, playerTurn: true }));
-  }, [selectedDifficulty, enemyBattleGrid, playerShipGrid, playHitSoundEffect, playMissSoundEffect, convertXYToGridIndex]);
+  }, [selectedDifficulty, enemyBattleGrid, playerShipGrid, convertXYToGridIndex, setEnemyBattleGrid, setGameLog, setGameState, SHOT_RESULT_SOUNDS]);
 
   React.useEffect(() => {
     let timeoutId = null;
