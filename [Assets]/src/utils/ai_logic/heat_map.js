@@ -1,10 +1,10 @@
-// DIFFICULTY: ImpossibleoriginalShipSizes
+// DIFFICULTY: Impossible
 import { initializeGrid, isValidCoordinate, getRemainingShips, CONFIG } from "./ai_utils";
 import { NATURAL_BIAS_GRID } from "../constants";
 
 let currentHeatMap = null;
 
-const makeSmarterShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
+const makeHeatMapShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
   const remainingShips = getRemainingShips(playerShipGrid);
 
   if (!currentHeatMap) {
@@ -232,4 +232,4 @@ const getTrackingModifiers = (enemyBattleGrid, playerShipGrid, baseGrid) => {
   return trackingGrid;
 };
 
-export default makeSmarterShot;
+export default makeHeatMapShot;

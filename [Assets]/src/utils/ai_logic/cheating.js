@@ -1,8 +1,8 @@
 // DIFFICULTY: Impossible
 import { CONFIG, performShot } from "./ai_utils";
-import makeSmarterShot from "./heat_map";
+import makeHeatMapShot from "./heat_map";
 
-const makeCheatingShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
+const makeBestShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
 
   if (Math.random() < CONFIG.ODDS_OF_CHEATING){
     const shotPosition = cheatAndGetNextShotPosition(playerShipGrid, enemyBattleGrid);
@@ -14,7 +14,7 @@ const makeCheatingShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, s
     }
   }
   else {
-    return makeSmarterShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState);
+    return makeHeatMapShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState);
   }
 };
 
@@ -33,4 +33,4 @@ const cheatAndGetNextShotPosition = (playerShipGrid, enemyBattleGrid) => {
     return possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
 };
 
-export default makeCheatingShot;
+export default makeBestShot;

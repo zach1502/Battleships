@@ -13,7 +13,7 @@ const getStateFromLocalStorage = () => {
 
 let state = getStateFromLocalStorage() || DEFAULT_SEEK_AND_HUNT_STATE;
 
-const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
+const makeHuntAndSeekShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   let shotPosition = null;
   let shotResult = null;
 
@@ -32,7 +32,7 @@ const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
     if (state.toTryPositions.length === 0) {
       state.currentAIState = AI_STATES.seek;
       state.lastHitPosition = null;
-      return makeSmartShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid); // revert back to seek
+      return makeHuntAndSeekShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid); // revert back to seek
     } else {
       shotPosition = state.toTryPositions.pop();
       const shotObj = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
@@ -135,4 +135,4 @@ const canFitShipInDirection = (startPos, direction, grid) => {
   return true;
 };
 
-export default makeSmartShot;
+export default makeHuntAndSeekShot;
