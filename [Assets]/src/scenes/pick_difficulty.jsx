@@ -1,97 +1,106 @@
-import React from 'react';
+import React, { useState, useCallback, useContext, createContext, useMemo } from 'react';
 import propTypes from 'prop-types';
+import { Grid, Button, Typography, Box } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
-import { Grid, Button, Typography } from '@mui/material';
+const DifficultyContext = createContext();
 
-const PickDifficulty = (props) => {
-    const selectedDifficulty = props.selectedDifficulty;
-    const setSelectedDifficulty = props.setSelectedDifficulty;
+const DifficultyButton = ({ option }) => {
+  const { tempDifficulty, setTempDifficulty } = useContext(DifficultyContext);
+  return (
+    <Grid item xs={12} container justifyContent='center'>
+      <Button
+        variant='contained'
+        color={(tempDifficulty === option.value) ? 'success' : 'primary'}
+        onClick={() => setTempDifficulty(option.value)}
+        sx={{
+          width: '140px',
+        }}
+      >
+        {option.name}
+      </Button>
+    </Grid>
+  );
+};
 
-    const [tempDifficulty, setTempDifficulty] = React.useState(selectedDifficulty);
+const StartGameButton = ({ setSelectedDifficulty, tempDifficulty }) => (
+  <Button
+    variant='contained'
+    color='success'
+    startIcon={<PlayArrowIcon />}
+    onClick={() => {
+      if (tempDifficulty) {
+        setSelectedDifficulty(tempDifficulty);
+      }
+    }}
+  >
+    Start Game
+  </Button>
+);
 
-    const difficultyOptions = [
-        {
-            name: 'Easy',
-            value: 'easy',
-        },
-        {
-            name: 'Medium',
-            value: 'medium',
-        },
-        {
-            name: 'Hard',
-            value: 'hard',
-        },
-        {
-            name: 'Impossible',
-            value: 'impossible',
-        }
-    ];
+const MainMenuButton = () => (
+  <Button
+    variant='contained'
+    color='primary'
+    href='/'
+    startIcon={<MenuIcon />}
+  >
+    Main Menu
+  </Button>
+);
 
-    const renderDifficultyOptions = React.useCallback(() => {
-        return difficultyOptions.map((option) => {
-            return (
-                <Grid container direction="column" justifyContent="space-evenly" alignItems="center">
-                    <Grid item spacing={2} xs={12/difficultyOptions.length} key={option.value}>
-                        <Button
-                            variant="contained"
-                            color={(tempDifficulty === option.value)? 'success' : 'primary'}
-                            value={option.value}
-                            onClick={() => setTempDifficulty(option.value)}
-                        >
-                            {option.name}
-                        </Button>
-                    </Grid>
-                </Grid>
-                
-                
-            );
-        });
-    }, [tempDifficulty]);
+const PickDifficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
+  const [tempDifficulty, setTempDifficulty] = useState(selectedDifficulty);
 
-    return (
-        <Grid container justifyContent='space-evenly' alignItems="center">
-            <Grid item xs={12}>
-                <Typography variant="h3">
-                    Pick a difficulty level
-                </Typography>
-                <Typography variant="h4">
-                    Selected: {difficultyOptions.find((option) => option.value === tempDifficulty)?.name || 'None'}
-                </Typography>
-            </Grid>
-            {renderDifficultyOptions()}
-            <Grid container spacing={12} direction="row" justifyContent="space-between" alignItems="center">
-                <Grid item xs={2}>
-                    <Button
-                        variant="contained"
-                        color="success"
-                        href="/game"
-                        onClick={() => {
-                            if (tempDifficulty) {
-                                setSelectedDifficulty(tempDifficulty);
-                            }
-                        }}
-                    >
-                        Start Game
-                    </Button>
-                </Grid>
-                <Grid item xs={2}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        href="/"
-                    >
-                        Main Menu
-                    </Button>
-                </Grid>
-            </Grid>
+  const difficultyOptions = useMemo(() => [
+    { name: 'Easy', value: 'easy' },
+    { name: 'Medium', value: 'medium' },
+    { name: 'Hard', value: 'hard' },
+    { name: 'Impossible', value: 'impossible' }
+  ], []);
+
+  const selectedDifficultyName = useCallback(() =>
+    difficultyOptions.find((option) => option.value === tempDifficulty)?.name || 'None',
+    [tempDifficulty, difficultyOptions]
+  );
+
+  const DifficultyOptions = useMemo(() => ({ options }) => (
+    <Grid item xs={12} container spacing={2} alignItems='center'>
+      {options.map((option) => <DifficultyButton key={option.value} option={option} />)}
+    </Grid>
+  ), []);
+
+  return (
+    <DifficultyContext.Provider value={{ tempDifficulty, setTempDifficulty }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} container justifyContent='center' alignItems='center'>
+          <Box display='flex' flexDirection='column' alignItems='center'>
+            <Typography variant='h2'>
+              Pick a Difficulty Level
+            </Typography>
+            <Typography variant='h3'>
+              Selected: {selectedDifficultyName()}
+            </Typography>
+          </Box>
         </Grid>
-    );
+
+        <DifficultyOptions options={difficultyOptions} />
+
+        <Grid item xs={6} container justifyContent='center' alignItems='center'>
+          <StartGameButton setSelectedDifficulty={setSelectedDifficulty} tempDifficulty={tempDifficulty} />
+        </Grid>
+        <Grid item xs={6} container justifyContent='center' alignItems='center'>
+          <MainMenuButton />
+        </Grid>
+      </Grid>
+    </DifficultyContext.Provider>
+  );
 };
 
 PickDifficulty.propTypes = {
-    selectedDifficulty: propTypes.string.isRequired,
-    setSelectedDifficulty: propTypes.func.isRequired,
+  selectedDifficulty: propTypes.string,
+  setSelectedDifficulty: propTypes.func.isRequired,
 };
 
 export default PickDifficulty;

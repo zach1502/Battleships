@@ -1,6 +1,6 @@
 // DIFFICULTY: EASY
-
-import { AI_STATES, DEFAULT_SEEK_AND_HUNT_STATE } from "../constants";
+import { AI_STATES, DEFAULT_SEEK_AND_HUNT_STATE } from '../constants';
+import { performShot, CONFIG } from './ai_utils';
 
 const saveStateToLocalStorage = (state) => {
   localStorage.setItem('hunt_and_seek_state', JSON.stringify(state));
@@ -13,15 +13,16 @@ const getStateFromLocalStorage = () => {
 
 let state = getStateFromLocalStorage() || DEFAULT_SEEK_AND_HUNT_STATE;
 
-const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
+const makeHuntAndSeekShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   let shotPosition = null;
   let shotResult = null;
 
   if (state.currentAIState === AI_STATES.seek) {
     shotPosition = getRandomShotPosition(enemyBattleGrid);
-    shotResult = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+    const shotObj = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+    shotResult = shotObj.shotResult;
 
-    if (shotResult === "hit") {
+    if (shotResult === CONFIG.CELL_HIT) {
       state.currentAIState = AI_STATES.hunt;
       state.lastHitPosition = shotPosition;
       state.toTryPositions = getSurroundingPositions(state.lastHitPosition, enemyBattleGrid);
@@ -31,11 +32,12 @@ const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
     if (state.toTryPositions.length === 0) {
       state.currentAIState = AI_STATES.seek;
       state.lastHitPosition = null;
-      return makeSmartShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid); // revert back to seek
+      return makeHuntAndSeekShot(enemyBattleGrid, setEnemyBattleGrid, playerShipGrid); // revert back to seek
     } else {
       shotPosition = state.toTryPositions.pop();
-      shotResult = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
-      if (shotResult === "hit") {
+      const shotObj = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+      shotResult = shotObj.shotResult;
+      if (shotResult === CONFIG.CELL_HIT) {
         state.lastHitPosition = shotPosition;
         state.toTryPositions = state.toTryPositions.concat(getSurroundingPositions(state.lastHitPosition, enemyBattleGrid));
         saveStateToLocalStorage(state);
@@ -46,7 +48,11 @@ const makeSmartShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   updateSmallShipSize(playerShipGrid, enemyBattleGrid);
   saveStateToLocalStorage(state);
 
-  return shotResult;
+  return {
+    shotResult,
+    row: shotPosition[0],
+    col: shotPosition[1],
+  };
 };
 
 const updateSmallShipSize = (playerShipGrid, enemyBattleGrid) => {
@@ -55,9 +61,9 @@ const updateSmallShipSize = (playerShipGrid, enemyBattleGrid) => {
 
   enemyBattleGrid.forEach((row, rowIndex) => {
     row.forEach((square, colIndex) => {
-      if (square === "hit") {
+      if (square === CONFIG.CELL_HIT) {
         const tile = playerShipGrid[rowIndex][colIndex];
-        if (tile !== "hit") {
+        if (tile !== CONFIG.CELL_HIT) {
           const remainingShipLengths = { ...state.remainingShipLengths };
           remainingShipLengths[tile]--;
           state.remainingShipLengths = remainingShipLengths;
@@ -66,20 +72,10 @@ const updateSmallShipSize = (playerShipGrid, enemyBattleGrid) => {
     });
   });
 
-  const originalLengths = {
-    "carrier": 5,
-    "battleship": 4,
-    "cruiser": 3,
-    "submarine": 3,
-    "destroyer": 2,
-  };
-
   // find the smallest surviving ship
-  let smallestShip = null;
   let smallestShipLength = 100;
   for (const [ship, length] of Object.entries(state.remainingShipLengths)) {
-    if (length > 0 && originalLengths[ship] < smallestShipLength) {
-      smallestShip = ship;
+    if (length > 0 && CONFIG.ORIGINAL_SHIP_SIZES[ship] < smallestShipLength) {
       smallestShipLength = length;
     }
   }
@@ -88,7 +84,7 @@ const updateSmallShipSize = (playerShipGrid, enemyBattleGrid) => {
 };
 
 const getSurroundingPositions = (position, grid) => {
-  const surroundingPositions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+  const surroundingPositions = JSON.parse(JSON.stringify(CONFIG.DIRECTIONS))
     .map(([dirRow, dirCol]) => [position[0] + dirRow, position[1] + dirCol])
     .filter(([row, col]) => row >= 0 && row < grid.length && col >= 0 && col < grid[0].length && grid[row][col] === null);
 
@@ -124,7 +120,7 @@ const canFitShipInDirection = (startPos, direction, grid) => {
     const row = startPos[0] + direction[0] * i;
     const col = startPos[1] + direction[1] * i;
 
-    if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] === "miss") {
+    if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] === CONFIG.CELL_MISS) {
       return false;
     }
   }
@@ -139,16 +135,4 @@ const canFitShipInDirection = (startPos, direction, grid) => {
   return true;
 };
 
-const performShot = (shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
-  const [row, col] = shotPosition;
-  const shotResult = playerShipGrid[row][col] !== null ? "hit" : "miss";
-
-  // Update enemy battle grid
-  const newEnemyBattleGrid = [...enemyBattleGrid];
-  newEnemyBattleGrid[row][col] = shotResult;
-  setEnemyBattleGrid(newEnemyBattleGrid);
-
-  return shotResult;
-};
-
-export default makeSmartShot;
+export default makeHuntAndSeekShot;

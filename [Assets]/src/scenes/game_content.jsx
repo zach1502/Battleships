@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 
 import { Grid, Button } from '@mui/material';
 import { BattleGrid, GameLogDisplay, ShipGrid } from '../modules';
+import { TurnIndicator, GuideDialog } from '../components';
+import { GAMEPLAY_HELP } from '../utils/constants';
 
-import Heatmap from '../utils/ai_logic/heat_map_debug';
+// import Heatmap from '../utils/ai_logic/heat_map_debug';
+
+import FlagIcon from '@mui/icons-material/Flag';
+import MenuIcon from '@mui/icons-material/Menu';
+import HelpIcon from '@mui/icons-material/Help';
 
 const GameContent = (props) => {
   const playerBattleGrid = props.playerBattleGrid;
@@ -17,8 +23,9 @@ const GameContent = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const enemyBattleGrid = props.enemyBattleGrid;
   const settings = props.settings;
+  const setStats = props.setStats;
 
-  const currentHeatMap = props.currentHeatMap;
+  // const currentHeatMap = props.currentHeatMap;
 
   const handleForfeit = React.useCallback(() => {
     // remove specific local storage items
@@ -30,21 +37,40 @@ const GameContent = (props) => {
     localStorage.removeItem('gameState');
     localStorage.removeItem('hunt_and_seek_state');
     localStorage.removeItem('selectedDifficulty');
+    localStorage.removeItem('statsUpdated');
 
-    // go to the main menu
-    window.location.href = '/';
-  }, []);
+    setStats((prevState) => ({
+      ...prevState,
+      forfeits: prevState.forfeits + 1 || 1,
+      losses: prevState.losses + 1 || 1,
+    }));
+  }, [setStats]);
+
+  const [openHelp, setOpenHelp] = useState(false);
+
+  const handleOpenHelp = () => {
+    setOpenHelp(true);
+  };
+
+  const handleCloseHelp = () => {
+    setOpenHelp(false);
+  };
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Grid item xs={6}>
+    <Grid direction='row' container justifyContent='center' alignItems='center'>
+      <Grid item xs={12} container justifyContent='center' alignItems='center'>
+        <TurnIndicator
+          playerTurn={gameState.playerTurn}
+        />
+      </Grid>
+      <Grid item xs={6} container justifyContent='center' alignItems='center' sx={{ marginLeft: '-3rem' }}>
         <ShipGrid
           playerShipGrid={playerShipGrid}
           enemyBattleGrid={enemyBattleGrid}
           settings={settings}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6} container justifyContent='center' alignItems='center' sx={{ marginLeft: '-3rem' }}>
         <BattleGrid
           gameState={gameState}
           setGameState={setGameState}
@@ -54,37 +80,48 @@ const GameContent = (props) => {
           setGameLog={setGameLog}
           gameLog={gameLog}
           settings={settings}
+          setStats={setStats}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3} container justifyContent='center' alignItems='center'>
         <GameLogDisplay
           gameLog={gameLog}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3} container justifyContent='center' alignItems='center'>
         <Button
           color='error'
           variant='contained'
+          startIcon={<FlagIcon />}
           onClick={handleForfeit}
+          href='/'
         >
           Forfeit
         </Button>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3} container justifyContent='center' alignItems='center'>
         <Button
           variant='contained'
-          href="/"
+          startIcon={<MenuIcon />}
+          href='/'
         >
           Menu
         </Button>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3} container justifyContent='center' alignItems='center'>
         <Button
           variant='contained'
-          href="/help"
+          startIcon={<HelpIcon />}
+          onClick={handleOpenHelp}
         >
           Help
         </Button>
+        <GuideDialog
+          open={openHelp}
+          handleClose={handleCloseHelp}
+          titleContentPairs={GAMEPLAY_HELP}
+          buttonText={'Close'} 
+        />
       </Grid>
 
       {/* <Grid item xs={12}>
@@ -105,6 +142,8 @@ GameContent.propTypes = {
   setGameLog: propTypes.func.isRequired,
   gameLog: propTypes.array.isRequired,
   handleForfeit: propTypes.func.isRequired,
+  settings: propTypes.object.isRequired,
+  setStats: propTypes.func.isRequired,
 };
 
 export default GameContent;

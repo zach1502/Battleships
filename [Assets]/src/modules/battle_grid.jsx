@@ -1,11 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import { SelectionGrid } from "../components/";
+import { SelectionGrid } from '../components/';
 
-import { shipGridLegend } from "../utils/grid_legends";
-import useNewGridColors from "../utils/hooks/use_new_grid_colors";
-import { useSoundEffect } from '../utils/hooks/use_sound_effect';
+import { shipGridLegend } from '../utils/grid_legends';
+import { useSoundEffect, useNewGridColors } from '../utils/hooks/';
 
 const BattleGrid = (props) => {
   const gameState = props.gameState;
@@ -16,13 +15,21 @@ const BattleGrid = (props) => {
   const setGameLog = props.setGameLog;
   const gameLog = props.gameLog;
   const settings = props.settings;
+  const setStats = props.setStats;
 
   const [selectedSquare, setSelectedSquare] = React.useState(null);
 
   useNewGridColors(settings);
 
-  const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3');
-  const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3');
+  const playHitSoundEffect = useSoundEffect('/sound/Hit.mp3', settings);
+  const playMissSoundEffect = useSoundEffect('/sound/Miss.mp3', settings);
+
+  const convertXYToGridIndex = (y, x) => {
+    const letter = String.fromCharCode(65 + x);
+    const number = y + 1;
+
+    return `${letter}${number}`;
+  }
 
   return (
     <>
@@ -40,13 +47,15 @@ const BattleGrid = (props) => {
 
           const newGrid = [...playerBattleGrid];
           if (enemyShipGrid[row][col] !== null) {
-            newGrid[row][col] = "hit";
+            newGrid[row][col] = 'hit';
             playHitSoundEffect();
-            setGameLog([...gameLog, "You Hit!"]);
+            setGameLog([...gameLog, `Hit! ${convertXYToGridIndex(row, col)}`]);
+            setStats((prevState) => ({ ...prevState, hits: prevState.hits + 1 || 1 }));
           } else {
-            newGrid[row][col] = "miss";
+            newGrid[row][col] = 'miss';
             playMissSoundEffect();
-            setGameLog([...gameLog, "You missed!"]);
+            setGameLog([...gameLog, `Miss! ${convertXYToGridIndex(row, col)}`]);
+            setStats((prevState) => ({ ...prevState, misses: prevState.misses + 1 || 1 }));
           }
           setPlayerBattleGrid(newGrid);
 

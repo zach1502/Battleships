@@ -1,51 +1,51 @@
-import {Typography} from "@mui/material";
+import {Typography} from '@mui/material';
 
 const shipGridLegend = {
   null: {
-    displayType: "color",
-    color: "lightblue",
+    displayType: 'color',
+    color: 'lightblue',
     image: null,
     icon: null,
   },
-  "carrier": {
-    displayType: "color",
-    color: "green",
+  'carrier': {
+    displayType: 'color',
+    color: 'green',
     image: null,
     icon: <Typography>C</Typography>,
   },
-  "battleship": {
-    displayType: "color",
-    color: "blue",
+  'battleship': {
+    displayType: 'color',
+    color: 'blue',
     image: null,
     icon: <Typography>B</Typography>,
   },
-  "cruiser": {
-    displayType: "color",
-    color: "purple",
+  'cruiser': {
+    displayType: 'color',
+    color: 'purple',
     image: null,
     icon: <Typography>Cr</Typography>,
   },
-  "submarine": {
-    displayType: "color",
-    color: "indigo",
+  'submarine': {
+    displayType: 'color',
+    color: 'indigo',
     image: null,
     icon: <Typography>S</Typography>,
   },
-  "destroyer": {
-    displayType: "color",
-    color: "black",
+  'destroyer': {
+    displayType: 'color',
+    color: 'black',
     image: null,
     icon: <Typography>D</Typography>,
   },
-  "miss": {
-    displayType: "color",
-    color: "white",
+  'miss': {
+    displayType: 'color',
+    color: 'white',
     image: null,
     icon: <Typography color={'black'}>M</Typography>,
   },
-  "hit": {
-    displayType: "color",
-    color: "red",
+  'hit': {
+    displayType: 'color',
+    color: 'red',
     image: null,
     icon: <Typography>H</Typography>,
   },

@@ -1,9 +1,11 @@
 import makeRandomShot from './random';
-import makeSmartShot from './seek_and_hunt';
-import makeSmarterShot from './heat_map';
+import makeHuntAndSeekShot from './seek_and_hunt';
+import makeHeatMapShot from './heat_map';
+import makeBestShot from './cheating';
 
 export {
-    makeRandomShot,
-    makeSmartShot,
-    makeSmarterShot,
+  makeRandomShot,
+  makeHuntAndSeekShot,
+  makeHeatMapShot,
+  makeBestShot,
 }

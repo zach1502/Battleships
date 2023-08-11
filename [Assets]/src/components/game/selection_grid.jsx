@@ -1,14 +1,14 @@
-import React from "react";
-import propTypes from "prop-types";
+import React from 'react';
+import propTypes from 'prop-types';
 
-import { Button, Typography, Grid } from "@mui/material";
-import GridTile from "./grid_tile.jsx";
+import { Typography, Grid } from '@mui/material';
+import GridTile from './grid_tile.jsx';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 const ColumnMarker = React.memo(({ index, squareSize }) => (
   <Grid item key={`col${index}`}>
     <Typography
-      sx={{fontSize: `${squareSize}rem`,textAlign: "center",width: `${squareSize}rem`}}
+      sx={{fontSize: `${squareSize}rem`,textAlign: 'center',width: `${squareSize}rem`}}
     >
       {String.fromCharCode(65 + index)}
     </Typography>
@@ -18,7 +18,7 @@ const ColumnMarker = React.memo(({ index, squareSize }) => (
 const RowMarker = React.memo(({ index, squareSize }) => (
   <Grid item key={`row${index}`}>
     <Typography
-      sx={{fontSize: `${squareSize}rem`,textAlign: "center",width: `${squareSize}rem`,height: `${squareSize}rem`,lineHeight: 1,marginRight: '1rem'}}
+      sx={{fontSize: `${squareSize}rem`,textAlign: 'center',width: `${squareSize}rem`,height: `${squareSize}rem`,lineHeight: 1,marginRight: '1rem'}}
     >
       {index + 1}
     </Typography>
@@ -37,9 +37,9 @@ const SelectionGrid = (props) => {
   const squareSpacing = props.squareSpacing;
 
   const columnMarkers = !disableGridMarkers ? [
-    <Grid item key="placeholderMarker">
-      <Typography sx={{fontSize: `${squareSize}rem`,textAlign: "center",width: `${squareSize}rem`,marginRight: '1rem'}}>
-        {" "}
+    <Grid item key='placeholderMarker'>
+      <Typography sx={{fontSize: `${squareSize}rem`,textAlign: 'center',width: `${squareSize}rem`,marginRight: '1rem'}}>
+        {' '}
       </Typography>
     </Grid>,
     ...grid[0].map((_, i) => <ColumnMarker index={i} squareSize={squareSize} key={i} />)
@@ -51,14 +51,14 @@ const SelectionGrid = (props) => {
     <>
       <Grid container spacing={squareSpacing}>
         <Grid item xs={12}>
-          <Grid container spacing={squareSpacing}>
+          <Grid container spacing={squareSpacing} justifyContent='center' alignItems='center'>
             {columnMarkers}
           </Grid>
         </Grid>
         {
           grid.map((row, rowIndex) => (
             <Grid item xs={12} key={rowIndex}>
-              <Grid container spacing={squareSpacing}>
+              <Grid container spacing={squareSpacing} justifyContent='center' alignItems='center'>
                 {rowMarkers[rowIndex]}
                 {row.map((gridItem, colIndex) => {
                   const legendItem = legend[gridItem];
