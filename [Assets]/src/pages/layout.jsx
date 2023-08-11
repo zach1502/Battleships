@@ -2,7 +2,6 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
 
-import Header from '../components/header';
 import { useAchievements } from '../utils/hooks';
 import {PopUp} from '../components';
 
@@ -22,17 +21,12 @@ const Layout = (props) => {
 
   return (
     <>
-      <Header />
       <Box
         sx={{
-          width: '90vw',
-          height: '85vh',
+          height: 'calc(100vh - 1em)',
           display: 'flex',
-          border: '1px solid black',
           paddingLeft: '1em',
           paddingBottom: '1em',
-          marginLeft: '5vw',
-          marginRight: '5vw',
           overflow: 'hidden',
           position: 'relative'
         }}

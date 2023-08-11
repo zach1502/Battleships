@@ -1,4 +1,3 @@
-import Header from './header';
 import BackgroundMusic from './background_music';
 import Slider from './general/slider';
 import ColorPicker from './general/color_picker';
@@ -18,7 +17,6 @@ export {
   GuideDialog,
   EditField,
   GridTile,
-  Header,
   PopUp,
   SelectionGrid,
   Slider,
