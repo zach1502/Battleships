@@ -21,9 +21,14 @@ const Menu = (props) => {
       <AnimatedBackground />
 
       <Grid container direction='column' justifyContent='space-evenly' alignItems='center'>
-        <Typography variant='h1' component='div'>
-          Menu
-        </Typography>
+        <Grid item container direction='column' alignItems='center'>
+          <Typography variant='h1' component='div'>
+            Battleships
+          </Typography>
+          <Typography variant='h4' component='div'>
+            Set Sail for Battle!
+          </Typography>
+        </Grid>
         <Grid container spacing={2} direction='row' justifyContent='center' alignItems='center'>
           <Grid item>
             {localStorage.gameState
