@@ -25,7 +25,7 @@ const useAchievements = (playerData, settings) => {
     setTheNewAchievement(null);
   };
 
-  return [obtainedAchievements, theNewAchievement, clearNewAchievements];
+  return {obtainedAchievements, theNewAchievement, clearNewAchievements};
 };
 
 export default useAchievements;

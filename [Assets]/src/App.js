@@ -19,6 +19,8 @@ const App = () => {
   const [stats, setStats] = useLocalStorage("stats", {}, true);
   const [selectedTrack, setSelectedTrack] = React.useState(0);
 
+  const {obtainedAchievements} = useAchievements(stats, settings);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -40,7 +42,7 @@ const App = () => {
           }/>
           <Route path="achievements" element={
             <Achievements
-              obtainedAchievements={useAchievements(stats, settings)[0]}
+              obtainedAchievements={obtainedAchievements}
             />
           }/>
           <Route path="credits" element={<Credits setStats={setStats}/>} />

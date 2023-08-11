@@ -12,7 +12,7 @@ const Layout = (props) => {
   const stats = props.stats;
   const settings = props.settings;
 
-  const [obtainedAchievements, theNewAchievement, clearNewAchievements] = useAchievements(stats, settings); // eslint-disable-line no-unused-vars
+  const {theNewAchievement, clearNewAchievements} = useAchievements(stats, settings); // eslint-disable-line no-unused-vars
 
   React.useEffect(() => {
     if (theNewAchievement) {
