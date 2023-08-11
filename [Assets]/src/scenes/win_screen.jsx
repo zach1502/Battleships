@@ -26,18 +26,18 @@ const WinScreen = (props) => {
   'https://hips.hearstapps.com/hmg-prod/images/in-this-u-s-navy-released-handout-a-fire-continues-to-be-news-photo-1594671916.jpg';
 
   return (
-    <Grid container spacing={2} justifyContent='center' alignItems="center">
+    <Grid container spacing={2} justifyContent='center' alignItems='center'>
       <Grid item xs={12}>
-        <Typography variant="h2" align='center'>
+        <Typography variant='h2' align='center'>
           {gameState.playerWon ? 'Congratulations, You Won!' : 'Game Over, The AI Won!'}
         </Typography>
       </Grid>
-      <Grid item xs={12} container justifyContent='center' alignItems="center">
+      <Grid item xs={12} container justifyContent='center' alignItems='center'>
         <img src={imageUrl} alt={gameState.playerWon ? 'You won' : 'You lost'} style={{ width: '90%', height: 'auto' }} />
       </Grid>
       <Grid item>
         <Button
-          variant="contained"
+          variant='contained'
           color='primary'
           fullWidth
           onClick={handleMatchReset}
@@ -49,7 +49,7 @@ const WinScreen = (props) => {
       </Grid>
       <Grid item>
         <Button
-          variant="contained"
+          variant='contained'
           color='success'
           fullWidth
           onClick={handleMatchReset}

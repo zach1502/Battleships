@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "@mui/material";
+import React from 'react';
+import { Button } from '@mui/material';
 
 const GridTile = (props) => {
   const displayType = props.displayType;
@@ -10,10 +10,10 @@ const GridTile = (props) => {
   const onClick = props.onClick;
 
   switch (displayType) {
-    case "color":
+    case 'color':
       return (
         <Button
-          variant="contained"
+          variant='contained'
           style={{backgroundColor: color}}
           onClick={onClick}
           sx={{
@@ -27,10 +27,10 @@ const GridTile = (props) => {
           {icon}
         </Button>
       );
-    case "image":
+    case 'image':
       return (
         <Button
-          variant="contained"
+          variant='contained'
           style={{backgroundImage: `url(${image})`}}
           onClick={onClick}
         />

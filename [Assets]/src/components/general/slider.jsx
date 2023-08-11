@@ -1,11 +1,11 @@
-import React from "react";
-import { Typography, Slider, Grid } from "@mui/material";
+import React from 'react';
+import { Typography, Slider, Grid } from '@mui/material';
 
 const CustomSlider = (props) => {
   const value = props.value;
   const setValue = props.setValue;
 
-  const label = props.label || "Slider";
+  const label = props.label || 'Slider';
 
   const min = props.min || 0;
   const max = props.max || 100;
@@ -14,10 +14,10 @@ const CustomSlider = (props) => {
 
   return (
     <>
-      <Grid container spacing={2} justifyContent="flex-start" alignItems="center">
+      <Grid container spacing={2} justifyContent='flex-start' alignItems='center'>
         <Grid item xs={12} align='center'>
-          <Typography variant="h5" component="div" align='center'>
-            {label + ": " + value}
+          <Typography variant='h5' component='div' align='center'>
+            {label + ': ' + value}
           </Typography>
         </Grid>
         
@@ -31,7 +31,7 @@ const CustomSlider = (props) => {
             step={step}
             min={min}
             max={max}
-            valueLabelDisplay="auto"
+            valueLabelDisplay='auto'
             aria-label={label}
             getAriaValueText={(value) => value}
           />

@@ -73,39 +73,39 @@ const GameLoading = (props) => {
   };
 
   const transition = {
-    x: { type: "spring", stiffness: 300, damping: 30 },
+    x: { type: 'spring', stiffness: 300, damping: 30 },
     opacity: { duration: 0.5 }
   };
 
   return (
     <Grid
       container
-      direction="column"
-      justifyContent="center"
-      alignItems="center"
+      direction='column'
+      justifyContent='center'
+      alignItems='center'
       style={{ minHeight: '100vh' }}
       sx={{overflow: 'hidden'}}
     >
-      <CircularProgress color="primary" style={{ marginBottom: '20px' }} />
-      <Typography variant="h5" style={{ marginBottom: '20px' }}>
+      <CircularProgress color='primary' style={{ marginBottom: '20px' }} />
+      <Typography variant='h5' style={{ marginBottom: '20px' }}>
         {statusMessage}
       </Typography>
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode='wait'>
         <motion.div
           key={tipIndex}
           variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
+          initial='enter'
+          animate='center'
+          exit='exit'
           onClick={handleTipClick}
           transition={transition}
           style={{cursor: 'pointer'}}
         >
-          <Typography variant="subtitle1" style={{ marginBottom: '10px' }}>
+          <Typography variant='subtitle1' style={{ marginBottom: '10px' }}>
             {TIPS[tipIndex]}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <KeyboardArrowDown fontSize="small" />
+            <KeyboardArrowDown fontSize='small' />
           </Box>
         </motion.div>
       </AnimatePresence>

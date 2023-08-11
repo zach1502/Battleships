@@ -1,6 +1,6 @@
 // DIFFICULTY: Impossible
-import { initializeGrid, isValidCoordinate, getRemainingShips, CONFIG } from "./ai_utils";
-import { NATURAL_BIAS_GRID } from "../constants";
+import { initializeGrid, isValidCoordinate, getRemainingShips, CONFIG } from './ai_utils';
+import { NATURAL_BIAS_GRID } from '../constants';
 
 let currentHeatMap = null;
 

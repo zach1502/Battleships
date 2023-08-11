@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@mui/material";
+import React, { useEffect, useRef } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 
 const GameLogDisplay = (props) => {
   const gameLog = props.gameLog;
@@ -23,8 +23,8 @@ const GameLogDisplay = (props) => {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell style={{ padding: 0 }}><Typography color="primary">Player</Typography></TableCell>
-              <TableCell style={{ padding: 0 }}><Typography color="error">AI</Typography></TableCell>
+              <TableCell style={{ padding: 0 }}><Typography color='primary'>Player</Typography></TableCell>
+              <TableCell style={{ padding: 0 }}><Typography color='error'>AI</Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -36,10 +36,10 @@ const GameLogDisplay = (props) => {
                   </Typography>
                 </TableCell>
                 <TableCell style={{ padding: 0 }}>
-                  <Typography color="primary" fontSize={14}>{playerShots[index]}</Typography>
+                  <Typography color='primary' fontSize={14}>{playerShots[index]}</Typography>
                 </TableCell>
                 <TableCell style={{ padding: 0 }}>
-                  <Typography color="error" fontSize={14}>{aiShots[index]}</Typography>
+                  <Typography color='error' fontSize={14}>{aiShots[index]}</Typography>
                 </TableCell>
               </TableRow>
             ))}

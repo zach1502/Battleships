@@ -4,7 +4,7 @@ import useSoundEffect from './use_sound_effect';
 import { listOfAllAchievements } from '../achievements_list';
 
 const useAchievements = (playerData, settings) => {
-  const [obtainedAchievements, setObtainedAchievements] = useLocalStorage("obtainedAchievements", [], true);
+  const [obtainedAchievements, setObtainedAchievements] = useLocalStorage('obtainedAchievements', [], true);
   const [theNewAchievement, setTheNewAchievement] = React.useState(null);
 
   const playAchievementSound = useSoundEffect('/sound/achievementGet.mp3', settings)

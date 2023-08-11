@@ -1,6 +1,6 @@
 // DIFFICULTY: Impossible
-import { CONFIG, performShot } from "./ai_utils";
-import makeHeatMapShot from "./heat_map";
+import { CONFIG, performShot } from './ai_utils';
+import makeHeatMapShot from './heat_map';
 
 const makeBestShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid, setDebugState = ()=>null) => {
 

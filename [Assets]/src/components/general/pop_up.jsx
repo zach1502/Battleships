@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Typography, LinearProgress } from "@mui/material";
+import React from 'react';
+import { Box, Typography, LinearProgress } from '@mui/material';
 
 const PopUp = ({ title, message, imgSrc, closePopup }) => {
   const [progress, setProgress] = React.useState(0);
@@ -32,22 +32,22 @@ const PopUp = ({ title, message, imgSrc, closePopup }) => {
   return (
     <Box
       sx={{
-        padding: "1em",
-        backgroundColor: "white",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        transition: "opacity 0.5s ease-in",
+        padding: '1em',
+        backgroundColor: 'white',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        transition: 'opacity 0.5s ease-in',
         opacity: fadeOut ? 0 : 1,
-        border: "1px solid black",
+        border: '1px solid black',
       }}
     >
       <Box sx={{ width: '100%'}}>
-        <LinearProgress variant="determinate" value={progress} />
+        <LinearProgress variant='determinate' value={progress} />
       </Box>
-      <Typography variant="h6">{title}</Typography>
-      <Typography variant="body1">{truncateMessage(message)}</Typography>
-      <img src={imgSrc} alt={title} style={{ width: "128px", height: "auto" }} />
+      <Typography variant='h6'>{title}</Typography>
+      <Typography variant='body1'>{truncateMessage(message)}</Typography>
+      <img src={imgSrc} alt={title} style={{ width: '128px', height: 'auto' }} />
     </Box>
   )
 };

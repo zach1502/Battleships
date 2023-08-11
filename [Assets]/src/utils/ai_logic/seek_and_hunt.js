@@ -1,6 +1,6 @@
 // DIFFICULTY: EASY
-import { AI_STATES, DEFAULT_SEEK_AND_HUNT_STATE } from "../constants";
-import { performShot, CONFIG } from "./ai_utils";
+import { AI_STATES, DEFAULT_SEEK_AND_HUNT_STATE } from '../constants';
+import { performShot, CONFIG } from './ai_utils';
 
 const saveStateToLocalStorage = (state) => {
   localStorage.setItem('hunt_and_seek_state', JSON.stringify(state));

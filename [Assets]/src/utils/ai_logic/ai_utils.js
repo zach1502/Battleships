@@ -38,11 +38,11 @@ const CONFIG = {
   ADJACENT_HIT_MODIFIER: 20,
   ODDS_OF_CHEATING: 0.10,
   ORIGINAL_SHIP_SIZES: {
-    "carrier": 5,
-    "battleship": 4,
-    "cruiser": 3,
-    "submarine": 3,
-    "destroyer": 2,
+    'carrier': 5,
+    'battleship': 4,
+    'cruiser': 3,
+    'submarine': 3,
+    'destroyer': 2,
   }
 };
 

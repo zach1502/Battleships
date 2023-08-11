@@ -1,23 +1,23 @@
-import React from "react";
-import propTypes from "prop-types";
-import { Grid, Button} from "@mui/material";
+import React from 'react';
+import propTypes from 'prop-types';
+import { Grid, Button} from '@mui/material';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
 import DeleteIcon from '@mui/icons-material/Delete';
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import MenuIcon from '@mui/icons-material/Menu';
 import HelpIcon from '@mui/icons-material/Help';
 
-import {PlaceShipGrid} from "../modules/";
-import {GuideDialog, DropdownSelect} from "../components/";
+import {PlaceShipGrid} from '../modules/';
+import {GuideDialog, DropdownSelect} from '../components/';
 
-import createGrid from "../utils/create_grid";
-import {shipNames} from "../utils/ship_details";
-import {useNewGridColors} from "../utils/hooks/";
-import { SHIP_PLACING_HELP } from "../utils/constants";
+import createGrid from '../utils/create_grid';
+import {shipNames} from '../utils/ship_details';
+import {useNewGridColors} from '../utils/hooks/';
+import { SHIP_PLACING_HELP, DIRECTIONS } from '../utils/constants';
 
 const PlaceShips = (props) => {
   const [selectedShip, setSelectedShip] = React.useState('carrier');
-  const [shipOrientation, setShipOrientation] = React.useState('horizontal');
+  const [shipOrientation, setShipOrientation] = React.useState(DIRECTIONS.HORIZONTAL);
   const [selectedSquare, setSelectedSquare] = React.useState(null);
   const [openHelp, setOpenHelp] = React.useState(false);
 
@@ -56,7 +56,7 @@ const PlaceShips = (props) => {
 
   return (
     <>
-      <Grid container direction="row">
+      <Grid container direction='row'>
         <Grid item xs={12}>
           <PlaceShipGrid
             playerShipGrid={playerShipGrid}
@@ -71,37 +71,37 @@ const PlaceShips = (props) => {
           />
         </Grid>
 
-        <Grid item xs={4} container justifyContent="center" alignItems="center">
+        <Grid item xs={4} container justifyContent='center' alignItems='center'>
           <DropdownSelect
             value={selectedShip}
             setValue={setSelectedShip}
-            label="Ship"
-            helperText="Select a ship to place"
+            label='Ship'
+            helperText='Select a ship to place'
             values={shipNames}
           />
         </Grid>
-        <Grid item xs={4} container justifyContent="center" alignItems="center">
+        <Grid item xs={4} container justifyContent='center' alignItems='center'>
           <Button
-            variant="contained"
+            variant='contained'
             startIcon={<RotateRightIcon />}
-            onClick={() => setShipOrientation(shipOrientation === "horizontal" ? "vertical" : "horizontal")}
+            onClick={() => setShipOrientation(shipOrientation === DIRECTIONS.HORIZONTAL ? DIRECTIONS.VERTICAL : DIRECTIONS.HORIZONTAL)}
           >
             {shipOrientation}
           </Button>
         </Grid>
-        <Grid item xs={4} container justifyContent="center" alignItems="center">
+        <Grid item xs={4} container justifyContent='center' alignItems='center'>
           <Button
-            variant="contained"
+            variant='contained'
             startIcon={<DeleteIcon />}
             color='error'
             onClick={handleClearBoard}
           >
-            {"Clear Ships"}
+            {'Clear Ships'}
           </Button>
         </Grid>
-        <Grid item xs={4} container justifyContent="center" alignItems="center">
+        <Grid item xs={4} container justifyContent='center' alignItems='center'>
           <Button
-            variant="contained"
+            variant='contained'
             startIcon={<MenuIcon />}
             color='primary'
             disabled={false}
@@ -109,27 +109,27 @@ const PlaceShips = (props) => {
               setSelectedDifficulty(null);
             }}
           >
-            {"Main Menu"}
+            {'Main Menu'}
           </Button>
         </Grid>
-        <Grid item xs={4} container justifyContent="center" alignItems="center">
+        <Grid item xs={4} container justifyContent='center' alignItems='center'>
           <Button
-            variant="contained"
+            variant='contained'
             startIcon={<HelpIcon />}
             onClick={handleOpenHelp}
           >
-            {"Help"}
+            {'Help'}
           </Button>
           <GuideDialog
             open={openHelp}
             handleClose={handleCloseHelp}
             titleContentPairs={SHIP_PLACING_HELP}
-            buttonText={"Close"} 
+            buttonText={'Close'} 
           />
         </Grid>
-        <Grid item xs={4} container justifyContent="center" alignItems="center">
+        <Grid item xs={4} container justifyContent='center' alignItems='center'>
           <Button
-            variant="contained"
+            variant='contained'
             startIcon={<PlayArrowIcon />}
             color='success'
             disabled={!gameState.allPlayerShipsPlaced}
@@ -140,7 +140,7 @@ const PlaceShips = (props) => {
               }));
             }}
           >
-            {"Ready?"}
+            {'Ready?'}
           </Button>
         </Grid>
       </Grid>

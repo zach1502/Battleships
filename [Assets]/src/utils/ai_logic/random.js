@@ -1,5 +1,5 @@
 // DIFFICULTY: SUPER EASY
-import { performShot } from "./ai_utils";
+import { performShot } from './ai_utils';
 
 const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => {
   const possibleShots = getAvailableShots(enemyBattleGrid);
@@ -10,7 +10,7 @@ const makeRandomShot = (enemyBattleGrid, setEnemyBattleGrid, playerShipGrid) => 
   const shotPosition = possibleShots[shotIndex];
 
   // eslint-disable-next-line no-unused-vars
-  const { shotResult, newEnemyBattleGrid } = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
+  const { shotResult } = performShot(shotPosition, enemyBattleGrid, setEnemyBattleGrid, playerShipGrid);
   
   return {
     shotResult,

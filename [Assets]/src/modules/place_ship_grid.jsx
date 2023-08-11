@@ -1,7 +1,8 @@
 import React from 'react'
-import { SelectionGrid } from "../components/";
-import { shipGridLegend } from "../utils/grid_legends";
-import { shipLengths } from "../utils/ship_details";
+import { SelectionGrid } from '../components/';
+import { shipGridLegend } from '../utils/grid_legends';
+import { shipLengths } from '../utils/ship_details';
+import { DIRECTIONS } from '../utils/constants';
 
 const PlaceShipGrid = (props) => {
   const playerShipGrid = props.playerShipGrid;
@@ -45,12 +46,12 @@ const PlaceShipGrid = (props) => {
   const canPlaceShip = (row, col, ship, orientation, direction = 1) => {
 
     // Checks if the ship can be placed based on the orientation
-    return orientation === "horizontal" ? fitsHorizontally(row, col, ship, direction) : fitsVertically(row, col, ship, direction);
+    return orientation === DIRECTIONS.HORIZONTAL ? fitsHorizontally(row, col, ship, direction) : fitsVertically(row, col, ship, direction);
   };
 
   // Function to get the next ship to be selected
   const getNextShip = (currentShip, placedShips) => {
-    const shipOrder = ["carrier", "battleship", "cruiser", "submarine", "destroyer"];
+    const shipOrder = ['carrier', 'battleship', 'cruiser', 'submarine', 'destroyer'];
     const currentIndex = shipOrder.indexOf(currentShip);
 
     for (let i = currentIndex + 1; i < shipOrder.length; i++) {
@@ -75,11 +76,11 @@ const PlaceShipGrid = (props) => {
     const shipLength = shipLengths[ship];
     const newGrid = [...playerShipGrid]; // make a copy of the current grid
 
-    if (orientation === "horizontal") {
+    if (orientation === DIRECTIONS.HORIZONTAL) {
       for (let i = 0; i < shipLength; i++) {
         newGrid[row][col + (i * direction)] = ship;
       }
-    } else { // orientation is "vertical"
+    } else { // orientation is 'vertical'
       for (let i = 0; i < shipLength; i++) {
         newGrid[row + (i * direction)][col] = ship;
       }

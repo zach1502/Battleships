@@ -1,9 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import {SelectionGrid} from "../components";
-import {useNewGridColors} from "../utils/hooks/";
-import {shipGridLegend} from "../utils/grid_legends";
+import {SelectionGrid} from '../components';
+import {useNewGridColors} from '../utils/hooks/';
+import {shipGridLegend} from '../utils/grid_legends';
 
 const ShipGrid = (props) => {
   const playerShipGrid = props.playerShipGrid;

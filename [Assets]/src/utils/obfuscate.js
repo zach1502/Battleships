@@ -18,7 +18,7 @@ const xorCipher = (str) => {
 const obfuscate = (str) => {
   let result = '';
   for (let i = 0; i < str.length; i++) {
-    result += (str.charCodeAt(i) + (i << 2)) + "-";
+    result += (str.charCodeAt(i) + (i << 2)) + '-';
   }
   result = result.slice(0, -1);
   result = xorCipher(result);

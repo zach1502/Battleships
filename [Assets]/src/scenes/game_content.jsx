@@ -57,20 +57,20 @@ const GameContent = (props) => {
   };
 
   return (
-    <Grid direction="row" container justifyContent="center" alignItems="center">
-      <Grid item xs={12} container justifyContent="center" alignItems="center">
+    <Grid direction='row' container justifyContent='center' alignItems='center'>
+      <Grid item xs={12} container justifyContent='center' alignItems='center'>
         <TurnIndicator
           playerTurn={gameState.playerTurn}
         />
       </Grid>
-      <Grid item xs={6} container justifyContent="center" alignItems="center" sx={{ marginLeft: '-3rem' }}>
+      <Grid item xs={6} container justifyContent='center' alignItems='center' sx={{ marginLeft: '-3rem' }}>
         <ShipGrid
           playerShipGrid={playerShipGrid}
           enemyBattleGrid={enemyBattleGrid}
           settings={settings}
         />
       </Grid>
-      <Grid item xs={6} container justifyContent="center" alignItems="center" sx={{ marginLeft: '-3rem' }}>
+      <Grid item xs={6} container justifyContent='center' alignItems='center' sx={{ marginLeft: '-3rem' }}>
         <BattleGrid
           gameState={gameState}
           setGameState={setGameState}
@@ -83,12 +83,12 @@ const GameContent = (props) => {
           setStats={setStats}
         />
       </Grid>
-      <Grid item xs={3} container justifyContent="center" alignItems="center">
+      <Grid item xs={3} container justifyContent='center' alignItems='center'>
         <GameLogDisplay
           gameLog={gameLog}
         />
       </Grid>
-      <Grid item xs={3} container justifyContent="center" alignItems="center">
+      <Grid item xs={3} container justifyContent='center' alignItems='center'>
         <Button
           color='error'
           variant='contained'
@@ -99,16 +99,16 @@ const GameContent = (props) => {
           Forfeit
         </Button>
       </Grid>
-      <Grid item xs={3} container justifyContent="center" alignItems="center">
+      <Grid item xs={3} container justifyContent='center' alignItems='center'>
         <Button
           variant='contained'
           startIcon={<MenuIcon />}
-          href="/"
+          href='/'
         >
           Menu
         </Button>
       </Grid>
-      <Grid item xs={3} container justifyContent="center" alignItems="center">
+      <Grid item xs={3} container justifyContent='center' alignItems='center'>
         <Button
           variant='contained'
           startIcon={<HelpIcon />}
@@ -120,7 +120,7 @@ const GameContent = (props) => {
           open={openHelp}
           handleClose={handleCloseHelp}
           titleContentPairs={GAMEPLAY_HELP}
-          buttonText={"Close"} 
+          buttonText={'Close'} 
         />
       </Grid>
 

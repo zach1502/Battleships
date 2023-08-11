@@ -14,15 +14,15 @@ const StatsTable = ({ stats }) => {
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell align="center">Stat</TableCell>
-            <TableCell align="center">Value</TableCell>
+            <TableCell align='center'>Stat</TableCell>
+            <TableCell align='center'>Value</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {statEntries.length === 0 ? (
             <TableRow>
-              <TableCell align="center" colSpan={2}>
-                <Typography variant="body1">No stats available. Please play the game first!</Typography>
+              <TableCell align='center' colSpan={2}>
+                <Typography variant='body1'>No stats available. Please play the game first!</Typography>
               </TableCell>
             </TableRow>
           ) : (
@@ -30,8 +30,8 @@ const StatsTable = ({ stats }) => {
               const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
               return (
                 <TableRow key={key}>
-                  <TableCell align="center">{formattedKey}</TableCell>
-                  <TableCell align="center">{value}</TableCell>
+                  <TableCell align='center'>{formattedKey}</TableCell>
+                  <TableCell align='center'>{value}</TableCell>
                 </TableRow>
               )
             })

@@ -1,12 +1,12 @@
 import React from 'react'
 import { CompactPicker  } from 'react-color';
-import { Button, Grid } from "@mui/material";
+import { Button, Grid } from '@mui/material';
 
 const ColorPicker = (props) => {
   const color = props.color;
   const setColor = props.setColor;
 
-  const label = props.label || "Color Picker";
+  const label = props.label || 'Color Picker';
 
   function getTextColor(color) {
     const r = parseInt(color.substr(1, 2), 16);
@@ -19,7 +19,7 @@ const ColorPicker = (props) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} align='center'>
-        {label + ": "}
+        {label + ': '}
         <Button
           style={{ backgroundColor: color }}
           sx={{

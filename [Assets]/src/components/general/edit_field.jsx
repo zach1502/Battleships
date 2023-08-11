@@ -25,13 +25,13 @@ const EditField = ({ username, setUsername }) => {
 
   return (
     <TextField 
-      label="Username" 
+      label='Username' 
       value={isEditing ? tempUsername : username} 
       onChange={(e) => setTempUsername(e.target.value)} 
       InputProps={{
         readOnly: !isEditing,
         endAdornment: (
-          <InputAdornment position="end">
+          <InputAdornment position='end'>
             {isEditing ? (
               <>
                 <IconButton onClick={handleCheckClick}>

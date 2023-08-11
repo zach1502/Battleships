@@ -1,10 +1,10 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import { Box } from "@mui/material";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import { Box } from '@mui/material';
 
-import Header from "../components/header";
+import Header from '../components/header';
 import { useAchievements } from '../utils/hooks';
-import {PopUp} from "../components";
+import {PopUp} from '../components';
 
 const Layout = (props) => {
   const [activatePopupBox, setActivatePopupBox] = React.useState(false);
@@ -25,14 +25,14 @@ const Layout = (props) => {
       <Header />
       <Box
         sx={{
-          width: "90vw",
-          height: "85vh",
-          display: "flex",
-          border: "1px solid black",
-          paddingLeft: "1em",
-          paddingBottom: "1em",
-          marginLeft: "5vw",
-          marginRight: "5vw",
+          width: '90vw',
+          height: '85vh',
+          display: 'flex',
+          border: '1px solid black',
+          paddingLeft: '1em',
+          paddingBottom: '1em',
+          marginLeft: '5vw',
+          marginRight: '5vw',
         }}
       >
         <Outlet />
@@ -41,11 +41,11 @@ const Layout = (props) => {
       {activatePopupBox &&
         <Box        
           sx={{
-            position: "absolute",
-            top: "10vh",
-            right: "10vw",
-            width: "20vw",
-            overflow: "auto"
+            position: 'absolute',
+            top: '10vh',
+            right: '10vw',
+            width: '20vw',
+            overflow: 'auto'
           }}
         >
           <PopUp 

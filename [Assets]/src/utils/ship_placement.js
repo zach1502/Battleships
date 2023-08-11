@@ -1,4 +1,5 @@
-import { shipNames, shipLengths } from "./ship_details";
+import { shipNames, shipLengths } from './ship_details';
+import { DIRECTIONS } from '../utils/constants';
 
 const getInitialPosition = (grid) => {
   return {
@@ -9,8 +10,8 @@ const getInitialPosition = (grid) => {
 
 const canPlaceShip = (grid, shipLength, orientation, direction, startRow, startCol) => {
   for(let i = 0; i < shipLength; i++) {
-    const row = orientation === 'horizontal' ? startRow : startRow + direction * i;
-    const col = orientation === 'horizontal' ? startCol + direction * i : startCol;
+    const row = orientation === DIRECTIONS.HORIZONTAL ? startRow : startRow + direction * i;
+    const col = orientation === DIRECTIONS.HORIZONTAL ? startCol + direction * i : startCol;
     if(row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] !== null) {
       return false;
     }
@@ -20,8 +21,8 @@ const canPlaceShip = (grid, shipLength, orientation, direction, startRow, startC
 
 const updateGridWithShip = (grid, ship, shipLength, orientation, direction, startRow, startCol) => {
   for(let i = 0; i < shipLength; i++) {
-    const row = orientation === 'horizontal' ? startRow : startRow + direction * i;
-    const col = orientation === 'horizontal' ? startCol + direction * i : startCol;
+    const row = orientation === DIRECTIONS.HORIZONTAL ? startRow : startRow + direction * i;
+    const col = orientation === DIRECTIONS.HORIZONTAL ? startCol + direction * i : startCol;
     grid[row][col] = ship;
   }
 }
@@ -35,7 +36,7 @@ const placeEnemyShips = (grid, setGrid) => {
     let attempts = 0;
 
     while (!placed && attempts < 1000) {
-      const orientation = Math.random() > 0.5 ? "horizontal" : "vertical";
+      const orientation = Math.random() > 0.5 ? DIRECTIONS.HORIZONTAL : DIRECTIONS.VERTICAL;
       const direction = Math.random() > 0.5 ? 1 : -1;
       const { startRow, startCol } = getInitialPosition(newGrid);
       
@@ -48,7 +49,7 @@ const placeEnemyShips = (grid, setGrid) => {
     }
 
     if (attempts >= 1000) {
-      throw new Error("Couldn't place all the ships after 1000 attempts.");
+      throw new Error('Couldn\'t place all the ships after 1000 attempts.');
     }
   });
 

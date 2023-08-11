@@ -1,9 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import { SelectionGrid } from "../components/";
+import { SelectionGrid } from '../components/';
 
-import { shipGridLegend } from "../utils/grid_legends";
+import { shipGridLegend } from '../utils/grid_legends';
 import { useSoundEffect, useNewGridColors } from '../utils/hooks/';
 
 const BattleGrid = (props) => {
@@ -47,12 +47,12 @@ const BattleGrid = (props) => {
 
           const newGrid = [...playerBattleGrid];
           if (enemyShipGrid[row][col] !== null) {
-            newGrid[row][col] = "hit";
+            newGrid[row][col] = 'hit';
             playHitSoundEffect();
             setGameLog([...gameLog, `Hit! ${convertXYToGridIndex(row, col)}`]);
             setStats((prevState) => ({ ...prevState, hits: prevState.hits + 1 || 1 }));
           } else {
-            newGrid[row][col] = "miss";
+            newGrid[row][col] = 'miss';
             playMissSoundEffect();
             setGameLog([...gameLog, `Miss! ${convertXYToGridIndex(row, col)}`]);
             setStats((prevState) => ({ ...prevState, misses: prevState.misses + 1 || 1 }));

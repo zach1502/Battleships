@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Select, MenuItem, FormHelperText, FormControl, InputLabel } from "@mui/material";
+import { Select, MenuItem, FormHelperText, FormControl, InputLabel } from '@mui/material';
 
 const DropdownSelect = (props) => {
   const value = props.value;

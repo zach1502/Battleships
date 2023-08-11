@@ -1,6 +1,6 @@
-import React from "react";
-import { Grid, Button, Typography, Checkbox} from "@mui/material";
-import { Slider, ColorPicker } from "../components";
+import React from 'react';
+import { Grid, Button, Typography, Checkbox} from '@mui/material';
+import { Slider, ColorPicker } from '../components';
 
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -10,16 +10,16 @@ const Settings = (props) => {
 
   return (
     <>
-      <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+      <Grid container direction='row' justifyContent='flex-start' alignItems='center'>
         <Grid item xs={12} align='center'>
-          <Typography variant="h2" component="div">
+          <Typography variant='h2' component='div'>
             Settings
           </Typography>
         </Grid>
 
         <Grid item xs={12} align='center'>
           <Slider
-            label="Master Volume"
+            label='Master Volume'
             value={settings.masterVolume}
             setValue={(value) => {
               setSettings({
@@ -36,7 +36,7 @@ const Settings = (props) => {
 
         <Grid item xs={12} align='center'>
           <Slider
-            label="Music Volume"
+            label='Music Volume'
             value={settings.musicVolume}
             setValue={(value) => {
               setSettings({
@@ -53,7 +53,7 @@ const Settings = (props) => {
 
         <Grid item xs={12} align='center'>
           <Slider
-            label="Effects Volume"
+            label='Effects Volume'
             value={settings.sfxVolume}
             setValue={(value) => {
               setSettings({
@@ -78,7 +78,7 @@ const Settings = (props) => {
                 gridHitColor: color,
               });
             }}
-            label={"  Grid Hit Color"}
+            label={'  Grid Hit Color'}
           />
         </Grid>
         <Grid item xs={4} align='center'>
@@ -90,7 +90,7 @@ const Settings = (props) => {
                 gridMissColor: color,
               });
             }}
-            label={" Grid Miss Color"}
+            label={' Grid Miss Color'}
           />
         </Grid>
         <Grid item xs={4} align='center'>
@@ -102,12 +102,12 @@ const Settings = (props) => {
                 gridBlankColor: color,
               });
             }}
-            label={"Grid Blank Color"}
+            label={'Grid Blank Color'}
           />
         </Grid>
 
         <Grid item xs={12} align='center'>
-          <Typography variant="body1" component="div" align='center'>
+          <Typography variant='body1' component='div' align='center'>
             Enable Animation?
             <Checkbox
               checked={settings.enableAnimation}
@@ -122,7 +122,7 @@ const Settings = (props) => {
           </Typography>
         </Grid>
         <Grid item xs={12} align='center'>
-          <Button variant="contained" align='center' href="/" startIcon={<MenuIcon/>}>
+          <Button variant='contained' align='center' href='/' startIcon={<MenuIcon/>}>
             Back to main menu
           </Button>
         </Grid>

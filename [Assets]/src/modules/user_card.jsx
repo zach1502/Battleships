@@ -19,10 +19,10 @@ const UserCard = ({ username, setUsername, image, setImage }) => {
 
   return (
     <Paper elevation={3} style={{ padding: '24px', borderRadius: '5px', maxWidth: '70vw' }}>
-      <Grid container alignItems="center" spacing={2} justifyContent={'center'}>
+      <Grid container alignItems='center' spacing={2} justifyContent={'center'}>
         <Grid container item xs={6} alignItems='center' justifyContent={'center'}>
           <Avatar 
-            alt="User Image" 
+            alt='User Image' 
             src={image} 
             sx={{ 
               width: 256, 
@@ -31,11 +31,11 @@ const UserCard = ({ username, setUsername, image, setImage }) => {
             }} 
           />
         </Grid>
-        <Grid container item xs={6} direction="column" alignItems='center' spacing={2}>
+        <Grid container item xs={6} direction='column' alignItems='center' spacing={2}>
           <Grid item>
-            <Button variant="contained" component="label" startIcon={<FileUploadIcon/>}>
+            <Button variant='contained' component='label' startIcon={<FileUploadIcon/>}>
               Upload Image
-              <input type="file" hidden onChange={handleImageChange} />
+              <input type='file' hidden onChange={handleImageChange} />
             </Button>
           </Grid>
           <Grid item>
