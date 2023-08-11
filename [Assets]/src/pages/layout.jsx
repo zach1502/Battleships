@@ -33,6 +33,8 @@ const Layout = (props) => {
           paddingBottom: '1em',
           marginLeft: '5vw',
           marginRight: '5vw',
+          overflow: 'hidden',
+          position: 'relative'
         }}
       >
         <Outlet />

@@ -8,6 +8,10 @@ const tracks = [
   { id: 4, title: 'Music 4', src: '/sound/4.mp3', html5: false, sound: new Howl({ src: ['/sound/4.mp3'], loop: true}) },
 ];
 
+const ambientTracks = [
+  { id: 'menu', title: 'Menu', src: '/sound/menu.mp3', html5: false, sound: new Howl({ src: ['/sound/menu.mp3'], loop: true})},
+];
+
 const BackgroundMusic = (props) => {
   const selectedTrack = props.selectedTrack;
   const setSelectedTrack = props.setSelectedTrack;
@@ -29,10 +33,16 @@ const BackgroundMusic = (props) => {
 
   React.useEffect(() => {
     tracks.forEach(track => track.sound.volume((settings.musicVolume * settings.masterVolume) / 10000));
+    ambientTracks.forEach(track => track.sound.volume((settings.musicVolume * settings.masterVolume) / 10000));
   }, [settings.musicVolume, settings.masterVolume]);
 
   React.useEffect(() => {
     tracks.forEach(track =>
+      (track.id === selectedTrack) ?
+        track.sound.play() : track.sound.stop()
+    );
+
+    ambientTracks.forEach(track =>
       (track.id === selectedTrack) ?
         track.sound.play() : track.sound.stop()
     );

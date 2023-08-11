@@ -25,7 +25,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout stats={stats} settings={settings}/>}>
-          <Route index element={<Menu/>}></Route>
+          <Route index element={<Menu selectedTrack={selectedTrack} setSelectedTrack={setSelectedTrack}/>}></Route>
 
           <Route path='game' element={
             <Game 
