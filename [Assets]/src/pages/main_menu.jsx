@@ -23,7 +23,7 @@ const Menu = (props) => {
       <Grid container direction='column' justifyContent='space-evenly' alignItems='center'>
         <Grid item container direction='column' alignItems='center'>
           <Typography variant='h1' component='div'>
-            Battleships
+            Battleship
           </Typography>
           <Typography variant='h4' component='div'>
             Set Sail for Battle!
