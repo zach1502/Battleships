@@ -5,7 +5,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
     'isHidden': false,
   },
   {
@@ -14,7 +14,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.lostInTheVoid;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
     'isHidden': true,
   },
   {
@@ -23,7 +23,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.credits;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
     'isHidden': true,
   },
   {
@@ -32,7 +32,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.hits === 1;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
   },
   {
     'name': 'First Victory',
@@ -40,7 +40,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.wins === 1;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
   },
   {
     'name': 'We\'ll Get \'em Next Time',
@@ -48,7 +48,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.losses === 1;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
   },
   {
     'name': 'Are you even Trying?',
@@ -56,7 +56,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.areYouEvenTrying === true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
   },
   {
     'name': 'Stormtrooper',
@@ -64,7 +64,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.stormtrooper === true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/RKxD176.png',
   },
   {
     'name': 'Can\'t Stop, Won\'t Stop',
@@ -72,7 +72,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.cantStopWontStop === true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/RKxD176.png',
   },
   {
     'name': 'Hawkeye',
@@ -80,7 +80,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.hawkeye === true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/xHH7yj3.png',
   },
   {
     'name': 'Can\'t Touch This',
@@ -88,7 +88,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.cantTouchThis === true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/xHH7yj3.png',
     'isHidden': true,
   },
   {
@@ -97,7 +97,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.battleIsnt === true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
     'isHidden': true,
   },
   {
@@ -106,7 +106,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.iThoughtThisWasChess === true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
     'isHidden': true,
   },
   {
@@ -115,7 +115,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.longestGame === true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/RKxD176.png',
     'isHidden': false,
   },
   {
@@ -124,7 +124,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.easyWins === 1;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/Ge5QtZs.png',
     'isHidden': false,
   },
   {
@@ -133,7 +133,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.mediumWins === 1;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/RKxD176.png',
     'isHidden': false,
   },
   {
@@ -142,7 +142,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.hardWins === 1;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/xHH7yj3.png',
     'isHidden': false,
   },
   {
@@ -151,7 +151,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.impossibleWins === 1;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/1uYozXt.png',
     'isHidden': false,
   },
   {
@@ -160,7 +160,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.easyWins >= 1 && stats.mediumWins >= 1 && stats.hardWins >= 1 && stats.impossibleWins >= 1;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/1uYozXt.png',
     'isHidden': false,
   },
   {
@@ -169,7 +169,7 @@ const listOfAllAchievements = [
     'condition': (stats) => {
       return stats.tipEasterEggFound === true;
     },
-    'image': 'https://i.imgur.com/JsDd8CZ.png',
+    'image': 'https://i.imgur.com/1uYozXt.png',
     'isHidden': false,
   },
 ];
