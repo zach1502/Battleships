@@ -7,7 +7,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import AnimatedBackground from '../components/animated_background';
+import MainMenuAnimatedBackground from '../components/animations/main_menu_animation';
 
 const Menu = (props) => {
   const setSelectedTrack = props.setSelectedTrack;
@@ -18,7 +18,7 @@ const Menu = (props) => {
 
   return (
     <>
-      <AnimatedBackground />
+      <MainMenuAnimatedBackground />
 
       <Grid container direction='column' justifyContent='space-evenly' alignItems='center'>
         <Grid item container direction='column' alignItems='center'>
