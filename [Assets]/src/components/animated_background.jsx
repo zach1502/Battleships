@@ -93,7 +93,7 @@ const warshipAnimation = {
   }
 };
 
-const AnimatedBackground = () => (
+const MainMenuAnimatedBackground = () => (
   <motion.div
     style={{
       position: "absolute",
@@ -171,4 +171,4 @@ const AnimatedBackground = () => (
   </motion.div>
 );
 
-export default AnimatedBackground;
+export default MainMenuAnimatedBackground;
