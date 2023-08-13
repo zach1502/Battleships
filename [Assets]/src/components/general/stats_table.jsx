@@ -14,8 +14,8 @@ const StatsTable = ({ stats }) => {
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell align='center'>Stat</TableCell>
-            <TableCell align='center'>Value</TableCell>
+            <TableCell sx={{ fontSize: 25 }} align='center'>Stat</TableCell>
+            <TableCell sx={{ fontSize: 25 }} align='center'>Value</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -30,8 +30,8 @@ const StatsTable = ({ stats }) => {
               const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
               return (
                 <TableRow key={key}>
-                  <TableCell align='center'>{formattedKey}</TableCell>
-                  <TableCell align='center'>{value}</TableCell>
+                  <TableCell sx={{ fontSize: 18 }} align='center'>{formattedKey}</TableCell>
+                  <TableCell sx={{ fontSize: 18 }} align='center'>{value}</TableCell>
                 </TableRow>
               )
             })
