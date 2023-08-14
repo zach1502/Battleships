@@ -33,7 +33,7 @@ const WinScreen = (props) => {
         </Typography>
       </Grid>
       <Grid item xs={12} container justifyContent='center' alignItems='center'>
-        <img src={imageUrl} alt={gameState.playerWon ? 'You won' : 'You lost'} style={{ width: '90%', height: 'auto' }} />
+        <img src={imageUrl} alt={gameState.playerWon ? 'You won' : 'You lost'} style={{ width: 'auto', height: '80vh' }} />
       </Grid>
       <Grid item>
         <Button
