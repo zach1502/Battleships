@@ -61,6 +61,13 @@ yarn start
 
 This will start a local development server. You can then open a web browser and visit `http://localhost:3000` to view your running application.
 
+### WARNING!!!
+You may need to now open the developer console (`F12` or `Ctrl+Shift+I`) and run the following command in your browser.
+localStorage is used to store the user's data and since the last phase, we have changed the way we store the data.
+```js
+localStorage.clear()
+```
+
 ### Actually building the application
 To build a production-ready version of the application, run the following command:
 
