@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 const levels = {
   easy: { position: '90%', peakPosition: '90%' },
-  medium: { position: '60%', peakPosition: '70%' },
+  medium: { position: '65%', peakPosition: '70%' },
   hard: { position: '30%', peakPosition: '55%' },
   impossible: { position: '0%', peakPosition: '40%' },
   default: { position: '90%', peakPosition: '90%' },
