@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 
 const levels = {
-  easy: { position: '80%', peakPosition: '85%' },
+  easy: { position: '90%', peakPosition: '90%' },
   medium: { position: '60%', peakPosition: '70%' },
-  hard: { position: '40%', peakPosition: '55%' },
-  impossible: { position: '25%', peakPosition: '40%' },
+  hard: { position: '30%', peakPosition: '55%' },
+  impossible: { position: '0%', peakPosition: '40%' },
   default: { position: '90%', peakPosition: '90%' },
 };
 
@@ -22,7 +22,7 @@ const SeaWaterLevel = ({ difficulty }) => {
           top: position,
         }}
         transition={{
-          duration: 2,
+          duration: 2.5,
           ease: "easeInOut"
         }}
         style={{
@@ -34,7 +34,7 @@ const SeaWaterLevel = ({ difficulty }) => {
       >
         <motion.linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
           <motion.stop offset="0%" style={{ stopColor: "#0076F6" }} />
-          <motion.stop offset="80%" style={{ stopColor: "black" }} />
+          <motion.stop offset="100%" style={{ stopColor: "black" }} />
         </motion.linearGradient>
         <motion.rect
           width="100vw"
@@ -43,8 +43,9 @@ const SeaWaterLevel = ({ difficulty }) => {
         />
       </motion.svg>
         <motion.div
-          animate={{ y: `calc(-100px + 4*${position})` }}
-          transition={{ duration: 2, ease: 'easeOut' }}
+          initial={{ y: `100px` }}
+          animate={{ y: `calc(-100px + 8*${position})` }}
+          transition={{ duration: 2.5, ease: 'easeOut' }}
           style={{
             position: "absolute",
             bottom: 0,
