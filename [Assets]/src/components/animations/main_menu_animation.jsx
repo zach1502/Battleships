@@ -177,7 +177,7 @@ const MainMenuAnimatedBackground = (props) => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [minimizeAnimations]);
 
   const finalFarWaveAnimation = (!minimizeAnimations)? farWaveAnimation : {};
   const finalMiddleWaveAnimation = (!minimizeAnimations)? middleWaveAnimation : {};
