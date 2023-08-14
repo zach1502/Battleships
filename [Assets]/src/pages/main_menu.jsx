@@ -11,6 +11,7 @@ import MainMenuAnimatedBackground from '../components/animations/main_menu_anima
 
 const Menu = (props) => {
   const setSelectedTrack = props.setSelectedTrack;
+  const enableAnimation = props.enableAnimation;
 
   React.useEffect(() => {
     setSelectedTrack('menu');
@@ -18,7 +19,7 @@ const Menu = (props) => {
 
   return (
     <>
-      <MainMenuAnimatedBackground />
+      <MainMenuAnimatedBackground enableAnimation={enableAnimation}/>
 
       <Grid container direction='column' justifyContent='space-evenly' alignItems='center'>
         <Grid item container direction='column' alignItems='center'>

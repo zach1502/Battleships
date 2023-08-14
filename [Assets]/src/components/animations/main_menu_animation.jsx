@@ -153,11 +153,14 @@ const Seagull = ({ direction }) => {
   );
 };
 
-const MainMenuAnimatedBackground = () => {
+const MainMenuAnimatedBackground = (props) => {
   const [seagulls, setSeagulls] = React.useState([]);
+  const enableAnimation = props.enableAnimation;
 
   // Spawn seagulls at random intervals
   React.useEffect(() => {
+    if (!enableAnimation) return;
+
     const spawnSeagull = () => {
       const direction = Math.random() > 0.5 ? 'left' : 'right';
       const newSeagull = { id: Date.now(), direction };
@@ -175,6 +178,11 @@ const MainMenuAnimatedBackground = () => {
       clearInterval(interval);
     };
   }, []);
+
+  const finalFarWaveAnimation = (enableAnimation)? farWaveAnimation : {};
+  const finalMiddleWaveAnimation = (enableAnimation)? middleWaveAnimation : {};
+  const finalWaveAnimation = (enableAnimation)? waveAnimation : {};
+  const finalWarshipAnimation = (enableAnimation)? warshipAnimation : {};
 
   return (<motion.div
     style={{
@@ -198,7 +206,7 @@ const MainMenuAnimatedBackground = () => {
         height: "50%",
         opacity: WAVE_OPACITY.farWave
       }}
-      {...farWaveAnimation}
+      {...finalFarWaveAnimation}
       viewBox={SVG_VIEWBOX}
       preserveAspectRatio="none"
     >
@@ -214,7 +222,7 @@ const MainMenuAnimatedBackground = () => {
         width: "120vw",
         height: "52%",
       }}
-      {...middleWaveAnimation}
+      {...finalMiddleWaveAnimation}
       viewBox={SVG_VIEWBOX}
       preserveAspectRatio="none"
     >
@@ -225,7 +233,7 @@ const MainMenuAnimatedBackground = () => {
     <motion.img
       src={WARSHIP_IMAGE_PATH}
       alt="Warship"
-      {...warshipAnimation}
+      {...finalWarshipAnimation}
       style={{
         position: "absolute",
         bottom: "17%",
@@ -244,7 +252,7 @@ const MainMenuAnimatedBackground = () => {
         width: "120vw",
         height: "55%",
       }}
-      {...waveAnimation}
+      {...finalWaveAnimation}
       viewBox={SVG_VIEWBOX}
       preserveAspectRatio="none"
     >

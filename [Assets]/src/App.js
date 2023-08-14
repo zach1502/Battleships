@@ -20,18 +20,20 @@ const App = () => {
   const [selectedTrack, setSelectedTrack] = React.useState(0);
 
   const {obtainedAchievements} = useAchievements(stats, settings);
+  const enableAnimation = settings.enableAnimation;
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout stats={stats} settings={settings}/>}>
-          <Route index element={<Menu selectedTrack={selectedTrack} setSelectedTrack={setSelectedTrack}/>}></Route>
+          <Route index element={<Menu selectedTrack={selectedTrack} setSelectedTrack={setSelectedTrack} enableAnimation={enableAnimation}/>}></Route>
 
           <Route path='game' element={
             <Game 
               setStats={setStats}
               settings={settings}
               setSelectedTrack={setSelectedTrack}
+              enableAnimation={enableAnimation}
             />
           }/>
           <Route path='settings' element={
@@ -45,8 +47,8 @@ const App = () => {
               obtainedAchievements={obtainedAchievements}
             />
           }/>
-          <Route path='credits' element={<Credits setStats={setStats}/>} />
-          <Route path='profile' element={<Profile stats={stats}/>} />
+          <Route path='credits' element={<Credits setStats={setStats} enableAnimation={enableAnimation}/>} />
+          <Route path='profile' element={<Profile stats={stats} enableAnimation={enableAnimation}/>} />
           <Route path='*' element={<NoPage setStats={setStats}/>} />
         </Route>
       </Routes>

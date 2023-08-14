@@ -10,8 +10,13 @@ const levels = {
 
 const OCEAN_GATE_PATH = '/normalSubmarine.webp';
 
-const SeaWaterLevel = ({ difficulty }) => {
+const SeaWaterLevel = (props) => {
+  const difficulty = props.difficulty;
+  const enableAnimation = props.enableAnimation;
+
   const { position } = levels[difficulty] || levels.default;
+
+  const transitionProps = enableAnimation ? { duration: 2.5, ease: "easeInOut" } : { duration: 0 };
 
   return (
     <>
@@ -21,10 +26,7 @@ const SeaWaterLevel = ({ difficulty }) => {
         animate={{
           top: position,
         }}
-        transition={{
-          duration: 2.5,
-          ease: "easeInOut"
-        }}
+        transition={transitionProps}
         style={{
           position: "absolute",
           top: position,
@@ -45,7 +47,7 @@ const SeaWaterLevel = ({ difficulty }) => {
         <motion.div
           initial={{ y: `100px` }}
           animate={{ y: `calc(-100px + 8*${position})` }}
-          transition={{ duration: 2.5, ease: 'easeOut' }}
+          transition={transitionProps}
           style={{
             position: "absolute",
             bottom: 0,

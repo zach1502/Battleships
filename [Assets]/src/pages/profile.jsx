@@ -9,13 +9,16 @@ import { UserCard } from '../modules';
 
 import MainMenuAnimatedBackground from '../components/animations/main_menu_animation';
 
-const UserStats = ({ stats }) => {
+const UserStats = (props) => {
   const [username, setUsername] = useLocalStorage('username', 'Player');
   const [image, setImage] = useLocalStorage('profile_image', '');
 
+  const stats = props.stats;
+  const enableAnimation = props.enableAnimation;
+
   return (
     <>
-      <MainMenuAnimatedBackground />
+      <MainMenuAnimatedBackground enableAnimation={enableAnimation}/>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant='h3' align='center'>User Profile</Typography>

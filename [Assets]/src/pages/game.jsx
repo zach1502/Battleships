@@ -30,6 +30,7 @@ const Game = (props) => {
   const setStats = props.setStats;
   const settings = props.settings;
   const setSelectedTrack = props.setSelectedTrack;
+  const enableAnimation = props.enableAnimation;
 
   const [playerBattleGrid, setPlayerBattleGrid] = useLocalStorage('playerBattleGrid', createGrid(settings.gridSize), true);
   const [enemyBattleGrid, setEnemyBattleGrid] = useLocalStorage('enemyBattleGrid', createGrid(settings.gridSize), true);
@@ -140,6 +141,7 @@ const Game = (props) => {
       <PickDifficulty
         selectedDifficulty={selectedDifficulty}
         setSelectedDifficulty={setSelectedDifficulty}
+        enableAnimation={enableAnimation}
       />
     )
   }
