@@ -26,7 +26,7 @@ const DEFAULT_SETTINGS = {
   gridHitColor: '#ff0000',
   gridMissColor: '#ffffff',
   gridBlankColor: '#add8e6',
-  enableAnimation: true,
+  minimizeAnimations: false,
   difficulty: null,
 };
 

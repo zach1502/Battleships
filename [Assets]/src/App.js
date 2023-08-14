@@ -20,20 +20,20 @@ const App = () => {
   const [selectedTrack, setSelectedTrack] = React.useState(0);
 
   const {obtainedAchievements} = useAchievements(stats, settings);
-  const enableAnimation = settings.enableAnimation;
+  const minimizeAnimations = settings.minimizeAnimations;
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout stats={stats} settings={settings}/>}>
-          <Route index element={<Menu selectedTrack={selectedTrack} setSelectedTrack={setSelectedTrack} enableAnimation={enableAnimation}/>}></Route>
+          <Route index element={<Menu selectedTrack={selectedTrack} setSelectedTrack={setSelectedTrack} minimizeAnimations={minimizeAnimations}/>}></Route>
 
           <Route path='game' element={
             <Game 
               setStats={setStats}
               settings={settings}
               setSelectedTrack={setSelectedTrack}
-              enableAnimation={enableAnimation}
+              minimizeAnimations={minimizeAnimations}
             />
           }/>
           <Route path='settings' element={
@@ -47,8 +47,8 @@ const App = () => {
               obtainedAchievements={obtainedAchievements}
             />
           }/>
-          <Route path='credits' element={<Credits setStats={setStats} enableAnimation={enableAnimation}/>} />
-          <Route path='profile' element={<Profile stats={stats} enableAnimation={enableAnimation}/>} />
+          <Route path='credits' element={<Credits setStats={setStats} minimizeAnimations={minimizeAnimations}/>} />
+          <Route path='profile' element={<Profile stats={stats} minimizeAnimations={minimizeAnimations}/>} />
           <Route path='*' element={<NoPage setStats={setStats}/>} />
         </Route>
       </Routes>

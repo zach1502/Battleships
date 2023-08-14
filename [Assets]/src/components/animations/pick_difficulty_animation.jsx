@@ -12,11 +12,11 @@ const OCEAN_GATE_PATH = '/normalSubmarine.webp';
 
 const SeaWaterLevel = (props) => {
   const difficulty = props.difficulty;
-  const enableAnimation = props.enableAnimation;
+  const minimizeAnimations = props.minimizeAnimations;
 
   const { position } = levels[difficulty] || levels.default;
 
-  const transitionProps = enableAnimation ? { duration: 2.5, ease: "easeInOut" } : { duration: 0 };
+  const transitionProps = !minimizeAnimations ? { duration: 2.5, ease: "easeInOut" } : { duration: 0 };
 
   return (
     <>

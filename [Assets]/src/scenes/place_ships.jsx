@@ -40,6 +40,7 @@ const PlaceShips = (props) => {
   const playerShipGrid = props.playerShipGrid;
   const setPlayerShipGrid = props.setPlayerShipGrid;
   const setSelectedDifficulty = props.setSelectedDifficulty;
+  const minimizeAnimations = props.minimizeAnimations;
 
   useNewGridColors(settings);
 
@@ -142,8 +143,8 @@ const PlaceShips = (props) => {
         </Grid>
         <Grid item xs={4} container justifyContent='center' alignItems='center'>
           <motion.div
-            initial={{ scale: 1, opacity: 1 }} // Initial state
-            animate={gameState.allPlayerShipsPlaced ? pulseAnimation.animate : {}}  // If all ships are placed, apply the pulse animation, else don't
+            initial={{ scale: 1, opacity: 1 }}
+            animate={(gameState.allPlayerShipsPlaced && !minimizeAnimations) ? pulseAnimation.animate : {}}
           >
             <Button
               variant='contained'

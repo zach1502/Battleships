@@ -62,7 +62,7 @@ const MainMenuButton = () => (
 const PickDifficulty = (props) => {
   const selectedDifficulty = props.selectedDifficulty;
   const setSelectedDifficulty = props.setSelectedDifficulty;
-  const enableAnimation = props.enableAnimation;
+  const minimizeAnimations = props.minimizeAnimations;
 
   const [tempDifficulty, setTempDifficulty] = useState(selectedDifficulty);
 
@@ -86,7 +86,7 @@ const PickDifficulty = (props) => {
 
   return (
     <DifficultyContext.Provider value={{ tempDifficulty, setTempDifficulty }}>
-      <SeaWaterLevel difficulty={tempDifficulty} enableAnimation={enableAnimation}/>
+      <SeaWaterLevel difficulty={tempDifficulty} minimizeAnimations={minimizeAnimations}/>
 
       <Grid container spacing={2}>
         <Grid item xs={12} container justifyContent='center' alignItems='center'>

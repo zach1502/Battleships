@@ -155,11 +155,11 @@ const Seagull = ({ direction }) => {
 
 const MainMenuAnimatedBackground = (props) => {
   const [seagulls, setSeagulls] = React.useState([]);
-  const enableAnimation = props.enableAnimation;
+  const minimizeAnimations = props.minimizeAnimations;
 
   // Spawn seagulls at random intervals
   React.useEffect(() => {
-    if (!enableAnimation) return;
+    if (minimizeAnimations) return;
 
     const spawnSeagull = () => {
       const direction = Math.random() > 0.5 ? 'left' : 'right';
@@ -179,10 +179,10 @@ const MainMenuAnimatedBackground = (props) => {
     };
   }, []);
 
-  const finalFarWaveAnimation = (enableAnimation)? farWaveAnimation : {};
-  const finalMiddleWaveAnimation = (enableAnimation)? middleWaveAnimation : {};
-  const finalWaveAnimation = (enableAnimation)? waveAnimation : {};
-  const finalWarshipAnimation = (enableAnimation)? warshipAnimation : {};
+  const finalFarWaveAnimation = (!minimizeAnimations)? farWaveAnimation : {};
+  const finalMiddleWaveAnimation = (!minimizeAnimations)? middleWaveAnimation : {};
+  const finalWaveAnimation = (!minimizeAnimations)? waveAnimation : {};
+  const finalWarshipAnimation = (!minimizeAnimations)? warshipAnimation : {};
 
   return (<motion.div
     style={{

@@ -5,7 +5,7 @@ import MainMenuAnimatedBackground from '../components/animations/main_menu_anima
 
 const Credits = (props) => {
   const setStats = props.setStats;
-  const enableAnimation = props.enableAnimation;
+  const minimizeAnimations = props.minimizeAnimations;
 
   React.useEffect(() => {
     setStats((prevState) => ({ ...prevState, credits: true }));
@@ -13,7 +13,7 @@ const Credits = (props) => {
 
   return (
     <Container maxWidth='sm'>
-      <MainMenuAnimatedBackground enableAnimation={enableAnimation}/>
+      <MainMenuAnimatedBackground minimizeAnimations={minimizeAnimations}/>
       <Box my={4} textAlign='center'>
         <Typography variant='h2' component='h1' gutterBottom>
           Credits

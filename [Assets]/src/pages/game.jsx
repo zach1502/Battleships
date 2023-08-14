@@ -30,7 +30,7 @@ const Game = (props) => {
   const setStats = props.setStats;
   const settings = props.settings;
   const setSelectedTrack = props.setSelectedTrack;
-  const enableAnimation = props.enableAnimation;
+  const minimizeAnimations = props.minimizeAnimations;
 
   const [playerBattleGrid, setPlayerBattleGrid] = useLocalStorage('playerBattleGrid', createGrid(settings.gridSize), true);
   const [enemyBattleGrid, setEnemyBattleGrid] = useLocalStorage('enemyBattleGrid', createGrid(settings.gridSize), true);
@@ -141,7 +141,7 @@ const Game = (props) => {
       <PickDifficulty
         selectedDifficulty={selectedDifficulty}
         setSelectedDifficulty={setSelectedDifficulty}
-        enableAnimation={enableAnimation}
+        minimizeAnimations={minimizeAnimations}
       />
     )
   }
@@ -155,6 +155,7 @@ const Game = (props) => {
         setPlayerShipGrid={setPlayerShipGrid}
         setGameState={setGameState}
         setSelectedDifficulty={setSelectedDifficulty}
+        minimizeAnimations={minimizeAnimations}
       />
     );
   }

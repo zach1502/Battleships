@@ -14,11 +14,11 @@ const UserStats = (props) => {
   const [image, setImage] = useLocalStorage('profile_image', '');
 
   const stats = props.stats;
-  const enableAnimation = props.enableAnimation;
+  const minimizeAnimations = props.minimizeAnimations;
 
   return (
     <>
-      <MainMenuAnimatedBackground enableAnimation={enableAnimation}/>
+      <MainMenuAnimatedBackground minimizeAnimations={minimizeAnimations}/>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant='h3' align='center'>User Profile</Typography>
