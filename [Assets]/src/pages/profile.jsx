@@ -14,13 +14,13 @@ const UserStats = ({ stats }) => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Typography variant='h4' align='center'>User Profile</Typography>
+        <Typography variant='h3' align='center'>User Profile</Typography>
       </Grid>
       <Grid item container xs={12} justifyContent={'center'} alignItems={'center'}>
         <UserCard username={username} setUsername={setUsername} image={image} setImage={setImage} />
       </Grid>
       <Grid item container direction='column' xs={12} justifyContent={'center'} alignItems={'center'}>
-        <Typography variant='h4' align='center'>User Stats</Typography>
+        <Typography variant='h3' align='center'>User Stats</Typography>
         <StatsTable stats={stats} />
       </Grid>
 
