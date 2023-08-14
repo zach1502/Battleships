@@ -5,6 +5,7 @@ import { Grid, Button } from '@mui/material';
 import { BattleGrid, GameLogDisplay, ShipGrid } from '../modules';
 import { TurnIndicator, GuideDialog } from '../components';
 import { GAMEPLAY_HELP } from '../utils/constants';
+import { streakChecks } from '../utils/achievements_checks';
 
 // import Heatmap from '../utils/ai_logic/heat_map_debug';
 
@@ -55,6 +56,21 @@ const GameContent = (props) => {
   const handleCloseHelp = () => {
     setOpenHelp(false);
   };
+
+  React.useEffect(() => {
+    const streakAchievements = streakChecks(playerBattleGrid, enemyBattleGrid, gameLog);
+
+    setStats((prevState) => ({
+      ...prevState,
+      cantTouchThis: streakAchievements.cantTouchThis || prevState.cantTouchThis,
+      battleIsnt: streakAchievements.battleIsnt || prevState.battleIsnt,
+      areYouEvenTrying: streakAchievements.areYouEvenTrying || prevState.areYouEvenTrying,
+      stormtrooper: streakAchievements.stormtrooper || prevState.stormtrooper,
+      cantStopWontStop: streakAchievements.cantStopWontStop || prevState.cantStopWontStop,
+      hawkeye: streakAchievements.hawkeye || prevState.hawkeye,
+    }));
+
+  }, [gameLog, playerBattleGrid, enemyBattleGrid, setStats]);
 
   return (
     <Grid direction='row' container justifyContent='center' alignItems='center'>

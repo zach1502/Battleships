@@ -1,4 +1,50 @@
-const achievementsCheck = (enemyBattleGrid, playerBattleGrid, gameLog) => {
+const achievementsCheck = (playerBattleGrid, gameLog) => {
+  const achievements = {};
+
+  // I thought this was chess?
+  const first = playerBattleGrid[0][0];
+  const second = playerBattleGrid[0][1];
+  let areEvensSame = true;
+  let areOddsSame = true;
+
+  // Loop over the grid and check the even and odd positioned elements
+  for (let i = 0; i < playerBattleGrid.length; i++) {
+    for (let j = 0; j < playerBattleGrid[i].length; j++) {
+      // Even positioned elements (0-based)
+      if ((i + j) % 2 === 0) {
+        if (playerBattleGrid[i][j] !== first) {
+          areEvensSame = false;
+        }
+      }
+      // Odd positioned elements
+      else {
+        if (playerBattleGrid[i][j] !== second) {
+          areOddsSame = false;
+        }
+      }
+      // If both conditions are not satisfied, break from the loop early
+      if (!areEvensSame && !areOddsSame) {
+        break;
+      }
+    }
+    // If both conditions are not satisfied, break from the outer loop as well
+    if (!areEvensSame && !areOddsSame) {
+      break;
+    }
+  }
+
+  // If either condition is satisfied, award the achievement
+  if (areEvensSame || areOddsSame) {
+    achievements.iThoughtThisWasChess = true;
+  }
+
+  // patience is a virtue, longer than 100 moves/50 turns
+  achievements.patienceIsAVirtue = gameLog.length >= 140;
+
+  return achievements;
+};
+
+const streakChecks = (playerBattleGrid, enemyBattleGrid, gameLog) => {
   const enemyHitCount = enemyBattleGrid.flat().filter((shot) => shot === 'hit').length;
   const playerHitCount = playerBattleGrid.flat().filter((shot) => shot === 'hit').length;
 
@@ -56,52 +102,10 @@ const achievementsCheck = (enemyBattleGrid, playerBattleGrid, gameLog) => {
     achievements.hawkeye = true;
   }
 
-
-  // I thought this was chess?
-  const first = playerBattleGrid[0][0];
-  const second = playerBattleGrid[0][1];
-  let areEvensSame = true;
-  let areOddsSame = true;
-
-  // Loop over the grid and check the even and odd positioned elements
-  for (let i = 0; i < playerBattleGrid.length; i++) {
-    for (let j = 0; j < playerBattleGrid[i].length; j++) {
-      // Even positioned elements (0-based)
-      if ((i + j) % 2 === 0) {
-        if (playerBattleGrid[i][j] !== first) {
-          areEvensSame = false;
-        }
-      }
-      // Odd positioned elements
-      else {
-        if (playerBattleGrid[i][j] !== second) {
-          areOddsSame = false;
-        }
-      }
-      // If both conditions are not satisfied, break from the loop early
-      if (!areEvensSame && !areOddsSame) {
-        break;
-      }
-    }
-    // If both conditions are not satisfied, break from the outer loop as well
-    if (!areEvensSame && !areOddsSame) {
-      break;
-    }
-  }
-
-  // If either condition is satisfied, award the achievement
-  if (areEvensSame || areOddsSame) {
-    achievements.iThoughtThisWasChess = true;
-  }
-
-
-
-  // patience is a virtue, longer than 100 moves/50 turns
-  achievements.patienceIsAVirtue = gameLog.length >= 140;
-
   return achievements;
 };
 
 export {
   achievementsCheck,
+  streakChecks,
 };

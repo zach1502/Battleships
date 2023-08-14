@@ -77,7 +77,7 @@ const Game = (props) => {
     const playerHitCount = playerBattleGrid.flat().filter((shot) => shot === 'hit').length;
 
     if (!statsUpdated && (playerHitCount === MAX_HITS || enemyHitCount === MAX_HITS)) {
-      const objOfAchievementsUpdates = achievementsCheck(enemyBattleGrid, playerBattleGrid, gameLog)
+      const objOfAchievementsUpdates = achievementsCheck(playerBattleGrid, gameLog)
   
       const won = playerHitCount === MAX_HITS;
       setGameState((prevState) => ({ ...prevState, gameOver: true, playerWon: won }));
