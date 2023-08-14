@@ -13,15 +13,15 @@ import GameLoading from '../scenes/game_loading';
 import { useLocalStorage, useSoundEffect } from '../utils/hooks/';
 
 // AI Logic options
-import { makeRandomShot, makeHuntAndSeekShot, makeHeatMapShot, makeBestShot } from '../utils/ai_logic/index';
+import { makeHuntAndSeekShot, makeStrategicShot, makeHeatMapShot, makeBestShot } from '../utils/ai_logic/index';
 
 import { achievementsCheck } from '../utils/achievements_checks';
 import { placeEnemyShips } from '../utils/ship_placement';
 import { INITIAL_GAME_STATE, SHOT_RESULT_MESSAGES } from '../utils/constants';
 
 const AI_LOGIC_OPTIONS = {
-  'easy': makeRandomShot,
-  'medium': makeHuntAndSeekShot,
+  'easy': makeHuntAndSeekShot,
+  'medium': makeStrategicShot,
   'hard': makeHeatMapShot,
   'impossible': makeBestShot,
 };
