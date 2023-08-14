@@ -11,6 +11,7 @@ import MainMenuAnimatedBackground from '../components/animations/main_menu_anima
 
 const Menu = (props) => {
   const setSelectedTrack = props.setSelectedTrack;
+  const minimizeAnimations = props.minimizeAnimations;
 
   React.useEffect(() => {
     setSelectedTrack('menu');
@@ -18,7 +19,7 @@ const Menu = (props) => {
 
   return (
     <>
-      <MainMenuAnimatedBackground />
+      <MainMenuAnimatedBackground minimizeAnimations={minimizeAnimations}/>
 
       <Grid container direction='column' justifyContent='space-evenly' alignItems='center'>
         <Grid item container direction='column' alignItems='center'>
@@ -31,9 +32,7 @@ const Menu = (props) => {
         </Grid>
         <Grid container spacing={2} direction='row' justifyContent='center' alignItems='center'>
           <Grid item>
-            {localStorage.gameState
-              ? <Button variant='contained' color='success' href='/game' startIcon={<PlayArrowIcon />}>Continue</Button>
-              : <Button variant='contained' color='success' href='/game' startIcon={<PlayArrowIcon />}>Play</Button>}
+            <Button variant='contained' href='/game'color='success' startIcon={<PlayArrowIcon />}>Play</Button>
           </Grid>
           <Grid item>
             <Button variant='contained' href='/settings' startIcon={<SettingsIcon />}>Settings</Button>

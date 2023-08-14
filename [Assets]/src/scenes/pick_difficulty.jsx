@@ -4,6 +4,8 @@ import { Grid, Button, Typography, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
+import SeaWaterLevel from '../components/animations/pick_difficulty_animation'
+
 const DifficultyContext = createContext();
 
 const DifficultyButton = ({ option }) => {
@@ -16,6 +18,7 @@ const DifficultyButton = ({ option }) => {
         onClick={() => setTempDifficulty(option.value)}
         sx={{
           width: '140px',
+          boxShadow: '0 0 10px #FFFFFF',
         }}
       >
         {option.name}
@@ -34,6 +37,9 @@ const StartGameButton = ({ setSelectedDifficulty, tempDifficulty }) => (
         setSelectedDifficulty(tempDifficulty);
       }
     }}
+    sx={{
+      boxShadow: '0 0 10px #FFFFFF',
+    }}
   >
     Start Game
   </Button>
@@ -45,12 +51,19 @@ const MainMenuButton = () => (
     color='primary'
     href='/'
     startIcon={<MenuIcon />}
+    sx={{
+      boxShadow: '0 0 10px #FFFFFF',
+    }}
   >
     Main Menu
   </Button>
 );
 
-const PickDifficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
+const PickDifficulty = (props) => {
+  const selectedDifficulty = props.selectedDifficulty;
+  const setSelectedDifficulty = props.setSelectedDifficulty;
+  const minimizeAnimations = props.minimizeAnimations;
+
   const [tempDifficulty, setTempDifficulty] = useState(selectedDifficulty);
 
   const difficultyOptions = useMemo(() => [
@@ -73,6 +86,8 @@ const PickDifficulty = ({ selectedDifficulty, setSelectedDifficulty }) => {
 
   return (
     <DifficultyContext.Provider value={{ tempDifficulty, setTempDifficulty }}>
+      <SeaWaterLevel difficulty={tempDifficulty} minimizeAnimations={minimizeAnimations}/>
+
       <Grid container spacing={2}>
         <Grid item xs={12} container justifyContent='center' alignItems='center'>
           <Box display='flex' flexDirection='column' alignItems='center'>

@@ -108,13 +108,13 @@ const Settings = (props) => {
 
         <Grid item xs={12} align='center'>
           <Typography variant='body1' component='div' align='center'>
-            Enable Animation?
+            Minimize Animations?
             <Checkbox
-              checked={settings.enableAnimation}
+              checked={settings.minimizeAnimations}
               onChange={(event) => {
                 setSettings({
                   ...settings,
-                  enableAnimation: event.target.checked,
+                  minimizeAnimations: event.target.checked,
                 });
               }}
               inputProps={{ 'aria-label': 'controlled' }}

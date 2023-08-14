@@ -30,6 +30,7 @@ const Game = (props) => {
   const setStats = props.setStats;
   const settings = props.settings;
   const setSelectedTrack = props.setSelectedTrack;
+  const minimizeAnimations = props.minimizeAnimations;
 
   const [playerBattleGrid, setPlayerBattleGrid] = useLocalStorage('playerBattleGrid', createGrid(settings.gridSize), true);
   const [enemyBattleGrid, setEnemyBattleGrid] = useLocalStorage('enemyBattleGrid', createGrid(settings.gridSize), true);
@@ -76,7 +77,7 @@ const Game = (props) => {
     const playerHitCount = playerBattleGrid.flat().filter((shot) => shot === 'hit').length;
 
     if (!statsUpdated && (playerHitCount === MAX_HITS || enemyHitCount === MAX_HITS)) {
-      const objOfAchievementsUpdates = achievementsCheck(enemyBattleGrid, playerBattleGrid, gameLog)
+      const objOfAchievementsUpdates = achievementsCheck(playerBattleGrid, gameLog)
   
       const won = playerHitCount === MAX_HITS;
       setGameState((prevState) => ({ ...prevState, gameOver: true, playerWon: won }));
@@ -140,6 +141,7 @@ const Game = (props) => {
       <PickDifficulty
         selectedDifficulty={selectedDifficulty}
         setSelectedDifficulty={setSelectedDifficulty}
+        minimizeAnimations={minimizeAnimations}
       />
     )
   }
@@ -153,6 +155,7 @@ const Game = (props) => {
         setPlayerShipGrid={setPlayerShipGrid}
         setGameState={setGameState}
         setSelectedDifficulty={setSelectedDifficulty}
+        minimizeAnimations={minimizeAnimations}
       />
     );
   }

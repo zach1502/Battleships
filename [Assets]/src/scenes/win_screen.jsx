@@ -22,8 +22,8 @@ const WinScreen = (props) => {
   }, []);
 
   const imageUrl = gameState.playerWon ? 
-  'https://levvvel.com/wp-content/uploads/how-to-play-a-battleship-in-world-of-warships.jpg' : 
-  'https://hips.hearstapps.com/hmg-prod/images/in-this-u-s-navy-released-handout-a-fire-continues-to-be-news-photo-1594671916.jpg';
+  './fleet.jpg' : 
+  './onfire.jpg';
 
   return (
     <Grid container spacing={2} justifyContent='center' alignItems='center'>
@@ -33,7 +33,7 @@ const WinScreen = (props) => {
         </Typography>
       </Grid>
       <Grid item xs={12} container justifyContent='center' alignItems='center'>
-        <img src={imageUrl} alt={gameState.playerWon ? 'You won' : 'You lost'} style={{ width: '90%', height: 'auto' }} />
+        <img src={imageUrl} alt={gameState.playerWon ? 'You won' : 'You lost'} style={{ width: 'auto', height: '80vh' }} />
       </Grid>
       <Grid item>
         <Button

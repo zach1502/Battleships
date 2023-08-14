@@ -6,6 +6,8 @@ import { KeyboardArrowDown } from '@mui/icons-material';
 
 import { STATUS_MESSAGES, TIPS } from '../utils/constants';
 
+import MainMenuAnimatedBackground from '../components/animations/main_menu_animation';
+
 const GameLoading = (props) => {
   const setGameState = props.setGameState;
   const setStats = props.setStats;
@@ -78,38 +80,42 @@ const GameLoading = (props) => {
   };
 
   return (
-    <Grid
-      container
-      direction='column'
-      justifyContent='center'
-      alignItems='center'
-      style={{ minHeight: '100vh' }}
-      sx={{overflow: 'hidden'}}
-    >
-      <CircularProgress color='primary' style={{ marginBottom: '20px' }} />
-      <Typography variant='h5' style={{ marginBottom: '20px' }}>
-        {statusMessage}
-      </Typography>
-      <AnimatePresence mode='wait'>
-        <motion.div
-          key={tipIndex}
-          variants={variants}
-          initial='enter'
-          animate='center'
-          exit='exit'
-          onClick={handleTipClick}
-          transition={transition}
-          style={{cursor: 'pointer'}}
-        >
-          <Typography variant='subtitle1' style={{ marginBottom: '10px' }}>
-            {TIPS[tipIndex]}
-          </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <KeyboardArrowDown fontSize='small' />
-          </Box>
-        </motion.div>
-      </AnimatePresence>
-    </Grid>
+    <>
+      <MainMenuAnimatedBackground />
+
+      <Grid
+        container
+        direction='column'
+        justifyContent='center'
+        alignItems='center'
+        style={{ minHeight: '100vh' }}
+        sx={{overflow: 'hidden'}}
+      >
+        <CircularProgress color='primary' style={{ marginBottom: '20px' }} />
+        <Typography variant='h5' style={{ marginBottom: '20px' }}>
+          {statusMessage}
+        </Typography>
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={tipIndex}
+            variants={variants}
+            initial='enter'
+            animate='center'
+            exit='exit'
+            onClick={handleTipClick}
+            transition={transition}
+            style={{cursor: 'pointer'}}
+          >
+            <Typography variant='subtitle1' style={{ marginBottom: '10px' }}>
+              {TIPS[tipIndex]}
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <KeyboardArrowDown fontSize='small' />
+            </Box>
+          </motion.div>
+        </AnimatePresence>
+      </Grid>
+    </>
   );
 };
 
