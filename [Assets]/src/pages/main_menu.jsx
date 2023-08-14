@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Grid, Typography } from '@mui/material';
-import { AnimatePresence } from 'framer-motion'
 
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SettingsIcon from '@mui/icons-material/Settings';

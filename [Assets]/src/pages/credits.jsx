@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Typography, Box, Container, Grid } from '@mui/material';
 
+import MainMenuAnimatedBackground from '../components/animations/main_menu_animation';
+
 const Credits = (props) => {
   const setStats = props.setStats;
 
@@ -10,6 +12,7 @@ const Credits = (props) => {
 
   return (
     <Container maxWidth='sm'>
+      <MainMenuAnimatedBackground/>
       <Box my={4} textAlign='center'>
         <Typography variant='h2' component='h1' gutterBottom>
           Credits
