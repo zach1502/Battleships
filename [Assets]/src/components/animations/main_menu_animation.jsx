@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 
 // Constants
 const WARSHIP_IMAGE_PATH = '/warship.png';
+const SEAGULL_IMAGE_PATH = '/seagull.webp';
+const REVERSED_SEAGULL_IMAGE_PATH = '/seagullReversed.webp';
+
 const BACKGROUND_COLOR = "#CCE7FF";
 const WAVE_COLORS = {
   farWave: "#3AA4FF",
@@ -93,7 +96,86 @@ const warshipAnimation = {
   }
 };
 
+const Seagull = ({ direction }) => {
+  const initialXValue = direction === 'left' ? -10 : 110;
+  const endXValue = direction === 'left' ? 110 : -10;
+  const initialYValue = randomBetween(-5, 40);
+  const endYValue = randomBetween(-5, 40);
+
+  const initialX = `${initialXValue}vw`;
+  const endX = `${endXValue}vw`;
+  const initialY = `${initialYValue}vh`;
+  const endY = `${endYValue}vh`;
+
+  // Calculate rotation based on start and end positions
+  const deltaY = endYValue - initialYValue;
+  const deltaX = endXValue - initialXValue;
+  const angleInRadians = Math.atan2(deltaY, deltaX);
+  let angleInDegrees = Math.round(angleInRadians * (180 / Math.PI));
+  
+  // Adjusting angle based on direction to prevent upside-down birds
+  if (angleInDegrees > 90) {
+    angleInDegrees -= 180;
+  } else if (angleInDegrees < -90) {
+    angleInDegrees += 180;
+  }
+
+  const seagullAnimation = {
+    initial: {
+      x: initialX,
+      y: initialY,
+      rotate: '0deg'
+    },
+    fly: {
+      x: endX,
+      y: endY,
+      rotate: `${angleInDegrees}deg`,
+      transition: {
+        duration: randomBetween(10, 20),
+        rotate: { duration: 1 }  // Faster rotation transition
+      }
+    }
+  };
+
+  return (
+    <motion.img
+      src={direction === 'right' ? SEAGULL_IMAGE_PATH : REVERSED_SEAGULL_IMAGE_PATH}
+      alt="Seagull"
+      initial="initial"
+      animate="fly"
+      exit="initial"
+      style={{
+        position: "absolute",
+        width: "5%",
+      }}
+      variants={seagullAnimation}
+    />
+  );
+};
+
 const MainMenuAnimatedBackground = () => {
+  const [seagulls, setSeagulls] = React.useState([]);
+
+  // Spawn seagulls at random intervals
+  React.useEffect(() => {
+    const spawnSeagull = () => {
+      const direction = Math.random() > 0.5 ? 'left' : 'right';
+      const newSeagull = { id: Date.now(), direction };
+      setSeagulls((prev) => [...prev, newSeagull]);
+
+      // Remove seagull after its animation is likely completed to ensure performance
+      setTimeout(() => {
+        setSeagulls((prev) => prev.filter(seagull => seagull.id !== newSeagull.id));
+      }, 25000);
+    };
+
+    const interval = setInterval(spawnSeagull, randomBetween(4000, 8000));
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (<motion.div
     style={{
       position: "absolute",
@@ -168,6 +250,10 @@ const MainMenuAnimatedBackground = () => {
     >
       <path d={PATH_VALUES.foremostWave} fill={WAVE_COLORS.foremostWave} />
     </motion.svg>
+
+    {seagulls.map(seagull => (
+        <Seagull key={seagull.id} direction={seagull.direction} />
+      ))}
   </motion.div>);
 };
 
