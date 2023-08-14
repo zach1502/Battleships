@@ -93,14 +93,14 @@ const warshipAnimation = {
   }
 };
 
-const MainMenuAnimatedBackground = () => (
-  <motion.div
+const MainMenuAnimatedBackground = () => {
+  return (<motion.div
     style={{
       position: "absolute",
       top: 0,
       left: 0,
       width: "100vw",
-      height: "100%",
+      height: "100vh",
       zIndex: -1,
       background: BACKGROUND_COLOR,
       overflow: "hidden"
@@ -168,7 +168,7 @@ const MainMenuAnimatedBackground = () => (
     >
       <path d={PATH_VALUES.foremostWave} fill={WAVE_COLORS.foremostWave} />
     </motion.svg>
-  </motion.div>
-);
+  </motion.div>);
+};
 
 export default MainMenuAnimatedBackground;

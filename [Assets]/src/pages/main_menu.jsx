@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Grid, Typography } from '@mui/material';
+import { AnimatePresence } from 'framer-motion'
 
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -31,9 +32,7 @@ const Menu = (props) => {
         </Grid>
         <Grid container spacing={2} direction='row' justifyContent='center' alignItems='center'>
           <Grid item>
-            {localStorage.gameState
-              ? <Button variant='contained' color='success' href='/game' startIcon={<PlayArrowIcon />}>Continue</Button>
-              : <Button variant='contained' color='success' href='/game' startIcon={<PlayArrowIcon />}>Play</Button>}
+            <Button variant='contained' href='/game'color='success' startIcon={<PlayArrowIcon />}>Play</Button>
           </Grid>
           <Grid item>
             <Button variant='contained' href='/settings' startIcon={<SettingsIcon />}>Settings</Button>
